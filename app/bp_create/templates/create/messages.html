@@ -1,0 +1,72 @@
+{% extends "create/create_base.html" %}
+
+{% block css_connect %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create/messages.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="main_bg" style="min-width: 70vw">
+    <p class="main_command__logo">авто-отправка сообщений</p>
+    <div class="content" id="content"></div>
+    <button id="button">add</button>
+
+</div>
+
+
+<script>
+    update_chapter(3)
+
+    function discord_auth() {
+        console.log('--> {{ auth_with_discord }}')
+        return Boolean('{{ auth_with_discord }}' === "True")
+    }
+    
+    let all_channels = JSON.parse('{{ channels | tojson | safe}}');
+
+    time_mf = new MessagesForm(discord_auth(), "content", all_channels["text"])
+    // maf = new MessageAnotherForms()
+    console.log(all_channels["text"])
+    counter = 0
+
+    document.getElementById("button").addEventListener("click", function () {
+        if (document.getElementsByClassName("base_input__base_block").length >= 10) {
+            warning("Превышен лимит временных сообщений")
+            return 0
+        }
+
+        time_mf.timeMessageBase(counter)
+
+        counter++
+        // let content = document.getElementById("content")
+        // let main_block = document.createElement("div")
+        //
+        // main_block.id = "__time_message_" + counter
+        // content.appendChild(main_block)
+        //
+        //
+        // mf.baseForm(counter)
+        // maf.timeMessageForm(content, discord_auth(), all_channels["text"])
+
+        // counter++
+    })
+
+
+</script>
+{% endblock %}
+
+<!--
+{
+    "time_messages": {
+        "1": {},
+        "2": {},
+        "3": {},
+        "4": {},
+        "5": {},
+    },
+    "events": {},
+    auto_response: {}
+
+
+}
+
+-->

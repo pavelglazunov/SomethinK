@@ -1,0 +1,38 @@
+{% extends "create/create_base.html" %}
+
+{% block content %}
+<div class="content">
+    <div class="youtube_block">
+        <p class="text">Получайте уведомления, когда вы или кто-то другой публикуете новое видео</p>
+        <div class="yt_block">
+            <div class="sm_logo">ютуб</div>
+            <input type="text" class="yt_youtube_id" placeholder="ссылка на канал"/>
+            <input type="text" class="yt_channel_id" placeholder="ID канала, куда будут приходить уведомления"/>
+            <input type="text" class="yt_message" placeholder="текст уведомления"/>
+
+            <div class="footer">
+                <div class="yt_add">
+                    <button class="yt_add_button">+</button>
+                    <p>1/3</p>
+                </div>
+                <div class="buttons"></div>
+                <button class="btn_reset">сбросить</button>
+                <button class="btn_save">сохранить</button>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <p>!add_yt</p>
+            <input type="checkbox" class="command_button"/>
+            <p>доступно только модераторам</p>
+        </div>
+        <div class="row">
+            <p>!rm_yt</p>
+            <input type="checkbox" class="add_button"/>
+            <p>доступно только модераторам</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

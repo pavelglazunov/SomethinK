@@ -1,0 +1,270 @@
+{
+  "ban": {
+    "enable": false,
+    "description": "заблокировать пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "unban": {
+    "enable": true,
+    "description": "разблокировать пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "kick": {
+    "enable": false,
+    "description": "выгнать пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "vkick": {
+    "enable": true,
+    "description": "отключить пользователя от голосового канала",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "mute": {
+    "enable": false,
+    "description": "выключить микрофон пользователю",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "unmute": {
+    "enable": true,
+    "description": "включить микрофон пользователю",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "chatmute": {
+    "enable": false,
+    "description": "выключить пользователю возможность писать в чат",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "chatunmute": {
+    "enable": true,
+    "description": "включить пользователю возможность писать в чат",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "timeout": {
+    "enable": true,
+    "description": "выдать пользователю таймаут",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "rmtimeout": {
+    "enable": true,
+    "description": "удалить таймаут у пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "fullban": {
+    "enable": true,
+    "description": "заблокировать пользователя и удалить все его сообщения",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "clear": {
+    "enable": true,
+    "description": "удалить сообщения",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "afk": {
+    "description": "sdasdadad",
+    "roles": [],
+    "channels": [
+      [
+        "reports",
+        "1077669672738111589"
+      ]
+    ],
+    "special_channel": "-1"
+  },
+  "warn": {
+    "enable": true,
+    "description": "выдать предупреждение пользователю",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "report": {
+    "description": "not reports",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": [],
+    "special_channel": "1077669672738111589"
+  },
+  "warns": {
+    "enable": true,
+    "description": "посмотреть список предупреждений пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "move": {
+    "description": "amogus",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": [
+      [
+        "предупреждения",
+        "1078292043698282537"
+      ]
+    ]
+  },
+  "rmwarn": {
+    "enable": true,
+    "description": "снять предупреждение с пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "deafen": {
+    "enable": true,
+    "description": "выключить звук пользователю",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "addrole": {
+    "enable": true,
+    "description": "выдать роль пользователю",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "undeafen": {
+    "enable": true,
+    "description": "включить звук у пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "rmrole": {
+    "enable": true,
+    "description": "забрать роль у пользователя",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "ping": {
+    "enable": true,
+    "description": "посмотреть пинг сервера и бота",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  },
+  "slowmode": {
+    "enable": true,
+    "description": "включить/выключить медленный режим",
+    "roles": [
+      [
+        "Владелец сервера",
+        "-1"
+      ]
+    ],
+    "channels": []
+  }
+}

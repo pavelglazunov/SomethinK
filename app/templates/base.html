@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main/main.css')}}">
+    {% block css_connect %}
+    {% endblock %}
+
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+<noscript>
+<!--    <meta http-equiv="refresh" content="0; url=noscript.html">-->
+    <p>включите js</p>
+</noscript>
+<header>
+    <div class="header">
+        <div class="header-text">
+            {% if current_user.is_authenticated %}
+            <a href="/user/{{ current_user.id }}">{{ current_user.name }}</a>
+            {% else %}
+            <a class="main_login_btn" href="/auth">войти</a>
+            {% endif %}
+        </div>
+        <div class="header-text">SomethinK</div>
+    </div>
+</header>
+{% block content %}
+
+{% endblock %}
+</body>
+</html>

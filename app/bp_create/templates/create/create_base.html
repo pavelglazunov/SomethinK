@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet"><!-- CSS -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main/main.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create/header.css')}}">
+    <link href="/static/css/create/toast.css" rel="stylesheet">
+    <link href="/static/css/create/base.css" rel="stylesheet">
+
+    <script src="/static/js/toast.js"></script>
+    <script src="/static/js/update_chapter.js"></script>
+    <script src="/static/js/validations.js"></script>
+    <script src="/static/js/LSData.js"></script>
+    <script src="/static/js/toasts.js"></script>
+    <script src="/static/js/messagesForm.js"></script>
+    <script src="/static/js/components.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/constants.js"></script>
+    {% block css_connect %}
+    {% endblock %}
+
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+<header>
+    <div class="header">
+        <div class="header-text">
+            <a href="/user/{{current_user.id}}">{{ current_user.name }}</a>
+        </div>
+        <div class="header-text">SomethinK</div>
+    </div>
+    <!--    <a href="/create/">информация</a>-->
+
+
+</header>
+<div class="select_bar" onclick="tokenError()">
+    {% if status %}
+    <a class="select_chapter_menu" href="/create/token">токен</a>
+    <a class="select_chapter_menu" href="/create/moderation">модерация</a>
+    <a class="select_chapter_menu" href="/create/messages">сообщения</a>
+    <a class="select_chapter_menu" href="/create/roles">роли</a>
+    <a class="select_chapter_menu" href="/create/sm">социальные сети</a>
+    <a class="select_chapter_menu" href="/create/dop">дополнительные возможности</a>
+    <a class="select_chapter_menu" href="/create/settings">настройки</a>
+    <a class="select_chapter_menu" href="/create/customize">кастомизация</a>
+    <a class="select_chapter_menu" href="/create/games">создать</a>
+    {% else %}
+    <div class="select_chapter_menu">токен</div>
+    <div class="select_chapter_menu">модерация</div>
+    <div class="select_chapter_menu">сообщения</div>
+    <div class="select_chapter_menu">роли</div>
+    <div class="select_chapter_menu">социальные сети</div>
+    <div class="select_chapter_menu">дополнительные возможности</div>
+    <div class="select_chapter_menu">настройки</div>
+    <div class="select_chapter_menu">кастомизация</div>
+    <div class="select_chapter_menu">создать</div>
+    {% endif %}
+
+</div>
+{% block content %}
+
+
+{% endblock %}
+</body>
+
+<script>
+
+
+
+    function tokenError() {
+        if (!(Boolean('{{ status }}' === "True"))) {
+            danger("введите токен")
+
+            return 0
+
+        }
+    }
+</script>
+</html>

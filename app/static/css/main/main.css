@@ -1,0 +1,301 @@
+@font-face {
+    font-family: Itim;
+    src: url("/static/fonts/itim-cyrillic.otf");
+}
+
+
+*, *:before, *:after {
+    box-sizing: border-box;
+
+}
+
+html {
+    position: relative;
+
+    background: #23272A;
+    padding: 0;
+    margin: 0 0 0 25px;
+    border-left: 1px #52565F solid;
+
+}
+
+body {
+    position: relative;
+
+    background: #23272A;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    border-bottom: 1px #52565F solid;
+    position: relative;
+    /*height: 40px;*/
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-text {
+    width: 200px;
+    height: 100%;
+
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 43px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #00FC0A;
+    border-left: 1px #52565F solid;
+
+}
+
+.main-block-content {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 50px;
+    /*margin-left: 5%;*/
+}
+
+.button-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+}
+
+
+.main_text {
+    width: 35vw;
+    height: 20vw;
+
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.8vw;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    margin-left: 43px;
+
+
+    color: #F2F6FF;
+}
+
+
+.line {
+    border-bottom: 1px #52565F solid;
+    border-left: 1px #52565F solid;
+    /*position: relative;*/
+    width: 4vw;
+    height: 0;
+}
+
+.button-start {
+    width: 20vw;
+    height: 4vw;
+
+    border: 3px solid #00FC0A;
+    border-radius: 1vw;
+
+    display: flex;
+    justify-content: center;
+
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2vw;
+    /*line-height: 52px;*/
+    align-items: center;
+    text-align: center;
+
+    color: #00FC0A;
+    text-decoration: None;
+}
+
+.button-more {
+    box-sizing: border-box;
+
+    width: 10vw;
+    height: 3.5vw;
+
+    margin: 0 10px;
+
+
+    border: 3px solid #4A74C6;
+    border-radius: 1vw;
+
+    font-family: sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vw;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    justify-content: center;
+
+    color: #FFFFFF;
+}
+
+
+.block_about {
+    width: 70vw;
+    height: 15vw;
+
+    margin-top: 15vw;
+
+    border-width: 1px 1px 0 0;
+    border-style: solid;
+    border-color: #52565F;
+
+}
+
+
+.block_name {
+    width: 20vw;
+    height: 3vw;
+
+    background-color: #23272A;
+
+    border: 2px #4A74C6 solid;
+
+    border-radius: 1vw;
+
+    margin-top: -1.5vw;
+
+    font-family: "K2D", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5vw;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+
+    color: #F2F6FF;
+
+    justify-content: center;
+
+
+}
+
+.center {
+    width: 100%;
+    display: flex;
+
+    justify-content: center;
+
+}
+
+.block_about_text {
+    font-family: "K2D", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.7vw;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    max-width: 60%;
+
+    margin: 3vw;
+
+    color: #F2F6FF;
+}
+
+
+.block_possibilities {
+    width: 100%;
+}
+
+.block_possibilities_header {
+    display: flex;
+}
+/*.block-name {*/
+/*    position: relative;*/
+/*    background-color: #23272A;*/
+
+/*    border: 2px #4A74C6 solid;*/
+
+/*    border-radius: 20px;*/
+
+/*    font-family: sans-serif;*/
+/*    font-style: normal;*/
+/*    font-weight: 700;*/
+/*    font-size: 1.5vw;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+
+
+/*    color: #F2F6FF;*/
+
+/*    justify-content: center;*/
+
+/*    width: 309px;*/
+/*    height: 64px;*/
+
+/*    margin-top: -35px;*/
+/*    margin-left: 27%;*/
+
+/*}*/
+
+/*.block-2--about {*/
+/*    margin-top: 15vw;*/
+/*    !*margin: 10vw 0;*!*/
+/*    border-width: 1px 1px 0 0;*/
+/*    border-style: solid;*/
+/*    border-color: #52565F;*/
+/*    width: 70%;*/
+/*}*/
+
+
+/*.block-2--about--logo {*/
+/*    display: flex;*/
+
+/*    align-items: center;*/
+/*    flex-direction: row;*/
+/*}*/
+
+/*.block-2--text {*/
+/*    display: flex;*/
+
+/*    width: 600px;*/
+
+/*    !*margin-top: -33px;*!*/
+/*    !*margin-left: 140px;*!*/
+/*    margin: 50px 140px;*/
+
+/*    flex-wrap: nowrap;*/
+
+
+/*}*/
+
+
+/*.text {*/
+/*    font-family: sans-serif;*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 30px;*/
+/*    line-height: 62px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+/*    padding: 0;*/
+
+/*    color: #F2F6FF;*/
+
+/*}*/
+

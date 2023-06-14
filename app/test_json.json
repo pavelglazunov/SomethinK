@@ -1,0 +1,22 @@
+{
+  "id": "1083410086023676014",
+  "username": "SomethinK_user_bot",
+  "global_name": null,
+  "display_name": null,
+  "avatar": null,
+  "avatar_decoration": null,
+  "discriminator": "1202",
+  "public_flags": 0,
+  "flags": 0,
+  "bot": true,
+  "banner": null,
+  "banner_color": null,
+  "accent_color": null,
+  "bio": "",
+  "locale": "en-US",
+  "mfa_enabled": false,
+  "premium_type": 0,
+  "linked_users": [],
+  "email": null,
+  "verified": true
+}

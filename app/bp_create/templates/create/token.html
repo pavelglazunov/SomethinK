@@ -1,0 +1,88 @@
+{% extends "create/create_base.html" %}
+
+{% block css_connect %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create/token.css')}}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="content" id="content">
+    <div class="token_block">
+        <p class="token_logo">токен бота</p>
+        <p class="get_token_text">для подключения бота к коду, необходимо получить токен, следуйте инструкциям из видео
+            и введите его в поле</p>
+        <form action="" method="post" class="register_form_class">
+            {{ form.hidden_tag() }}
+
+            {{ form.token(class="token_input",id="save_token_form", type="", placeholder="Токен") }}<br>
+            {% for error in form.token.errors %}
+            {% endfor %}
+
+            {{ form.save(class="btn_save", type="submit", placeholder="сохранить") }}
+            {% for error in form.save.errors %}
+            {% endfor %}
+        </form>
+        <div class="video_here" id="video"></div>
+    </div>
+
+
+    {% if not auth_with_discord %}
+    <div class="token_text">
+        <p class="token_info">важно</p>
+        <p>вы не входили через аккаунт Discord. Во многих местах Вам потребуется указывать ID
+            каналов и ролей</p>
+        <p>Для получения доступа к ID, выполните следующие шаги:</p>
+        <ul class="text_list">
+            <li>зайдите в настройки Discord</li>
+            <li>перейдите в раздел “расширенные”</li>
+            <li>Включите режим разработчика</li>
+            <li>готово</li>
+        </ul>
+        <p>Для получения ID канала или чата нажмите правой кнопкой мыши на нужный канал и выберите “копировать ID"</p>
+        <p>Для получения ID роли перейдите в настройки сервера, в разделе “роли”, нажмите правой кнопкой мыши на нужную
+            роль и выберите “копировать ID”</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script>
+    update_chapter(0)
+
+    // navigator.storage
+
+    if ('{{ from_submit }}' === "True") {
+        if (Boolean('{{ status }}' === "True")) {
+            successText("{{ message }}")
+        }
+        else {
+            danger("{{ message }}")
+        }
+
+
+
+    }
+    // update_chapter(1)
+
+
+    // function saveToken() {
+    //     let token_text = document.getElementById("save_token_form").value
+    //
+    //     if (token_text === "") {
+    //         new Toast({
+    //             title: false,
+    //             text: "введите токен",
+    //             theme: "danger",
+    //             autohide: true,
+    //             interval: parseInt("3000")
+    //         })
+    //         return 0
+    //     }
+    //
+    //
+    // }
+
+</script>
+{% endblock %}
