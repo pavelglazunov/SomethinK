@@ -1,0 +1,127 @@
+.content {
+    width: 100%;
+    /*height: 50vw;*/
+
+
+    display: flex;
+
+    justify-content: space-around;
+
+    margin-top: 5vw;
+}
+
+.token_block {
+
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.token_logo {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2.3vw;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    padding: 0;
+    margin: 0;
+
+}
+
+.get_token_text {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1vw;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    margin: 1vw;
+}
+
+.token_text {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1vw;
+    text-align: center;
+
+    max-width: 30%;
+
+
+}
+
+.text_list {
+    list-style-type: decimal;
+    list-style-position: inside;
+
+}
+
+.token_input {
+    background: #282E3B;
+
+    height: 2vw;
+    width: 60%;
+
+    border: 1px solid #5865F2;
+    border-radius: 8px;
+
+    font-family: 'Itim', sans-serif;
+
+    font-size: 1vw;
+
+    display: flex;
+    align-items: center;
+
+    max-width: 90%;
+
+    color: #FFFFFF;
+
+    filter: drop-shadow(5px 5px 10px #171B22);
+
+}
+
+.register_form_class {
+    display: flex;
+
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.video_here {
+    margin-top: 3vw;
+    width: 100%;
+    height: 20vw;
+
+    border: 2px solid #5865F2;
+    border-radius: 40px;
+}
+
+.token_info {
+    font-size: 4vw;
+    margin: 0;
+}
+

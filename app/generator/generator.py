@@ -1,0 +1,3 @@
+def generate(key: dict):
+    ...
+

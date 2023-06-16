@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+
+
+    {{ form.email(class="form-control", type="email", placeholder="Email", style="height: 20px, width:
+    210px") }}
+    {% for error in form.email.errors %}
+
+    {% endfor %}
+
+    {{ form.password(class="form-control", type="password", placeholder="Password", style="height: 20px,
+    width: 210px") }}
+    {% for error in form.password.errors %}
+    {% endfor %}
+    {{ form.password_again(class="form-control", type="password", placeholder="Passsword", style="height:
+    20px, width: 210px") }}
+    {% for error in form.password_again.errors %}
+    {% endfor %}
+    {{ form.name(class="form-control", placeholder="Name", style="height: 20px, width: 210px") }}
+    {% for error in form.name.errors %}
+    {{ error }}
+
+    {% endfor %}
+
+    {{ form.recaptcha }}
+
+
+    <p>{{ form.submit(type="submit", class="btn_btn-primary", style="height: 20px,
+        width: 210px, min-width: 280%;") }}
+        {{message}}</p>
+
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,251 @@
+.content_ {
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 4vw;
+    overflow: visible;
+
+}
+
+p {
+    margin: 0;
+}
+
+
+
+.content {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1vw;
+
+}
+.commands {
+    width: 60%;
+
+    display: flex;
+}
+
+.ar_colon {
+    display: flex;
+    flex-direction: column;
+    margin-left: 3vw;
+
+}
+
+
+
+.ar_row {
+    display: flex;
+    color: #FFFFFF;
+
+    align-items: center;
+    filter: drop-shadow(5px 5px 10px #171B22);
+
+}
+
+.ar_row p {
+    display: flex;
+    align-items: center;
+}
+
+.ar_row_disabled {
+    color: #6e7679;
+}
+
+.roles_input_block {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.auto-roles {
+    display: flex;
+    margin-top: 1vw;
+
+}
+
+.auto-roles_text {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1vw;
+
+    /*line-height: 17px;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin-bottom: 1vw;
+    height: 1.5vw;
+
+
+    color: #FFFFFF;
+}
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+input[type=checkbox]:focus {
+    outline: 0;
+}
+
+
+.ar_cb {
+
+}
+
+/*.active_roles_block {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    margin-left: 3vw;*/
+/*    margin-top: 2vw;*/
+/*}*/
+
+.interval_block {
+    display: flex;
+    align-items: center;
+    margin-left: 3vw;
+    margin-top: 2vw;
+
+}
+
+
+.interval_input {
+    background: #282E3B;
+
+    height: 2vw;
+    width: 3vw;
+
+    border: 1px solid #5865F2;
+    border-radius: 8px;
+
+    font-family: 'Itim', sans-serif;
+    /*font-style: normal;*/
+    /*font-weight: 400;*/
+
+    font-size: 1vw;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+
+    /*max-width: 90%;*/
+    margin: 0 1vw;
+
+    color: #FFFFFF;
+
+    filter: drop-shadow(5px 5px 10px #171B22);
+
+
+}
+
+.interval_block p {
+    font-size: 1.5vw;
+}
+
+.interval_input::placeholder {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+
+    color: #6e7679;
+}
+
+.interval_input:disabled {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+
+    color: #585C5F;
+
+    border: 1px solid #40404b;
+}
+
+.roles_command_block {
+    margin-left: 3vw;
+    margin-top: 2vw;
+
+    display: flex;
+    flex-direction: column;
+    font-size: 1.3vw;
+    align-items: flex-start;
+
+}
+
+.main_roles_texts {
+
+}
+
+
+
+#roles_help {
+    transition: all .2s ease;
+    font-size: 0.9vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*margin-top: 0.2vw;*/
+
+}
+
+
+#roles_help::before {
+
+    content: "?";
+    /*display: flex;*/
+    /*text-align: center;*/
+    /*display: block;*/
+    /*position: fixed;*/
+}
+
+#roles_help:hover {
+
+    padding: 0.2vw;
+    display: block;
+    height: 2.8vw;
+
+    width: 12.5vw;
+    overflow: hidden;
+    /*transition-delay:1s;*/
+
+
+}
+
+
+#roles_help:hover::before {
+
+    content: "роли, которые будут выданы при первом заходе на сервер";
+
+
+}
+
+
+.active_roles_block {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.active_roles_row {
+    display: flex;
+
+    width: 17vw;
+
+    justify-content: flex-start;
+    align-items: center;
+}

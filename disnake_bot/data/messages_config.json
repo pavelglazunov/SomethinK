@@ -1,0 +1,68 @@
+{
+  "helps": {
+    "help": {
+      "title": "список команд",
+      "color": "0xFF8A00"
+    },
+    "helpm":{
+      "title": "список команд модераторов",
+      "color": "0xFF5C00"
+    }
+  },
+  "commands": {
+    "ban": {
+      "embed": true,
+      "description": "Заблокировать участника | /ban <@member> <reason>",
+      "title": "ban",
+      "body": "Участник {} был заблокирован по причине {}",
+      "footer": "Команда использовал: {}",
+      "color": "FF0000"
+    },
+    "unban": {
+      "embed": true,
+      "description": "Разблокировать участника | /unban <@member> <reason>",
+      "title": "ban",
+      "body": "Участник {} был разблокирован по причине {}",
+      "footer": "Команда использовал: {}",
+      "color": "00FF00"
+    },
+    "kick": {
+      "embed":  true,
+      "description": "Выгнать участника | /kick <@member> <reason>",
+      "title": "kick",
+      "body": "Участник {} был выгнан",
+      "footer":  "Команда использовал: {}",
+      "color": "FF0000"
+    },
+    "gpt": {
+      "embed":  true,
+      "description": "Обратиться к chatGPT | /gpt <text>",
+      "title": "Ответ от chatGPT",
+      "body": "Участник {} был выгнан",
+      "footer":  "Команда использовал: {}",
+      "color": "FF0000"
+    },
+    "report": {
+      "embed":  false,
+      "description": "Отправить жалобу на пользователя | /report <@member> <text>",
+      "title": "Жалоба отправлена",
+      "body": "",
+      "footer":  "",
+      "color": ""
+    }
+
+  },
+  "errors": {
+    "missing_role": {
+      "title": "ошибка :(",
+      "body": "У вас нет прав, для использования данной команды",
+      "color": "FF0000"
+    },
+    "command_not_found": {
+      "title": "ошибка :(",
+      "body": "Команда не найдена",
+      "color": "FF0000"
+    }
+
+  }
+}

@@ -1,0 +1,137 @@
+.content {
+    display: flex;
+    justify-content: space-around;
+
+    margin-top: 4vw;
+    overflow: visible;
+
+}
+
+.data {
+    max-width: 30vw;
+    display: flex;
+    position: sticky;
+    top: 7vw;
+    /*left: 10vw;*/
+    /*margin-top: -5vw;*/
+    padding-right: 5vw;
+    flex-direction: column;
+    justify-content: flex-start;
+    justify-items: center;
+    align-items: center;
+
+    /*border-right: 1px #52565F solid;*/
+    /*box-shadow: 6px 0px 4px rgba(0, 0, 0, 0.25);*/
+    /*filter: none;*/
+}
+
+.sticky_block {
+    position: sticky;
+    top: 1vw;
+    /*padding: 0 2vw;*/
+
+}
+
+
+
+
+
+
+
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+input[type=checkbox]:focus {
+    outline: 0;
+}
+
+
+.functions {
+    display: flex;
+    flex-direction: column;
+    /*margin-right: 10vw;*/
+}
+
+.base_roles_block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.base_roles_row {
+    display: flex;
+    align-items: flex-start;
+
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.base_role_input_without_help_button {
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+
+#help_button {
+    transition: all .2s ease;
+    font-size: 0.9vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 0.2vw;
+
+}
+
+
+#help_button::before {
+
+    content: "?";
+    /*display: flex;*/
+    /*text-align: center;*/
+    /*display: block;*/
+    /*position: fixed;*/
+}
+
+#help_button:hover {
+
+    padding: 0.2vw;
+    display: block;
+    height: 4vw;
+
+    width: 12vw;
+    overflow: hidden;
+    /*transition-delay:1s;*/
+
+
+}
+
+
+#help_button:hover::before {
+
+    content: "указанные роли будут автоматически добавлены во все команды";
+
+
+}
+
+.input_required {
+
+    /*margin: 1vw 0;*/
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    text-transform: lowercase;
+
+    font-size: 1vw;
+    color: #FFFFFF;
+}

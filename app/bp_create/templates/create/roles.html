@@ -1,0 +1,438 @@
+{% extends "create/create_base.html" %}
+
+{% block css_connect %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create/roles.css')}}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content_">
+    <div class="data">
+        <div class="block" style="margin-bottom: 2vw; max-width: 45vw;
+">
+
+            <p class="block_header">авто-выдача ролей</p>
+
+            <div class="block_content" id="roles_content">
+                <div class="loading" style="margin-top: 1vw"></div>
+
+            </div>
+
+
+        </div>
+        <div class="buttons" style="max-width: max-content">
+            <button class="btn_save" style="margin-right: 1vw" id="save_btn">сохранить</button>
+            <button class="btn_reset" id="reset_btn">сбросить</button>
+        </div>
+    </div>
+
+    <div class="text">
+        <p>В этом разделе Вы можете автоматизировать выдачу ролей</p>
+
+        <p style="margin-top: 2vw">используйте роли активности, чтобы автоматически выделять в группы участников, с
+            одинаковыми занятиями
+            (все роли будут созданы автоматически)</p>
+
+        <div id="configurator_parent" style="margin-top: 1vw"></div>
+    </div>
+
+</div>
+
+
+<script src="/static/js/createJS/roles.js"></script>
+
+
+<!--<div class="first_line">-->
+<!--    <div class="main_bg commands">-->
+<!--        <p class="main_command__logo">авто-выдача ролей</p>-->
+
+<!--        <div class="auto-roles">-->
+<!--            <div class="roles_input_block" id="roles_block">-->
+<!--                <div class="roles_input_row">-->
+<!--                    {% if auth_with_discord %}-->
+<!--                    <select class="select_roles">-->
+<!--                        {% for role in roles %}-->
+<!--                        <option value="{{ role[0] }}">{{ role[1] }}</option>-->
+<!--                        {% endfor %}-->
+<!--                    </select>-->
+<!--                    {% else %}-->
+<!--                    <input type="text" class="select_roles" placeholder=" ID роли">-->
+<!--                    {% endif %}-->
+<!--                    <button class="add_role_btn" id="add_role_btn">+</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <p class="auto-roles_text">роли, которые будут выданы при первом заходе на сервер</p>-->
+
+<!--        </div>-->
+
+<!--        <div class="active_roles">-->
+<!--            <div class="active_roles_block">-->
+<!--                <p>роли активности</p>-->
+<!--                <input type="checkbox" id="activities_role" class="active_checkbox">-->
+<!--            </div>-->
+<!--            <div class="content">-->
+<!--                <div class="ar_colon">-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="csgo" class="color_select" value="#BFC204">-->
+<!--                        <input type="checkbox" name="csgo" class="ar_cb moder_flag">-->
+<!--                        <p>cs:go</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="valorant" class="color_select" value="#F44B34">-->
+<!--                        <input type="checkbox" name="valorant" class="ar_cb moder_flag">-->
+<!--                        <p>valorant</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="dota" class="color_select" value="#27A008">-->
+<!--                        <input type="checkbox" name="dota" class="ar_cb moder_flag">-->
+<!--                        <p>dota 2</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="lol" class="color_select" value="#1698C1">-->
+<!--                        <input type="checkbox" name="lol" class="ar_cb moder_flag">-->
+<!--                        <p>league of legends</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="minecraft" class="color_select" value="#2BF227">-->
+<!--                        <input type="checkbox" name="minecraft" class="ar_cb moder_flag">-->
+<!--                        <p>minecraft</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="fortnite" class="color_select" value="#EE27F2">-->
+<!--                        <input type="checkbox" name="fortnite" class="ar_cb moder_flag">-->
+<!--                        <p>fortnite</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="ar_colon">-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="vscode" class="color_select" value="#318DFA">-->
+<!--                        <input type="checkbox" name="vscode" class="ar_cb moder_flag">-->
+<!--                        <p>Visual Studio</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="pycharm" class="color_select" value="#59FA31">-->
+<!--                        <input type="checkbox" name="pycharm" class="ar_cb moder_flag">-->
+<!--                        <p>PyCharm</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="clion" class="color_select" value="#31FABE">-->
+<!--                        <input type="checkbox" name="clion" class="ar_cb moder_flag">-->
+<!--                        <p>Clion</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="intellij" class="color_select" value="#0048D3">-->
+<!--                        <input type="checkbox" name="intellij" class="ar_cb moder_flag">-->
+<!--                        <p>Intellij</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="webstorm" class="color_select" value="#0E54DC">-->
+<!--                        <input type="checkbox" name="webstorm" class="ar_cb moder_flag">-->
+<!--                        <p>WebStorm</p>-->
+<!--                    </div>-->
+<!--                    <div class="ar_row">-->
+<!--                        <input type="color" name="phpstorm" class="color_select" value="#9A0CCC">-->
+<!--                        <input type="checkbox" name="phpstorm" class="ar_cb moder_flag">-->
+<!--                        <p>PhpStorm</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="interval_block" id="interval_block">-->
+<!--                <p>интервал обновления ролей:</p>-->
+<!--                <input type="text" id="interval_input" class="interval_input">-->
+<!--                <p>минут</p>-->
+<!--            </div>-->
+<!--            <div class="roles_command_block" id="roles_command_block">-->
+<!--                <div class="ar_row" id="enable_role_update_command_block">-->
+<!--                    <p> /enable_role_update</p>-->
+<!--                    <input type="checkbox" id="enable_role_update_command" class="active_checkbox">-->
+<!--                    <p>включить обновление ролей (доступно только модераторам)</p>-->
+<!--                </div>-->
+<!--                <div class="ar_row" id="disable_role_update_command_block">-->
+<!--                    <p>/disable_role_update</p>-->
+<!--                    <input type="checkbox" id="disable_role_update_command" class="active_checkbox">-->
+<!--                    <p>выключить обновление ролей (доступно только модераторам)</p>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+<!--            <div class="buttons" style="width: 100%;">-->
+<!--                <button class="btn_reset" id="reset_btn">сбросить</button>-->
+<!--                <button class="btn_save" id="save_btn">сохранить</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="text_block">-->
+<!--        <span style="margin-top: 1vw"></span>-->
+<!--        <p>В этом разделе Вы можете автоматизировать выдачу ролей</p>-->
+<!--        <span style="margin-top: 6vw"></span>-->
+<!--        <p>используйте роли активности, чтобы автоматически выделять в группы участников, с одинаковыми занятиями-->
+<!--            (все роли будут созданы автоматически)</p>-->
+<!--    </div>-->
+
+
+<!--</div>-->
+<!--<script>-->
+<!--    update_chapter(4)-->
+
+<!--    let base_color = {-->
+<!--        "csgo": "#BFC204",-->
+<!--        "valorant": "#F44B34",-->
+<!--        "dota": "#27A008",-->
+<!--        "lol": "#1698C1",-->
+<!--        "minecraft": "#2BF227",-->
+<!--        "fortnite": "#EE27F2",-->
+<!--        "vscode": "#318DFA",-->
+<!--        "pycharm": "#59FA31",-->
+<!--        "clion": "#31FABE",-->
+<!--        "intellij": "#0048D3",-->
+<!--        "webstorm": "#0E54DC",-->
+<!--        "phpstorm": "#9A0CCC",-->
+<!--    }-->
+
+<!--    let btn_save = document.getElementById("save_btn")-->
+<!--    let btn_reset = document.getElementById("reset_btn")-->
+
+<!--    let add_role_btn = document.getElementById("add_role_btn")-->
+<!--    let role_div = document.getElementById("roles_block")-->
+
+<!--    let active_roles_btn = document.getElementById("activities_role")-->
+
+<!--    let all_ar = document.getElementsByClassName("ar_cb")-->
+<!--    let all_colors = document.getElementsByClassName("color_select")-->
+<!--    let all_ar_texts = document.getElementsByClassName("ar_row")-->
+
+
+<!--    let roles_counter = 1-->
+
+
+<!--    if (localStorage.getItem("roles")) {-->
+<!--        setDataFRomLocalStorage()-->
+<!--    } else {-->
+<!--        resetData()-->
+<!--    }-->
+<!--    updateAR(!active_roles_btn.checked)-->
+
+<!--    // updateAR(true)-->
+
+
+<!--    function updateAR(value) {-->
+<!--        for (let i = 0; i < all_ar.length; i++) {-->
+
+<!--            all_ar[i].disabled = value-->
+<!--            // all_ar[i].style.filter = value ? "grayscale(100%)" : "grayscale(0)"-->
+
+<!--            all_colors[i].disabled = value-->
+<!--            all_colors[i].style.filter = value ? "grayscale(40%)" : "grayscale(0)"-->
+<!--            all_ar_texts[i].style.filter = value ? "grayscale(40%)" : "grayscale(0)"-->
+
+<!--            // let rgb = hexToRgb(all_colors[i].value)-->
+<!--            //-->
+<!--            // let r = Math.round(Number(rgb["r"] * (value ? 0.5 : 2)))-->
+<!--            // let g = Math.round(Number(rgb["g"] * (value ? 0.5 : 2)))-->
+<!--            // let b = Math.round(Number(rgb["b"] * (value ? 0.5 : 2)))-->
+<!--            // console.log(rgb, r, g, b, rgbToHex(r, g, b))-->
+<!--            // all_colors[i].value = rgbToHex(r, g, b)-->
+
+<!--            value ? all_ar_texts[i].classList.add("ar_row_disabled") : all_ar_texts[i].classList.remove("ar_row_disabled")-->
+<!--            // console.log(all_ar_texts[i])-->
+<!--        }-->
+
+<!--        document.getElementById("interval_input").disabled = value-->
+<!--        console.log(2)-->
+<!--        document.getElementById("enable_role_update_command").disabled = value-->
+<!--        console.log(3)-->
+<!--        document.getElementById("disable_role_update_command").disabled = value-->
+<!--        console.log(4)-->
+<!--        document.getElementById("interval_block").style.color = value ? "#6e7679" : "#FFFFFF"-->
+<!--        value ? document.getElementById("enable_role_update_command_block").classList.add("ar_row_disabled") : document.getElementById("enable_role_update_command_block").classList.remove("ar_row_disabled")-->
+<!--        value ? document.getElementById("disable_role_update_command_block").classList.add("ar_row_disabled") : document.getElementById("disable_role_update_command_block").classList.remove("ar_row_disabled")-->
+<!--        // document.getElementById("roles_command_block").style.color = value ? "#6e7679" : "#FFFFFF"-->
+<!--    }-->
+
+
+<!--    function discord_auth() {-->
+<!--        return Boolean('{{ auth_with_discord }}' === "True")-->
+<!--    }-->
+
+<!--    function setDataFRomLocalStorage() {-->
+<!--        let keys = new Map(Object.entries(JSON.parse(localStorage.getItem("roles"))))-->
+
+<!--        let _ar = keys.get("ar")-->
+<!--        for (let i = 0; i < all_ar.length; i++) {-->
+<!--            all_ar[i].checked = _ar[all_ar[i].name]["status"]-->
+<!--            all_colors[i].value = _ar[all_ar[i].name]["color"]-->
+<!--        }-->
+
+<!--        document.getElementById("activities_role").checked = keys.get("ra_status")-->
+<!--        document.getElementById("interval_input").value = keys.get("interval")-->
+<!--        document.getElementById("enable_role_update_command").checked = keys.get("enable_role_update_command")-->
+<!--        document.getElementById("disable_role_update_command").checked = keys.get("disable_role_update_command")-->
+
+<!--        let _roles = keys.get("roles")-->
+<!--        document.getElementsByClassName("select_roles")[0].value = _roles[0]-->
+<!--        for (let i = 1; i < _roles.length; i++) {-->
+<!--            createInputForm(_roles[i])-->
+<!--        }-->
+<!--        // updateAR(document.getElementById("activities_role").checked)-->
+<!--    }-->
+
+<!--    // add save to localstorage-->
+<!--    function saveDataToLocalStorage(from_reset = false) {-->
+<!--        console.log("save")-->
+
+<!--        let roles_command_data = new Map()-->
+
+<!--        roles_command_data.set("ra_status", document.getElementById("activities_role").checked)-->
+
+<!--        let _ar = {}-->
+<!--        for (let i = 0; i < all_ar.length; i++) {-->
+<!--            _ar[all_ar[i].name] = {-->
+<!--                "status": all_ar[i].checked,-->
+<!--                "color": all_colors[i].value-->
+<!--            }-->
+<!--        }-->
+
+<!--        roles_command_data.set("ar", _ar)-->
+
+<!--        let roles_list = []-->
+<!--        let roles_element_list = document.getElementsByClassName("select_roles")-->
+<!--        for (let i = 0; i < roles_element_list.length; i++) {-->
+<!--            roles_list.push(roles_element_list[i].value)-->
+<!--        }-->
+
+<!--        roles_command_data.set("roles", roles_list)-->
+
+<!--        roles_command_data.set("interval", document.getElementById("interval_input").value)-->
+<!--        roles_command_data.set("enable_role_update_command", document.getElementById("enable_role_update_command").checked)-->
+<!--        roles_command_data.set("disable_role_update_command", document.getElementById("disable_role_update_command").checked)-->
+
+
+<!--        let roles_command_json = JSON.stringify(Object.fromEntries(roles_command_data))-->
+
+<!--        localStorage.setItem("roles", roles_command_json)-->
+
+<!--        console.log(roles_command_json)-->
+
+
+<!--        if (from_reset) {-->
+<!--            console.log(57878)-->
+<!--            warning("изменения сброшены")-->
+<!--            return 0-->
+<!--        }-->
+<!--        success()-->
+
+
+<!--    }-->
+
+<!--    function resetData() {-->
+
+<!--        if (!confirm("Вы уверены, что хотите сбросить изменения?")) {-->
+<!--            return 0-->
+<!--        }-->
+<!--        console.log("reset")-->
+<!--        for (let i = 1; i < roles_counter; i++) {-->
+<!--            document.getElementById("role_input_id_" + i).remove()-->
+<!--            document.getElementById("role_btn_id_" + i).remove()-->
+<!--        }-->
+
+<!--        for (let i = 0; i < all_ar.length; i++) {-->
+<!--            all_ar[i].checked = false-->
+<!--            all_colors[i].value = base_color[all_ar[i].name]-->
+
+<!--        }-->
+
+<!--        document.getElementById("activities_role").checked = false-->
+<!--        document.getElementById("interval_input").value = "5"-->
+<!--        document.getElementById("enable_role_update_command").checked = true-->
+<!--        document.getElementById("disable_role_update_command").checked = true-->
+
+
+<!--        updateAR(true)-->
+<!--        saveDataToLocalStorage(true)-->
+
+<!--    }-->
+
+<!--    function createInputForm(id = null) {-->
+<!--        if (document.getElementsByClassName("select_roles").length === 10) {-->
+<!--            warning("достигнут лимит ролей")-->
+<!--            return 0-->
+<!--        }-->
+
+
+<!--        let ds_auth = discord_auth()-->
+
+<!--        let new_role = document.createElement(ds_auth ? "select" : "input")-->
+<!--        let rm_class_btn = document.createElement("button")-->
+<!--        let role_local_group = document.createElement("div")-->
+
+<!--        if (discord_auth()) {-->
+<!--            let all_roles = JSON.parse('{{ roles | tojson | safe}}');-->
+<!--            for (let i = 0; i < all_roles.length; i++) {-->
+<!--                let opt = document.createElement("option")-->
+<!--                opt.text = all_roles[i][1]-->
+<!--                opt.value = all_roles[i][0]-->
+
+<!--                if (id && all_roles[i][0] === id) {-->
+<!--                    opt.selected = true-->
+<!--                }-->
+
+<!--                new_role.appendChild(opt)-->
+<!--            }-->
+<!--        }-->
+
+
+<!--        role_local_group.className = "roles_input_row"-->
+<!--        role_local_group.id = "role_group_id_" + String(roles_counter)-->
+
+<!--        new_role.className = "select_roles"-->
+<!--        new_role.id = "role_input_id_" + String(roles_counter)-->
+<!--        new_role.placeholder = " ID роли"-->
+
+
+<!--        rm_class_btn.className = "rm_class_btn"-->
+<!--        rm_class_btn.id = "role_btn_id_" + String(roles_counter)-->
+<!--        rm_class_btn.textContent = "-"-->
+<!--        rm_class_btn.style.background = "#282E3B"-->
+<!--        rm_class_btn.addEventListener("click", function () {-->
+<!--            let rm_id = rm_class_btn.id.split("role_btn_id_")[1]-->
+
+<!--            let _input = document.getElementById("role_input_id_" + rm_id)-->
+<!--            let _btn = document.getElementById("role_btn_id_" + rm_id)-->
+<!--            let _group = document.getElementById("role_group_id_" + rm_id)-->
+
+<!--            _input.remove()-->
+<!--            _btn.remove()-->
+<!--            _group.remove()-->
+
+<!--        })-->
+
+
+<!--        role_local_group.appendChild(new_role)-->
+<!--        role_local_group.appendChild(rm_class_btn)-->
+
+<!--        role_div.appendChild(role_local_group)-->
+
+<!--        roles_counter += 1-->
+<!--    }-->
+
+<!--    btn_save.addEventListener("click", function () {-->
+<!--        saveDataToLocalStorage()-->
+<!--    })-->
+
+<!--    btn_reset.addEventListener("click", function () {-->
+<!--        resetData()-->
+<!--    })-->
+
+<!--    active_roles_btn.addEventListener("click", function () {-->
+<!--        updateAR(!active_roles_btn.checked)-->
+<!--    })-->
+
+
+<!--    add_role_btn.addEventListener("click", function () {-->
+<!--        createInputForm()-->
+<!--        // new_role.className = ""-->
+<!--    })-->
+<!--</script>-->
+{% endblock %}
