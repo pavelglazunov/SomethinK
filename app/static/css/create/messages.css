@@ -267,7 +267,7 @@ input[type=checkbox]:focus {
     /*background-color: #dc3545;*/
 }
 
-.time_message_block {
+.time_message_block, .events_block, .auto_response_block {
     width: 100%;
     padding: 0 2vw;
 
@@ -304,7 +304,7 @@ input[type=checkbox]:focus {
 
     flex-direction: column;
 
-    min-width: 36%;
+    min-width: 37%;
 
     margin-right: 1vw;
 

@@ -59,6 +59,15 @@ function select(classes, id, name = "") {
     return sl
 }
 
+function option(text, value, selected = false) {
+    let opt = document.createElement("option")
+    opt.value = value
+    opt.text = text
+    opt.selected = selected
+
+    return opt
+}
+
 function restart_configurator(configurator) {
     configurator.innerHTML = ""
     configurator.name = ""
@@ -232,6 +241,7 @@ function create_channels_input_block(command_name, configuration_key, login_disc
 function fake() {
     return document.createElement("div")
 }
+
 function creat_roles_and_channels_input_blocks(command_name,
                                                roles_description = "роли, которые могут использовать эту команду",
                                                channels_description = "каналы, где бот будет видеть эту команду") {
@@ -283,7 +293,7 @@ function create_command_block(
     configuration_id,
     save_func,
     name,
-    kwargs={
+    kwargs = {
         "slash": true,
         "settings": true,
         "automod": "",
@@ -332,8 +342,7 @@ function create_command_block(
                 if (kwargs.remove_after_close) {
                     configurator.remove()
                     return 0
-                }
-                else {
+                } else {
                     restart_configurator(configurator)
                     return 0
                 }
@@ -563,9 +572,9 @@ function displayLoading(loader) {
 
     // for (let loader of document.getElementsByClassName("__loading")) {
 
-        // console.log(loader)
-        // loader.classList.add("display");
-        // loader.style.visibility = "visible"
+    // console.log(loader)
+    // loader.classList.add("display");
+    // loader.style.visibility = "visible"
 
     // }
     // loader = document.getElementById("loading")
@@ -597,7 +606,7 @@ function hideLoading(loader) {
     // }
 
     // while () {
-        // loader[0].remove()
+    // loader[0].remove()
     // }
     // for (let l of loader) {
     //     console.log(l)

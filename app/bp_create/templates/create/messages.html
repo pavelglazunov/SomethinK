@@ -7,7 +7,7 @@
 {% block content %}
 <div class="content">
     <div class="global_block">
-        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0">
+        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0; height: 100%">
             <p class="block_header">регулярные сообщения</p>
             <!--        <div class="loading" style="margin-top: 1vw"></div>-->
 
@@ -38,7 +38,7 @@
                 место</p>
 
         </div>
-        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0">
+        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0; height: 100%">
             <p class="block_header">события</p>
             <!--        <div class="loading" style="margin-top: 1vw"></div>-->
 
@@ -55,7 +55,35 @@
 
         </div>
 
+
     </div>
+
+    <div class="global_block">
+        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0; margin-bottom: 1vw; height: 100%">
+            <p class="block_header">автоответчик</p>
+            <!--        <div class="loading" style="margin-top: 1vw"></div>-->
+
+            <div class="block_content" id="auto_response_block">
+
+            </div>
+            <div class="block_footer" id="auto_response_block_footer">
+                <button class="add_role_btn" id="add_auto_response_block" style="margin-right: 1vw">+</button>
+                <p class="tm_counter" id="auto_response_counter"></p>
+            </div>
+            <!--        <input type="">-->
+
+        </div>
+        <div class="text" style="max-width: 20vw">
+            <p>в данном подразделе Вы можете добавить текстовые ответы на сообщения, которые будут состоять/включать/иметь необходимый триггер</p>
+
+
+        </div>
+    </div>
+    <div class="buttons" style="margin-left: 5vw; width: max-content">
+        <button class="btn_save" style="margin-right: 1vw" id="save_btn">сохранить</button>
+        <button class="btn_reset" id="reset_btn">сбросить</button>
+    </div>
+
 </div>
 
 
