@@ -1,3 +1,4 @@
+
 class Toast {
     constructor(t) {
         this._title = !1 !== t.title && (t.title || "Title"), this._text = t.text || "Message...", this._theme = t.theme || "default", this._autohide = t.autohide && !0, this._interval = +t.interval || 5e3, this._create(), this._el.addEventListener("click", t => {
@@ -7,11 +8,13 @@ class Toast {
     }
 
     _show() {
+
         this._el.classList.add("toast_showing"), this._el.classList.add("toast_show"), window.setTimeout(() => {
             this._el.classList.remove("toast_showing")
         }), this._autohide && setTimeout(() => {
             this._hide()
         }, this._interval)
+
     }
 
     _hide() {

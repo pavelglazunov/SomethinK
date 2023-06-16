@@ -59,6 +59,19 @@ function select(classes, id, name = "") {
     return sl
 }
 
+function restart_configurator(configurator) {
+    configurator.innerHTML = ""
+    configurator.name = ""
+    configurator.style.paddingBottom = "1vw"
+    configurator.appendChild(p("В этом блоке вы сможете настроить выбранные команды", "about_configurator"))
+    configurator.appendChild(p("Данный блок не является обязательным для заполнения", "about_configurator"))
+    configurator.appendChild(p("Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение \"все\"", "about_configurator"))
+    configurator.appendChild(p("Если вы не заполните поле \"описание\", в команде будет установлено базовое значение (указано в заголовке каждой команды)", "about_configurator"))
+    let ir = p("<span style=\"color: #dc3545\">*</span> - обязательно для заполнения", "about_configurator")
+    ir.innerHTML = "<span style=\"color: #dc3545\">*</span> - обязательно для заполнения"
+    configurator.appendChild(ir)
+}
+
 function create_roles_input_block(command_name, configuration_key, login_discord, roles_description) {
     let roles_block = div("input_block")
     let roles_mini_block = div("mini_row")
@@ -321,16 +334,7 @@ function create_command_block(
                     return 0
                 }
                 else {
-                    configurator.innerHTML = ""
-                    configurator.name = ""
-                    configurator.style.paddingBottom = "1vw"
-                    configurator.appendChild(p("В этом блоке вы сможете настроить выбранные команды", "about_configurator"))
-                    configurator.appendChild(p("Данный блок не является обязательным для заполнения", "about_configurator"))
-                    configurator.appendChild(p("Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение \"все\"", "about_configurator"))
-                    configurator.appendChild(p("Если вы не заполните поле \"описание\", в команде будет установлено базовое значение (указано в заголовке каждой команды)", "about_configurator"))
-                    let ir = p("<span style=\"color: #dc3545\">*</span> - обязательно для заполнения", "about_configurator")
-                    ir.innerHTML = "<span style=\"color: #dc3545\">*</span> - обязательно для заполнения"
-                    configurator.appendChild(ir)
+                    restart_configurator(configurator)
                     return 0
                 }
 
@@ -553,4 +557,56 @@ function base_save_settings(configuration_key) {
 
     return actual_name
 
+}
+
+function displayLoading(loader) {
+
+    // for (let loader of document.getElementsByClassName("__loading")) {
+
+        // console.log(loader)
+        // loader.classList.add("display");
+        // loader.style.visibility = "visible"
+
+    // }
+    // loader = document.getElementById("loading")
+
+    console.log(loader)
+    for (let l of loader) {
+        l.classList.add("display");
+        console.log(">>>>>>>>>>>", l)
+    }
+
+    console.log("loading")
+    // to stop loading after some time
+    // setTimeout(() => {
+    //     loader.classList.remove("display");
+    // }, 5000);
+}
+
+// hiding loading
+function hideLoading(loader) {
+
+    console.log(loader)
+    let loader_list = document.getElementsByClassName("loading")
+    while (loader_list.length >= 1) {
+        loader_list[0].remove()
+    }
+
+    // for (let i = 0; i <= loader.length / 2 + 1; i++){
+    //     loader[0].remove()
+    // }
+
+    // while () {
+        // loader[0].remove()
+    // }
+    // for (let l of loader) {
+    //     console.log(l)
+    //     // l.remove()
+    //     l.cl
+    // }
+    // for (let loader of document.getElementsByClassName("__loading")) {
+    //     loader.remove()
+    //
+    //
+    // }
 }

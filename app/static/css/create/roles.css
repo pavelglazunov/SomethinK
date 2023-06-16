@@ -11,22 +11,7 @@ p {
     margin: 0;
 }
 
-.text {
-    display: flex;
-    flex-direction: column;
 
-    font-family: 'Itim', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.5vw;
-
-    align-items: center;
-    text-align: center;
-
-    color: #FFFFFF;
-    width: 30vw;
-    padding: 0;
-}
 
 .content {
     display: flex;
@@ -205,27 +190,6 @@ input[type=checkbox]:focus {
 }
 
 
-#loading {
-    width: 2rem;
-    height: 2rem;
-    border: 5px solid #f3f3f3;
-    border-top: 6px solid var(--main-blue-color);
-    border-radius: 100%;
-    margin: auto;
-    visibility: hidden;
-    animation: spin 1s infinite linear;
-}
-#loading.display {
-    visibility: visible;
-}
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
 
 #roles_help {
     transition: all .2s ease;

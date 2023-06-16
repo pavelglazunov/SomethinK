@@ -5,53 +5,102 @@
 {% endblock %}
 
 {% block content %}
-<div class="main_bg" style="min-width: 70vw">
-    <p class="main_command__logo">авто-отправка сообщений</p>
-    <div class="content" id="content"></div>
-    <button id="button">add</button>
+<div class="content">
+    <div class="global_block">
+        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0">
+            <p class="block_header">регулярные сообщения</p>
+            <!--        <div class="loading" style="margin-top: 1vw"></div>-->
 
+            <div class="block_content" id="time_messages_block">
+
+            </div>
+            <div class="block_footer" id="tm_block_footer">
+                <button class="add_role_btn" id="add_tm_block" style="margin-right: 1vw">+</button>
+                <p class="tm_counter" id="tm_counter"></p>
+            </div>
+            <!--        <input type="">-->
+
+        </div>
+        <div class="text" style="max-width: 20vw">
+            <p>В этом разделе Вы можете автоматизировать уведомления на сервере, настроить авто отправку сообщений или
+                создать автоответчик</p>
+
+
+        </div>
+    </div>
+
+
+    <div class="global_block">
+        <div class="text" style="max-width: 20vw">
+            <p>данный подраздел позволяет настроить сообщения, которые будут отображаться при заходе пользователя на
+                сервер или выходе с него</p>
+            <p>Вы можете использовать $$, чтобы подставить имя пользователя, активирующего событие, в необходимое
+                место</p>
+
+        </div>
+        <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0">
+            <p class="block_header">события</p>
+            <!--        <div class="loading" style="margin-top: 1vw"></div>-->
+
+            <div class="block_content" id="events_block">
+
+            </div>
+
+            <div class="block_footer" id="events_block_footer">
+                <button class="add_role_btn" id="add_events_block" style="margin-right: 1vw">+</button>
+                <p class="tm_counter" id="events_counter"></p>
+
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 
-<script>
-    update_chapter(3)
-
-    function discord_auth() {
-        console.log('--> {{ auth_with_discord }}')
-        return Boolean('{{ auth_with_discord }}' === "True")
-    }
-    
-    let all_channels = JSON.parse('{{ channels | tojson | safe}}');
-
-    time_mf = new MessagesForm(discord_auth(), "content", all_channels["text"])
-    // maf = new MessageAnotherForms()
-    console.log(all_channels["text"])
-    counter = 0
-
-    document.getElementById("button").addEventListener("click", function () {
-        if (document.getElementsByClassName("base_input__base_block").length >= 10) {
-            warning("Превышен лимит временных сообщений")
-            return 0
-        }
-
-        time_mf.timeMessageBase(counter)
-
-        counter++
-        // let content = document.getElementById("content")
-        // let main_block = document.createElement("div")
-        //
-        // main_block.id = "__time_message_" + counter
-        // content.appendChild(main_block)
-        //
-        //
-        // mf.baseForm(counter)
-        // maf.timeMessageForm(content, discord_auth(), all_channels["text"])
-
-        // counter++
-    })
+<script src="/static/js/createJS/messages.js"></script>
 
 
-</script>
+<!--<script>-->
+<!--    update_chapter(3)-->
+
+<!--    function discord_auth() {-->
+<!--        console.log('&ndash;&gt; {{ auth_with_discord }}')-->
+<!--        return Boolean('{{ auth_with_discord }}' === "True")-->
+<!--    }-->
+<!--    -->
+<!--    let all_channels = JSON.parse('{{ channels | tojson | safe}}');-->
+
+<!--    time_mf = new MessagesForm(discord_auth(), "content", all_channels["text"])-->
+<!--    // maf = new MessageAnotherForms()-->
+<!--    console.log(all_channels["text"])-->
+<!--    counter = 0-->
+
+<!--    document.getElementById("button").addEventListener("click", function () {-->
+<!--        if (document.getElementsByClassName("base_input__base_block").length >= 10) {-->
+<!--            warning("Превышен лимит временных сообщений")-->
+<!--            return 0-->
+<!--        }-->
+
+<!--        time_mf.timeMessageBase(counter)-->
+
+<!--        counter++-->
+<!--        // let content = document.getElementById("content")-->
+<!--        // let main_block = document.createElement("div")-->
+<!--        //-->
+<!--        // main_block.id = "__time_message_" + counter-->
+<!--        // content.appendChild(main_block)-->
+<!--        //-->
+<!--        //-->
+<!--        // mf.baseForm(counter)-->
+<!--        // maf.timeMessageForm(content, discord_auth(), all_channels["text"])-->
+
+<!--        // counter++-->
+<!--    })-->
+
+
+<!--</script>-->
 {% endblock %}
 
 <!--

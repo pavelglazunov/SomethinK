@@ -30,9 +30,11 @@
                             {% endfor %}
                         </select>
                         {% else %}
-                        <input type="text" class="select_roles" id="base_role_input" placeholder=" ID роли">
+                        <input type="text" class="select_roles" id="base_role_input" placeholder=" ID роли" style="    filter: drop-shadow(5px 5px 10px #171B22);
+">
                         {% endif %}
-                        <button class="add_role_btn" id="add_base_role_button" style="margin-right: 1vw">+</button>
+                        <button class="add_role_btn" id="add_base_role_button" style="margin-right: 1vw;     filter: drop-shadow(5px 5px 10px #171B22);
+">+</button>
                     </div>
 
                     <div class="add_role_btn" id="help_button"></div>
@@ -49,17 +51,24 @@
     <div class="functions">
         <div class="block" >
             <p class="block_header">основные команды</p>
-            <div class="block_content"  id="main_command"></div>
+            <div class="loading" style="margin-top: 1vw"></div>
+
+            <div class="block_content"  id="main_command">
+
+            </div>
 
         </div>
         <div class="block">
             <p class="block_header">дополнительные команды</p>
+            <div class="loading" style="margin-top: 1vw"></div>
             <div class="block_content"  id="another_command"></div>
 
         </div>
 
         <div class="block">
             <p class="block_header">автомодерация</p>
+            <div class="loading" style="margin-top: 1vw"></div>
+
             <div class="block_content"  id="auto_moderation"></div>
 
         </div>

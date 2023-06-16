@@ -7,6 +7,22 @@
     --main-blue-color: #4A74C6;
 }
 
+.text {
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vw;
+
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+    width: 30vw;
+    padding: 0;
+}
 /*.text_block {*/
 /*    max-width: 25%;*/
 
@@ -190,10 +206,18 @@
     /*margin-top: 0.5vw;*/
 
     color: #FFFFFF;
+    /*-moz-appearance: none;*/
+    /*-webkit-tap-highlight-color: rgba(255, 255, 255, 0);*/
+    /*-webkit-tap-highlight-color: transparent;*/
 
-    filter: drop-shadow(5px 5px 10px #171B22);
+    /*-moz-outline-color: #282E3B;*/
 
 
+
+}
+
+.select_roles:focus {
+    outline: none;
 }
 
 .select_roles::placeholder {
@@ -259,7 +283,6 @@
     color: #FFFFFF;
     cursor: pointer;
 
-    filter: drop-shadow(5px 5px 10px #171B22);
 
 }
 
@@ -563,6 +586,7 @@
 
     min-width: 30vw;
 
+
     margin-bottom: 4vw;
 
     /*position: sticky;*/
@@ -849,3 +873,47 @@
     margin: 1vw 1vw 0 1vw;
     color: #c4c4c4;
 }
+
+.loading {
+    width: 2rem;
+    height: 2rem;
+    border: 5px solid #f3f3f3;
+    border-top: 6px solid var(--main-blue-color);
+    border-radius: 100%;
+    margin: auto;
+    visibility: hidden;
+    animation: spin 1s infinite linear;
+}
+.display {
+    visibility: visible;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/*input:invalid {*/
+/*    border: 1px solid #dc3545;*/
+
+/*}*/
+
+/*input:valid {*/
+/*    border: 1px solid var(--main-blue-color);*/
+
+/*}*/
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+/*.select_roles::-webkit-outer-spin-button,*/
+/*.select_roles::-webkit-inner-spin-button {*/
+/*    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
+/*    !* display: none; <- Crashes Chrome on hover *!*/
+/*    -webkit-appearance: none;*/
+/*    margin: 0; !* <-- Apparently some margin are still there even though it's hidden *!*/
+/*}*/

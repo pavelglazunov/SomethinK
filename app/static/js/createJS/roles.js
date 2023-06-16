@@ -91,7 +91,6 @@ function save_command() {
     console.log("saving")
 }
 
-
 function reset_configuration_key() {
     // console.log(5)
     configuration_key["start_roles"] = {
@@ -123,26 +122,14 @@ function reset_configuration_key() {
 
 }
 
-function displayLoading() {
-    loader.classList.add("display");
-    // to stop loading after some time
-    setTimeout(() => {
-        loader.classList.remove("display");
-    }, 5000);
-}
-
-// hiding loading
-function hideLoading() {
-    loader.remove()
-}
 
 let login_discord = null
 let user_roles = []
-const loader = document.getElementById("loading");
+const loader = document.getElementsByClassName("loading");
 let user_channels = {}
 
 let configuration_key = {}
-displayLoading()
+displayLoading(loader)
 fetch('/api/all', {
     method: "GET",
     headers: {
@@ -175,7 +162,7 @@ fetch('/api/all', {
 
         console.log(configuration_key)
 
-        hideLoading()
+        hideLoading(loader)
 
         main()
 

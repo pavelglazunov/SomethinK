@@ -1,11 +1,6 @@
-
-
-
 function updateLS(key, value) {
     configuration_key[key] = value
 }
-
-
 
 
 function create_auto_moderation_settings(configurator_content, command_name, automod) {
@@ -124,7 +119,7 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
 
 }
 
-function reset_key_configurator() {
+function reset_key_configurator(show_message=false) {
     for (let i of COMMANDS) {
         for (let j of i) {
             let command_config = {}
@@ -191,6 +186,18 @@ function reset_key_configurator() {
         "enable": true
     }
 
+
+    const answer = post_data("moderation", configuration_key)
+    answer.then(a => {
+        if (a["status"] === "ok") {
+            if (show_message) {
+                warning("изменения сброшены")
+            }
+
+            return 0
+        }
+        danger(a["message"])
+    })
     // configuration_key["auto_moderation"] = auto_mod
 }
 
@@ -212,90 +219,149 @@ fetch('/api/all')
     })
 
 
-let configuration_key = get_configuration_key("moderation", reset_key_configurator)
+// let configuration_key = get_configuration_key("moderation", reset_key_configurator)
 
+const loader = document.getElementsByClassName("loading")
+
+displayLoading(loader)
+let configuration_key = {}
+fetch('/api/all', {
+    method: "GET",
+    headers: {
+        "configuration_name": "moderation"
+    }
+})
+    .then((response) => response.json())
+    .then((data) => {
+        login_discord = data["auth_with_discord"]
+        user_roles = data["roles"]
+
+        // console.log(login_discord, "login discord")
+        user_channels = data["channels"]
+
+        configuration_key = data["configuration_key"]
+
+        // console.log(">>", configuration_key)
+        // console.log(">>", typeof configuration_key)
+
+        if (Object.keys(configuration_key).length === 0) {
+            console.log(55555)
+            configuration_key = {}
+            reset_key_configurator()
+        } else {
+            configuration_key = JSON.parse(configuration_key)
+
+        }
+
+        console.log(configuration_key)
+
+        // hideLoading()
+
+        hideLoading(loader)
+        main()
+
+        // roles_content.appendChild(create_roles_input_block(
+        //     "start_roles",
+        //     configuration_key,
+        //     login_discord,
+        //     "роли, которые будут выданы при первом заходе на сервер",
+        // ))
+        // document.getElementById("input_roles_block").style.width = "78.1%"
+        // document.getElementById("input_roles_block").style.maxWidth = "32vw"
+        // {title: "foo", body: "bar", userId: 1, id: 101}
+    })
 
 const main_block = document.getElementById("main_command")
 const another_block = document.getElementById("another_command")
 const auto_moderation_block = document.getElementById("auto_moderation")
 
-for (let i = 0; i < 6; i++) {
-    let row = div("row")
 
-    row.appendChild(create_command_block(
-        configuration_key,
-        "configurator",
-        base_save_settings,
-        COMMANDS[i][0],
-    ))
-    row.appendChild(create_command_block(
-        configuration_key,
-        "configurator",
-        base_save_settings,
-        COMMANDS[i][1],
-    ))
-    // row.appendChild(create_command_block(COMMANDS[i][0], configuration_key))
-    // row.appendChild(create_command_block(COMMANDS[i][1], configuration_key))
+function main() {
 
-    main_block.appendChild(row)
 
+    main_block.innerHTML = ""
+    another_block.innerHTML = ""
+    auto_moderation_block.innerHTML = ""
+
+    restart_configurator(document.getElementById("configurator"))
+
+
+    for (let i = 0; i < 6; i++) {
+        let row = div("row")
+
+        row.appendChild(create_command_block(
+            configuration_key,
+            "configurator",
+            base_save_settings,
+            COMMANDS[i][0],
+        ))
+        row.appendChild(create_command_block(
+            configuration_key,
+            "configurator",
+            base_save_settings,
+            COMMANDS[i][1],
+        ))
+        // row.appendChild(create_command_block(COMMANDS[i][0], configuration_key))
+        // row.appendChild(create_command_block(COMMANDS[i][1], configuration_key))
+
+        main_block.appendChild(row)
+
+    }
+
+    for (let i = 6; i < COMMANDS.length; i++) {
+        let row = div("row")
+
+        row.appendChild(create_command_block(
+            configuration_key,
+            "configurator",
+            base_save_settings,
+            COMMANDS[i][0],
+        ))
+        row.appendChild(create_command_block(
+            configuration_key,
+            "configurator",
+            base_save_settings,
+            COMMANDS[i][1],
+        ))
+        another_block.appendChild(row)
+
+    }
+
+    for (let command of AUTO_MODERATION) {
+        let row = div("row")
+
+        row.appendChild(create_command_block(
+            configuration_key,
+            "configurator",
+            base_save_settings,
+            command[0][0],
+            {
+                "slash": false,
+                "settings": true,
+                "automod": command[0][1],
+                "remove_after_close": false,
+                "parent_id": ""
+            }
+        ))
+        row.appendChild(create_command_block(
+            configuration_key,
+            "configurator",
+            base_save_settings,
+            command[1][0],
+            {
+                "slash": false,
+                "settings": true,
+                "automod": command[1][1],
+                "remove_after_close": false,
+                "parent_id": ""
+            }
+        ))
+        // row.appendChild(create_command_block(command[0][0], configuration_key, command[0][1]))
+        // row.appendChild(create_command_block(command[1][0], configuration_key, command[1][1]))
+
+        auto_moderation_block.appendChild(row)
+    }
 }
-
-for (let i = 6; i < COMMANDS.length; i++) {
-    let row = div("row")
-
-    row.appendChild(create_command_block(
-        configuration_key,
-        "configurator",
-        base_save_settings,
-        COMMANDS[i][0],
-    ))
-    row.appendChild(create_command_block(
-        configuration_key,
-        "configurator",
-        base_save_settings,
-        COMMANDS[i][1],
-    ))
-    another_block.appendChild(row)
-
-}
-
-for (let command of AUTO_MODERATION) {
-    let row = div("row")
-
-    row.appendChild(create_command_block(
-        configuration_key,
-        "configurator",
-        base_save_settings,
-        command[0][0],
-        {
-            "slash": false,
-            "settings": true,
-            "automod": command[0][1],
-            "remove_after_close": false,
-            "parent_id": ""
-        }
-    ))
-    row.appendChild(create_command_block(
-        configuration_key,
-        "configurator",
-        base_save_settings,
-        command[1][0],
-        {
-            "slash": false,
-            "settings": true,
-            "automod": command[1][1],
-            "remove_after_close": false,
-            "parent_id": ""
-        }
-    ))
-    // row.appendChild(create_command_block(command[0][0], configuration_key, command[0][1]))
-    // row.appendChild(create_command_block(command[1][0], configuration_key, command[1][1]))
-
-    auto_moderation_block.appendChild(row)
-}
-
-
 
 document.getElementById("add_base_role_button").addEventListener("click", function () {
     let base_input_form = document.getElementById("base_role_input")
@@ -321,7 +387,7 @@ document.getElementById("add_base_role_button").addEventListener("click", functi
     }
 })
 document.getElementById("another_save_btn").addEventListener("click", function () {
-    base_save_settings()
+    base_save_settings(configuration_key)
     if (((configuration_key["afk"]["special_channel"] === " ") && (configuration_key["afk"]["enable"])) || ((configuration_key["report"]["special_channel"] === " ") && (configuration_key["report"]["enable"]))) {
 
 
@@ -339,17 +405,28 @@ document.getElementById("another_save_btn").addEventListener("click", function (
         return 0
     }
 
-    SaveDateToLocalStorage("moderation", configuration_key)
-    success()
+    // SaveDateToLocalStorage("moderation", configuration_key)
+
+    const answer = post_data("moderation", configuration_key)
+    answer.then(a => {
+        if (a["status"] === "ok") {
+            success()
+            return 0
+        }
+        danger(a["message"])
+    })
+    // success()
 })
 document.getElementById("another_reset_btn").addEventListener("click", function () {
     if (confirm("Вы уверены, что хотите сбросить все изменения?")) {
-        reset_key_configurator()
-        SaveDateToLocalStorage("moderation", configuration_key)
+        reset_key_configurator(true)
 
-        location.reload()
+        main()
+        // SaveDateToLocalStorage("moderation", configuration_key)
 
-        warning("изменения сброшены")
+        // location.reload()
+
+        // warning("изменения сброшены")
 
     }
 })
