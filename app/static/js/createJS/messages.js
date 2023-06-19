@@ -23,21 +23,23 @@ const no_messages = {
     "auto_response_block": "автоответчиков"
 }
 
+update_chapter(2)
+
 let count = 0
 let ev_count = 0
 
 let login_discord = null
-let user_roles = []
 let user_channels = {}
 
 let configuration_key = {}
 
-// displayLoading(loader)
+displayLoading(document.getElementsByClassName("loading"))
 //
-fetch('/api/all', {
+fetch('/api/get', {
     method: "GET",
     headers: {
-        "configuration_name": "messages"
+        "configuration_name": "messages",
+        "get": "channels|"
     }
 })
     .then((response) => response.json())
@@ -58,9 +60,9 @@ fetch('/api/all', {
 
         }
 
-        console.log(configuration_key)
+        // console.log(configuration_key)
 
-        // hideLoading(loader)
+        hideLoading(document.getElementsByClassName("loading"))
 
         main()
     })
@@ -800,11 +802,11 @@ function main() {
 
 
     if (Object.keys(configuration_key).length !== 0) {
-        console.log("here")
-        console.log(configuration_key.time_message)
+        // console.log("here")
+        // console.log(configuration_key.time_message)
         time_messages_block.innerHTML = ""
         for (let i of Object.keys(configuration_key.time_message)) {
-            console.log(">>", i)
+            // console.log(">>", i)
 
             time_messages_block.appendChild(generate_time_message_block(
                 configuration_key.time_message[i]["enable_embed"],
@@ -821,8 +823,8 @@ function main() {
 
 
     if (Object.keys(configuration_key).length !== 0) {
-        console.log("here")
-        console.log(configuration_key.events)
+        // console.log("here")
+        // console.log(configuration_key.events)
         events_block.innerHTML = ""
         for (let i of Object.keys(configuration_key.events)) {
 
@@ -840,7 +842,7 @@ function main() {
 
 
     if (Object.keys(configuration_key).length !== 0) {
-        console.log(configuration_key.auto_response)
+        // console.log(configuration_key.auto_response)
         auto_response_block.innerHTML = ""
         for (let i of Object.keys(configuration_key.auto_response)) {
 
@@ -917,8 +919,8 @@ document.getElementById("add_auto_response_block").addEventListener("click", fun
 
 document.getElementById("save_btn").addEventListener("click", function () {
 
-    reset_message_configuration_key()
 
+    let new_data = {}
     for (let tm of document.getElementsByClassName("time_message_block")) {
         let data = {}
         let embed = {}
@@ -969,7 +971,7 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
         }
 
-        configuration_key["time_message"][id] = data
+        new_data["time_message"][id] = data
 
     }
 
@@ -1022,7 +1024,7 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
         }
 
-        configuration_key["events"][id] = data
+        new_data["events"][id] = data
 
     }
 
@@ -1073,10 +1075,11 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
         }
 
-        configuration_key["auto_response"][id] = data
+        new_data["auto_response"][id] = data
 
     }
-
+    reset_message_configuration_key()
+    configuration_key = new_data
     console.log(configuration_key)
 
     const answer = post_data("messages", configuration_key)

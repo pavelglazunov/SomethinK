@@ -208,15 +208,15 @@ update_chapter(1)
 let login_discord = null
 let user_roles = []
 let user_channels = {}
-fetch('/api/all')
-    .then((response) => response.json())
-    .then((data) => {
-        login_discord = data["auth_with_discord"]
-        user_roles = data["roles"]
-        user_channels = data["channels"]
-        console.log(login_discord, "login discord")
-        // {title: "foo", body: "bar", userId: 1, id: 101}
-    })
+// fetch('/api/all')
+//     .then((response) => response.json())
+//     .then((data) => {
+//         login_discord = data["auth_with_discord"]
+//         user_roles = data["roles"]
+//         user_channels = data["channels"]
+//         console.log(login_discord, "login discord")
+//         // {title: "foo", body: "bar", userId: 1, id: 101}
+//     })
 
 
 // let configuration_key = get_configuration_key("moderation", reset_key_configurator)
@@ -225,10 +225,11 @@ const loader = document.getElementsByClassName("loading")
 
 displayLoading(loader)
 let configuration_key = {}
-fetch('/api/all', {
+fetch('/api/get', {
     method: "GET",
     headers: {
-        "configuration_name": "moderation"
+        "configuration_name": "moderation",
+        "get": "roles|channels"
     }
 })
     .then((response) => response.json())

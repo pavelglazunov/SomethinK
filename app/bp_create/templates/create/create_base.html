@@ -45,8 +45,8 @@
     <a class="select_chapter_menu" href="/create/moderation">модерация</a>
     <a class="select_chapter_menu" href="/create/messages">сообщения</a>
     <a class="select_chapter_menu" href="/create/roles">роли</a>
-    <a class="select_chapter_menu" href="/create/sm">социальные сети</a>
-    <a class="select_chapter_menu" href="/create/dop">дополнительные возможности</a>
+    <a class="select_chapter_menu" href="/create/social_media">социальные сети</a>
+    <a class="select_chapter_menu" href="/create/another">дополнительные возможности</a>
     <a class="select_chapter_menu" href="/create/settings">настройки</a>
     <a class="select_chapter_menu" href="/create/customize">кастомизация</a>
     <a class="select_chapter_menu" href="/create/games">создать</a>
@@ -69,17 +69,4 @@
 {% endblock %}
 </body>
 
-<script>
-
-
-
-    function tokenError() {
-        if (!(Boolean('{{ status }}' === "True"))) {
-            danger("введите токен")
-
-            return 0
-
-        }
-    }
-</script>
 </html>

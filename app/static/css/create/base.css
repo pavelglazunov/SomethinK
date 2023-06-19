@@ -5,6 +5,7 @@
 
 :root {
     --main-blue-color: #4A74C6;
+    --after-color: #4A74C6;
 }
 
 .text {
@@ -460,7 +461,7 @@
     height: 1.4vw;
 
     border-radius: 50%;
-    background: var(--main-blue-color);
+    background: var(--after-color);
     /*box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);*/
     transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
 }
@@ -826,6 +827,13 @@
 
 .command_name_text {
     margin: 0;
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8vw;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 .settings_button {

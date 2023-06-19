@@ -2,7 +2,7 @@ import json
 
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import login_required
-from app.utils.discord_api import get_user_roles, get_user_channels
+from app.utils.discord_api import USER_GET_FUNC
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
 
@@ -14,25 +14,38 @@ def discord_login():
     return jsonify({"auth_with_discord": bool(session.get("token"))})
 
 
-@api_bp.route("/all", methods=["GET", "POST"])
+@api_bp.route("/get", methods=["GET", "POST"])
 @login_required
 def discord_all():
     print("all api connect")
     print(session.get("token"))
+
     if not session.get("configurator"):
         return redirect("/create/token")
     session.modified = True
+
+    if not request.headers.get("get"):
+        return jsonify({
+                           "error": "this error could not happen without hijacking requests or trying to create your own request, what are you trying to do?)"})
+
     print(">>", request.headers.get("configuration_name"))
     print(">>", session.get("configurator"))
     print(">>", session.get("configurator")[request.headers.get("configuration_name")])
     print(">>", session)
+
     data = {
         "auth_with_discord": bool(session.get("token")),
-        "channels": get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
-        "roles": get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")),
-        "status": bool(session.get("user_bot_token")),
         "configuration_key": session.get("configurator")[request.headers.get("configuration_name")]
     }
+    for i in request.headers.get("get").split("|"):
+        if not i:
+            continue
+        data[i] = USER_GET_FUNC[i](session.get("user_guild_id"), session.get("user_bot_token"))
+    # data = {
+    #     "channels": get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
+    #     "roles": get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")),
+    #     "status": bool(session.get("user_bot_token")),
+    # }
     print(data["configuration_key"])
     return jsonify(data)
 

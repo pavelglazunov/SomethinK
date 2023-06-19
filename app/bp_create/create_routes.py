@@ -119,7 +119,7 @@ def get_moderation():
     if not has_bot_token():
         return redirect("/create/token")
     if session.get("token"):
-        print("here 5555555555555555555555555555555555555555555")
+        # print("here 5555555555555555555555555555555555555555555")
         return render_template("create/moder.html",
                                auth_with_discord=True,
                                channels=get_user_channels(session.get("user_guild_id"),
@@ -136,14 +136,13 @@ def get_moderation():
 def get_messages():
     if not has_bot_token():
         return redirect("/create/token")
-    if session.get("token"):
-        return render_template("create/messages.html",
-                               auth_with_discord=True,
-                               channels=get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
-                               roles=get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")),
-                               status=True)
-    return render_template("create/messages.html", auth_with_discord=False, roles=[], status=True,
-                           channels={"text": [], "voice": []})
+    # if session.get("token"):
+    #     return render_template("create/messages.html",
+    #                            auth_with_discord=True,
+    #                            channels=get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
+    #                            roles=get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")),
+    #                            status=True)
+    return render_template("create/messages.html", status=True)
 
 
 @create_bp.route("/roles")
@@ -151,22 +150,32 @@ def get_messages():
 def get_roles():
     if not has_bot_token():
         return redirect("/create/token")
-    if session.get("token"):
-        return render_template("create/roles.html",
-                               auth_with_discord=True,
-                               roles=get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")),
-                               status=True)
-    return render_template("create/roles.html", auth_with_discord=False, roles=[], status=True)
+    # if session.get("token"):
+    #     return render_template("create/roles.html",
+    #                            auth_with_discord=True,
+    #                            roles=get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")),
+    #                            status=True)
+    return render_template("create/roles.html", status=True)
 
 
-@create_bp.route("/sm")
+@create_bp.route("/social_media")
 @login_required
 def get_sm():
     if not has_bot_token():
         return redirect("/create/token")
-    if session.get("token"):
-        return render_template("create/sm.html",
-                               auth_with_discord=True,
-                               channels=get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
-                               status=True)
-    return render_template("create/sm.html", auth_with_discord=False, channels=[], status=True)
+    # if session.get("token"):
+    #     return render_template("create/sm.html")
+    return render_template("create/sm.html", status=True)
+
+
+@create_bp.route("/another")
+@login_required
+def get_another():
+    if not has_bot_token():
+        return redirect("/create/token")
+    # if session.get("token"):
+    #     return render_template("create/another.html",
+    #                            auth_with_discord=True,
+    #                            channels=get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
+    #                            status=True)
+    return render_template("create/another.html", status=True)

@@ -23,3 +23,9 @@ def check_token_valid(token):
 
     print(r.text)
     return r.status_code == 200
+
+
+USER_GET_FUNC = {
+    "channels": get_user_channels,
+    "roles": get_user_roles
+}

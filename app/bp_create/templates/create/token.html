@@ -51,7 +51,18 @@
 <script>
     update_chapter(0)
 
-    // navigator.storage
+
+
+
+    function tokenError() {
+        if (!(Boolean('{{ status }}' === "True"))) {
+            danger("введите токен")
+
+            return 0
+
+        }
+    }
+
 
     if ('{{ from_submit }}' === "True") {
         if (Boolean('{{ status }}' === "True")) {
@@ -64,25 +75,7 @@
 
 
     }
-    // update_chapter(1)
 
-
-    // function saveToken() {
-    //     let token_text = document.getElementById("save_token_form").value
-    //
-    //     if (token_text === "") {
-    //         new Toast({
-    //             title: false,
-    //             text: "введите токен",
-    //             theme: "danger",
-    //             autohide: true,
-    //             interval: parseInt("3000")
-    //         })
-    //         return 0
-    //     }
-    //
-    //
-    // }
 
 </script>
 {% endblock %}

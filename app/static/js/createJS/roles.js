@@ -126,14 +126,14 @@ function reset_configuration_key() {
 let login_discord = null
 let user_roles = []
 const loader = document.getElementsByClassName("loading");
-let user_channels = {}
 
 let configuration_key = {}
 displayLoading(loader)
-fetch('/api/all', {
+fetch('/api/get', {
     method: "GET",
     headers: {
-        "configuration_name": "roles"
+        "configuration_name": "roles",
+        "get": "roles|"
     }
 })
     .then((response) => response.json())
@@ -142,7 +142,6 @@ fetch('/api/all', {
         user_roles = data["roles"]
         console.log(login_discord, "login discord")
 
-        user_channels = data["channels"]
 
         configuration_key = data["configuration_key"]
 

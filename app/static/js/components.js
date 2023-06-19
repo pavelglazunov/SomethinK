@@ -108,8 +108,8 @@ function create_roles_input_block(command_name, configuration_key, login_discord
         role_input_form = input("select_roles", "text", "", "roles_input_form", " ID роли")
     }
 
-    console.log(command_name)
-    console.log(configuration_key[command_name])
+    // console.log(command_name)
+    // console.log(configuration_key[command_name])
     for (let i of configuration_key[command_name]["roles"]) {
         roles_inputs.appendChild(generate_added_object("role", i[0], i[1]))
     }
@@ -317,7 +317,7 @@ function create_command_block(
         text.style.fontSize = kwargs.fontsize
 
     }
-
+    // console.log("<><>", configuration_key)
     cb.checked = configuration_key[name]["enable"]
     cb.addEventListener("click", function () {
         configuration_key[name]["enable"] = cb.checked
@@ -328,7 +328,7 @@ function create_command_block(
 
 
     if (kwargs.settings) {
-        console.log(">>")
+        // console.log(">>")
         let setting = div("settings_button", name)
         setting.addEventListener("click", function () {
             let configurator = document.getElementById(configuration_id)
@@ -336,9 +336,9 @@ function create_command_block(
                 document.getElementById(kwargs.parent_id).appendChild(div("block", "", configuration_id))
             }
             let last = save_func(configuration_key)
-            console.log(last)
+            // console.log(last, name, last === name)
             if (last === name) {
-                console.log(">>>>>>>>>>>>>>>")
+                // console.log(">>>>>>>>>>>>>>>")
                 if (kwargs.remove_after_close) {
                     configurator.remove()
                     return 0
@@ -366,6 +366,7 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
     configurator.innerHTML = ""
     configurator.name = name
     configurator.style.paddingBottom = "0"
+    configurator.classList.add("block")
 
     let configurator_name = p(kwargs.slash ? "/" + name : name, "block_header")
     if (kwargs.automod) {
@@ -393,7 +394,7 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
 
 
     if (configuration_key[name]["description"] !== ALL_COMMANDS[name]) {
-        console.log(configuration_key[name])
+        // console.log(configuration_key[name])
         description_input.value = configuration_key[name]["description"]
     }
 
@@ -496,7 +497,7 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
 }
 
 function base_save_settings(configuration_key) {
-    console.log(configuration_key)
+    // console.log(configuration_key)
     let configurator = document.getElementById("configurator")
     let actual_name = configurator.name
     let data = {}
@@ -579,13 +580,13 @@ function displayLoading(loader) {
     // }
     // loader = document.getElementById("loading")
 
-    console.log(loader)
+    // console.log(loader)
     for (let l of loader) {
         l.classList.add("display");
-        console.log(">>>>>>>>>>>", l)
+        // console.log(">>>>>>>>>>>", l)
     }
 
-    console.log("loading")
+    // console.log("loading")
     // to stop loading after some time
     // setTimeout(() => {
     //     loader.classList.remove("display");
@@ -595,7 +596,7 @@ function displayLoading(loader) {
 // hiding loading
 function hideLoading(loader) {
 
-    console.log(loader)
+    // console.log(loader)
     let loader_list = document.getElementsByClassName("loading")
     while (loader_list.length >= 1) {
         loader_list[0].remove()

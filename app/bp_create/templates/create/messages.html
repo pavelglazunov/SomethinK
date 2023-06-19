@@ -9,7 +9,7 @@
     <div class="global_block">
         <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0; height: 100%">
             <p class="block_header">регулярные сообщения</p>
-            <!--        <div class="loading" style="margin-top: 1vw"></div>-->
+            <div class="loading" style="margin-top: 1vw"></div>
 
             <div class="block_content" id="time_messages_block">
 
@@ -41,6 +41,7 @@
         <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0; height: 100%">
             <p class="block_header">события</p>
             <!--        <div class="loading" style="margin-top: 1vw"></div>-->
+            <div class="loading" style="margin-top: 1vw"></div>
 
             <div class="block_content" id="events_block">
 
@@ -62,6 +63,7 @@
         <div class="block" style="min-width: 60vw; max-width: 60vw; padding-bottom: 0; margin-bottom: 1vw; height: 100%">
             <p class="block_header">автоответчик</p>
             <!--        <div class="loading" style="margin-top: 1vw"></div>-->
+            <div class="loading" style="margin-top: 1vw"></div>
 
             <div class="block_content" id="auto_response_block">
 
@@ -90,60 +92,5 @@
 <script src="/static/js/createJS/messages.js"></script>
 
 
-<!--<script>-->
-<!--    update_chapter(3)-->
-
-<!--    function discord_auth() {-->
-<!--        console.log('&ndash;&gt; {{ auth_with_discord }}')-->
-<!--        return Boolean('{{ auth_with_discord }}' === "True")-->
-<!--    }-->
-<!--    -->
-<!--    let all_channels = JSON.parse('{{ channels | tojson | safe}}');-->
-
-<!--    time_mf = new MessagesForm(discord_auth(), "content", all_channels["text"])-->
-<!--    // maf = new MessageAnotherForms()-->
-<!--    console.log(all_channels["text"])-->
-<!--    counter = 0-->
-
-<!--    document.getElementById("button").addEventListener("click", function () {-->
-<!--        if (document.getElementsByClassName("base_input__base_block").length >= 10) {-->
-<!--            warning("Превышен лимит временных сообщений")-->
-<!--            return 0-->
-<!--        }-->
-
-<!--        time_mf.timeMessageBase(counter)-->
-
-<!--        counter++-->
-<!--        // let content = document.getElementById("content")-->
-<!--        // let main_block = document.createElement("div")-->
-<!--        //-->
-<!--        // main_block.id = "__time_message_" + counter-->
-<!--        // content.appendChild(main_block)-->
-<!--        //-->
-<!--        //-->
-<!--        // mf.baseForm(counter)-->
-<!--        // maf.timeMessageForm(content, discord_auth(), all_channels["text"])-->
-
-<!--        // counter++-->
-<!--    })-->
-
-
-<!--</script>-->
 {% endblock %}
 
-<!--
-{
-    "time_messages": {
-        "1": {},
-        "2": {},
-        "3": {},
-        "4": {},
-        "5": {},
-    },
-    "events": {},
-    auto_response: {}
-
-
-}
-
--->
