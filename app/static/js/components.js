@@ -77,7 +77,7 @@ function restart_configurator(configurator) {
     configurator.appendChild(p("Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение \"все\"", "about_configurator"))
     configurator.appendChild(p("Если вы не заполните поле \"описание\", в команде будет установлено базовое значение (указано в заголовке каждой команды)", "about_configurator"))
     let ir = p("<span style=\"color: #dc3545\">*</span> - обязательно для заполнения", "about_configurator")
-    ir.innerHTML = "<span style=\"color: #dc3545\">*</span> - обязательно для заполнения"
+    ir.innerHTML = "<span style=\"color: #dc3545\">*</span> - обязательно для заполнения (если команда включена)"
     configurator.appendChild(ir)
 }
 
@@ -105,7 +105,7 @@ function create_roles_input_block(command_name, configuration_key, login_discord
         }
         // let users_channel =
     } else {
-        role_input_form = input("select_roles", "text", "", "roles_input_form", " ID роли")
+        role_input_form = input("select_roles", "number", "", "roles_input_form", " ID роли")
     }
 
     // console.log(command_name)
@@ -184,7 +184,7 @@ function create_channels_input_block(command_name, configuration_key, login_disc
 
         }
     } else {
-        channel_input_form = input("select_roles", "text", "", "channels_input_form", " ID канала")
+        channel_input_form = input("select_roles", "number", "", "channels_input_form", " ID канала")
     }
 
     let channels_add_lbl = p("Добавить канал", "configurator_inputs_text")
@@ -321,7 +321,10 @@ function create_command_block(
     cb.checked = configuration_key[name]["enable"]
     cb.addEventListener("click", function () {
         configuration_key[name]["enable"] = cb.checked
+        text.style.color = !cb.checked ? "#aba9a9" : "#dedede"
     })
+    text.style.color = !cb.checked ? "#aba9a9" : "#dedede"
+
 
     command_block.appendChild(text)
     command_block.appendChild(cb)
@@ -388,6 +391,32 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
         configurator.appendChild(configurator_content)
         return 0
     }
+
+    if (name in COMMANDS_WITH_API_TOKEN) {
+        let api_token_block = div("input_block")
+
+        let api_token_lbl = p(COMMANDS_WITH_API_TOKEN[name][0], "configurator_inputs_text")
+        api_token_lbl.innerHTML = COMMANDS_WITH_API_TOKEN[name][0] + "<span style=\"color: #dc3545\">*</span>"
+
+        let _url = document.createElement("a")
+        _url.href = COMMANDS_WITH_API_TOKEN[name][1]
+        _url.text = "Инструкция по получению"
+        _url.classList.add("instruction_url")
+        _url.target = "_blank"
+        // _url.
+
+        api_token_lbl.appendChild(_url)
+        api_token_block.appendChild(api_token_lbl)
+
+        let api_token_input = input("select_roles", "text", "", "api_token_input")
+        api_token_input.value = configuration_key[name]["token"]
+        api_token_input.placeholder = "API токен"
+
+        api_token_block.appendChild(api_token_input)
+
+        configurator_content.appendChild(api_token_block)
+    }
+
 
     let description_block = div("input_block")
     let description_input = input("select_roles", "text", "", "__description_input", " Описание")
@@ -556,6 +585,9 @@ function base_save_settings(configuration_key) {
 
         }
         // data.set("special_channel", "-1")
+    }
+    if (actual_name in COMMANDS_WITH_API_TOKEN) {
+        data["token"] = document.getElementById("api_token_input").value
     }
     // console.log(data)
 

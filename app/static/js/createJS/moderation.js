@@ -179,13 +179,6 @@ function reset_key_configurator(show_message=false) {
         }
     }
 
-    configuration_key["ignore_admin"] = {
-        "enable": true
-    }
-    configuration_key["ignore_bot"] = {
-        "enable": true
-    }
-
 
     const answer = post_data("moderation", configuration_key)
     answer.then(a => {
@@ -208,19 +201,6 @@ update_chapter(1)
 let login_discord = null
 let user_roles = []
 let user_channels = {}
-// fetch('/api/all')
-//     .then((response) => response.json())
-//     .then((data) => {
-//         login_discord = data["auth_with_discord"]
-//         user_roles = data["roles"]
-//         user_channels = data["channels"]
-//         console.log(login_discord, "login discord")
-//         // {title: "foo", body: "bar", userId: 1, id: 101}
-//     })
-
-
-// let configuration_key = get_configuration_key("moderation", reset_key_configurator)
-
 const loader = document.getElementsByClassName("loading")
 
 displayLoading(loader)
@@ -405,6 +385,7 @@ document.getElementById("another_save_btn").addEventListener("click", function (
 
         return 0
     }
+    console.log(configuration_key)
 
     // SaveDateToLocalStorage("moderation", configuration_key)
 
@@ -422,6 +403,7 @@ document.getElementById("another_reset_btn").addEventListener("click", function 
     if (confirm("Вы уверены, что хотите сбросить все изменения?")) {
         reset_key_configurator(true)
 
+        console.log(configuration_key)
         main()
         // SaveDateToLocalStorage("moderation", configuration_key)
 

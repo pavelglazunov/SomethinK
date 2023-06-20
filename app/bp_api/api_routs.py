@@ -4,6 +4,8 @@ from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import login_required
 from app.utils.discord_api import USER_GET_FUNC
 
+from app.utils.validation import VALIDATION
+
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
 
 
@@ -54,12 +56,16 @@ def discord_all():
 @login_required
 def update_user_bot_config():
     print("connect to save API")
-    print(request.json)
+    # print(request.json)
     if not request.json:
         return jsonify({"status": "error"})
 
-    # session[""]
-    # session["user_bot_config"]
+    # if code := (VALIDATION[request.headers.get("configuration_name")](request.json)):
+    #     return jsonify({"status": "failed", "message": "Произошла ошибка при сохранении данных, пожалуйста,"
+    #                                                    f" повторите запрос или обратитесь в поддержку."
+    #                                                    f" Код ошибки: {code}"})
+
+
     try:
         # session["configurator"][request.headers.get("configuration_name")] = request.json
         session["configurator"][request.headers.get("configuration_name")] = json.dumps(request.json)
