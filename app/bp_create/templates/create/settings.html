@@ -1,5 +1,47 @@
 {% extends "create/create_base.html" %}
 
+{% block css_connect %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create/settings.css')}}">
+{% endblock %}
+
+
 {% block content %}
 
+<div class="content">
+    <div class="data" id="data_block_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+        <p class="text_block">В этом разделе вы можете настроить бота</p>
+
+        <div class="sticky_block">
+            <div class="block" id="configurator"  style="max-width: 30vw; margin-bottom: 2vw; padding-bottom: 1vw">
+                <p class="about_configurator">В этом блоке вы сможете настроить необходимые команды</p>
+                <p class="about_configurator">Данный блок не является обязательным для заполнения</p>
+                <p class="about_configurator">Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение "все"</p>
+                <p class="about_configurator">Если вы не заполните поле "описание", в команде будет установлено базовое значение (указано в заголовке каждой команды)</p>
+                <p class="about_configurator"><span style="color: #dc3545">*</span> - обязательно для заполнения</p>
+            </div>
+
+            <div class="buttons">
+                <button class="btn_save" id="save_btn">сохранить</button>
+                <button class="btn_reset" id="reset_btn">сбросить</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="functions">
+        <div class="block">
+            <p class="block_header" style="min-width: 30vw">настройки</p>
+<!--            <div class="loading" style="margin-top: 1vw"></div>-->
+
+            <div class="block_content"  id="settings">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<script src="/static/js/createJS/settings.js"></script>
 {% endblock %}

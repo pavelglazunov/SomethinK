@@ -27,7 +27,7 @@ let login_discord = null
 let user_roles = []
 let user_channels = {}
 
-// displayLoading(loader)
+displayLoading(loader)
 let configuration_key = {}
 fetch('/api/get', {
     method: "GET",
@@ -53,7 +53,7 @@ fetch('/api/get', {
 
 
 
-        // hideLoading(loader)
+        hideLoading(loader)
         main()
 
     })

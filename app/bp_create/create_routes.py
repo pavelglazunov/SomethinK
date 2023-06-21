@@ -173,9 +173,12 @@ def get_sm():
 def get_another():
     if not has_bot_token():
         return redirect("/create/token")
-    # if session.get("token"):
-    #     return render_template("create/another.html",
-    #                            auth_with_discord=True,
-    #                            channels=get_user_channels(session.get("user_guild_id"), session.get("user_bot_token")),
-    #                            status=True)
     return render_template("create/another.html", status=True)
+
+
+@create_bp.route("/settings")
+@login_required
+def get_settings():
+    if not has_bot_token():
+        return redirect("/create/token")
+    return render_template("create/settings.html", status=True)

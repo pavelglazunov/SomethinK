@@ -126,3 +126,5 @@ const SM_COMMANDS = [
     ["add_yt", "rm_yt"],
     ["add_tw", "rm_tw"]
 ]
+
+const LOGGING_COMMANDS = ["logon", "logoff"]
