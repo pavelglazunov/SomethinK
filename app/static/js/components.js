@@ -323,7 +323,7 @@ function create_command_block(
         configuration_key[name]["enable"] = cb.checked
         text.style.color = !cb.checked ? "#aba9a9" : "#dedede"
     })
-    text.style.color = !cb.checked ? "#aba9a9" : "#dedede"
+    text.style.color = !cb.checked ? "#6f7072" : "#dedede"
 
 
     command_block.appendChild(text)

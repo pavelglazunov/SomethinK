@@ -91,7 +91,7 @@ function save_command() {
     console.log("saving")
 }
 
-function reset_configuration_key() {
+function reset_role_configuration_key() {
     // console.log(5)
     configuration_key["start_roles"] = {
         "roles": []
@@ -152,7 +152,7 @@ fetch('/api/get', {
         if (Object.keys(configuration_key).length === 0) {
             console.log(55555)
             configuration_key = {}
-            reset_configuration_key()
+            reset_role_configuration_key()
         }
         else {
             configuration_key = JSON.parse(configuration_key)
@@ -178,12 +178,15 @@ fetch('/api/get', {
 
 // let configuration_key = get_configuration_key("roles")
 // console.log(configuration_key)
-// reset_configuration_key()
+// reset_role_configuration_key()
 
 // console.log(configuration_key)
 
 
 function main() {
+
+    roles_content.innerHTML = ""
+
     roles_content.appendChild(create_roles_input_block(
         "start_roles", configuration_key,
         login_discord, "роли, которые будут выданы при первом заходе на сервер"
@@ -299,7 +302,27 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
 })
 
-// reset_configuration_key()
+document.getElementById("reset_btn").addEventListener("click", function () {
+    if (confirm("Вы уверены, что хотите сбросить все изменения?")) {
+        reset_role_configuration_key()
+
+
+        const answer = post_data("roles", configuration_key)
+        answer.then(a => {
+            if (a["status"] === "ok") {
+                warning("изменения сброшены")
+                return 0
+            }
+            danger(a["message"])
+        })
+
+        main()
+
+
+    }
+})
+
+// reset_role_configuration_key()
 
 
 // document.getElementById("roles_input_form").style.w

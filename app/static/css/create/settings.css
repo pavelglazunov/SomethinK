@@ -72,3 +72,24 @@ input[type=checkbox]:focus {
     flex-direction: column;
 
 }
+
+
+#logging_right_block, #statistic_right_block {
+    display: flex;
+    /*transition: d;*/
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+#logging_right_block.hide, #statistic_right_block.hide {
+    /*display: none;*/
+    opacity: 0;
+
+    /*display: none;*/
+}
+
+
+.command_block.hide {
+    opacity: 0;
+
+}
