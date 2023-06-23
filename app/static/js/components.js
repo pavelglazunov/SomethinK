@@ -76,6 +76,7 @@ function restart_configurator(configurator) {
     configurator.appendChild(p("Данный блок не является обязательным для заполнения", "about_configurator"))
     configurator.appendChild(p("Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение \"все\"", "about_configurator"))
     configurator.appendChild(p("Если вы не заполните поле \"описание\", в команде будет установлено базовое значение (указано в заголовке каждой команды)", "about_configurator"))
+    // configurator.appendChild(p("Если вы не заполните поле \"описание\", в команде будет установлено базовое значение (указано в заголовке каждой команды)", "about_configurator"))
     let ir = p("<span style=\"color: #dc3545\">*</span> - обязательно для заполнения", "about_configurator")
     ir.innerHTML = "<span style=\"color: #dc3545\">*</span> - обязательно для заполнения (если команда включена)"
     configurator.appendChild(ir)
@@ -185,6 +186,18 @@ function create_channels_input_block(command_name, configuration_key, login_disc
         }
     } else {
         channel_input_form = input("select_roles", "number", "", "channels_input_form", " ID канала")
+        channel_input_form.min = "0"
+        channel_input_form.maxLength = 25
+
+        channel_input_form.addEventListener("input", function () {
+            console.log(channel_input_form.value)
+            if (channel_input_form.value.indexOf("-") !== -1) {
+                warning("ID не может быть отрицательным")
+                channel_input_form.value = "0"
+                return 0
+            }
+        })
+        channel_input_form.addEventListener("keydown")
     }
 
     let channels_add_lbl = p("Добавить канал", "configurator_inputs_text")
@@ -468,11 +481,8 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
         let special_input_form = null
         if (login_discord) {
             special_input_form = select("select_roles", "specials_input_form")
-            let opt = document.createElement("option")
-            opt.text = ""
-            opt.value = " "
-            opt.selected = true
-            special_input_form.appendChild(opt)
+
+            special_input_form.appendChild(option("создать канал автоматически", "-1", true))
             for (let i of user_channels[COMMAND_WITH_SPECIAL_FORM[name][0]]) {
                 let opt = document.createElement("option")
                 opt.text = i[1]
@@ -484,20 +494,38 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
 
             }
         } else {
-            special_input_form = input("select_roles", "text", "", "specials_input_form", " ID канала")
-            if (configuration_key[name]["special_channel"] in ["-1", " "]) {
+            special_input_form = input("select_roles", "number", "", "specials_input_form", " ID канала")
+            special_input_form.min = "1"
+            special_input_form.maxLength = 25
+
+            special_input_form.addEventListener("input", function () {
+                console.log(special_input_form.value)
+                if (special_input_form.value.indexOf("-") !== -1) {
+                    warning("ID не может быть отрицательным")
+                    special_input_form.value = "0"
+                    return 0
+                }
+            })
+
+            if (configuration_key[name]["special_channel"] !== "-1") {
                 special_input_form.value = configuration_key[name]["special_channel"]
             }
         }
 
-        create_special_channel_cb.checked = Boolean(configuration_key[name]["special_channel"] === "-1")
-        special_input_form.disabled = create_special_channel_cb.checked
+        if (!login_discord) {
+            create_special_channel_cb.checked = Boolean(configuration_key[name]["special_channel"] === "-1")
+
+            specials_mini_block.appendChild(create_special_channel_lbl)
+            specials_mini_block.appendChild(create_special_channel_cb)
+
+        }
+        // special_input_form.disabled = create_special_channel_cb.checked
 
         let specials_input_lbl = p(COMMAND_WITH_SPECIAL_FORM[name][1], "configurator_inputs_text")
         specials_input_lbl.innerHTML = COMMAND_WITH_SPECIAL_FORM[name][1] + "<span style=\"color: #dc3545\">*</span>"
-        create_special_channel_cb.addEventListener("click", function () {
-            special_input_form.disabled = create_special_channel_cb.checked
-        })
+        // create_special_channel_cb.addEventListener("click", function () {
+        //     special_input_form.disabled = create_special_channel_cb.checked
+        // })
 
         specials_mini_block.style.display = "flex"
         specials_mini_block.style.alignItems = "center"
@@ -507,8 +535,6 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
         create_special_channel_lbl.style.textAlignLas = "center"
         create_special_channel_lbl.style.marginLeft = "0.5vw"
 
-        specials_mini_block.appendChild(create_special_channel_cb)
-        specials_mini_block.appendChild(create_special_channel_lbl)
 
         specials_block.appendChild(specials_input_lbl)
         specials_block.appendChild(special_input_form)
@@ -562,9 +588,10 @@ function base_save_settings(configuration_key) {
         }
 
         if (actual_name === "mentions") {
-            let mentions = document.getElementById("input_mentions")
+            let mentions_count = document.getElementById("input_mentions")
+            data["count"] = mentions_count.value
 
-            data["mentions"] = mentions.value
+            console.log(data["count"], data)
         }
 
         updateLS(actual_name, data)
@@ -577,15 +604,35 @@ function base_save_settings(configuration_key) {
 
     if (actual_name in COMMAND_WITH_SPECIAL_FORM) {
         let special_form = document.getElementById("specials_input_form")
-        let auto_create_cb = document.getElementById("auto_channel_cb")
-        if (!auto_create_cb.checked) {
+        if (login_discord) {
             data["special_channel"] = special_form.value
-        } else {
-            data["special_channel"] = "-1"
 
+        } else {
+            let auto_create_cb = document.getElementById("auto_channel_cb")
+            console.log(auto_create_cb.checked)
+            console.log(special_form.value === "-1")
+            if (special_form.value) {
+                data["special_channel"] = special_form.value
+            }
+            else if (auto_create_cb.checked) {
+                console.log(-1)
+                data["special_channel"] = "-1"
+            }
+            else {
+                console.log("nihuya")
+                data["special_channel"] = ""
+            }
+            // data["special_channel"] = special_form.value !== "-1" ? special_form.value : (auto_create_cb.checked ? "-1" : "")
         }
+
+        // if (!auto_create_cb.checked) {
+        // } else {
+        //     data["special_channel"] = "-1"
+        //
+        // }
         // data.set("special_channel", "-1")
     }
+    console.log(data)
     if (actual_name in COMMANDS_WITH_API_TOKEN) {
         data["token"] = document.getElementById("api_token_input").value
     }

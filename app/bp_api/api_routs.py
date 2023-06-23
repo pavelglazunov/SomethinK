@@ -4,6 +4,8 @@ from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import login_required
 from app.utils.discord_api import USER_GET_FUNC
 
+from app import limiter
+
 from app.utils.validation import VALIDATION
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
@@ -54,6 +56,7 @@ def discord_all():
 
 @api_bp.route("/save", methods=["POST"])
 @login_required
+# @limiter.limit("10/minute")
 def update_user_bot_config():
     print("connect to save API")
     # print(request.json)

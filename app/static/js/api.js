@@ -37,6 +37,10 @@ async function post_data(type, data) {
 
 
     })
+    if (response.status === 429) {
+        danger("Слишком много запросов в минуту")
+        return 
+    }
     return await response.json()
 }
 

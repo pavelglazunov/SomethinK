@@ -51,8 +51,7 @@ function update_logging_block(value) {
     for (let set_btn of document.getElementsByClassName("command_block")) {
         if (!value) {
             set_btn.classList.add("hide")
-        }
-        else {
+        } else {
             set_btn.classList.remove("hide")
         }
 
@@ -61,8 +60,7 @@ function update_logging_block(value) {
 
     if (!value) {
         document.getElementById("logging_right_block").classList.add("hide")
-    }
-    else {
+    } else {
         document.getElementById("logging_right_block").classList.remove("hide")
     }
     // document.getElementById("logging_right_block").style.display = !value ? "none" : "flex"
@@ -103,8 +101,7 @@ function update_logging_block(value) {
 function update_statistic_block(value) {
     if (!value) {
         document.getElementById("statistic_right_block").classList.add("hide")
-    }
-    else {
+    } else {
         document.getElementById("statistic_right_block").classList.remove("hide")
     }
 
@@ -150,7 +147,7 @@ let login_discord = null
 let user_roles = []
 let user_channels = {}
 
-// displayLoading(loader)
+displayLoading(loader)
 let configuration_key = {}
 fetch('/api/get', {
     method: "GET",
@@ -175,7 +172,7 @@ fetch('/api/get', {
         }
 
 
-        // hideLoading(loader)
+        hideLoading(loader)
         main()
 
     })
@@ -232,7 +229,10 @@ function main() {
     logging_right_block.style.width = "20vw"
 
     let create_channel_lbl = p("канал, куда будут отправляться логи", "configurator_inputs_text")
+    if (!login_discord) {
+        create_channel_lbl.innerHTML += '<span style="color: #65e025">*</span>'
 
+    }
     let _input_channel_id
     if (login_discord) {
         _input_channel_id = select("select_roles", "input_channel_id")
@@ -254,6 +254,8 @@ function main() {
         _input_channel_id = input("select_roles", "number", "", "input_channel_id")
         _input_channel_id.value = configuration_key["logging"]["channel_id"]
         _input_channel_id.placeholder = "ID канала"
+        _input_channel_id.min = "-1"
+        _input_channel_id.maxLength = 25
     }
     let logging_event_lbl = p("логирование:", "configurator_inputs_text")
 
@@ -281,13 +283,6 @@ function main() {
 
     logging_block.appendChild(logging_left_block)
     logging_block.appendChild(logging_right_block)
-
-
-
-
-
-
-
 
 
     let status_block = div("input_block")
@@ -362,6 +357,10 @@ function main() {
     statistic_right_block.style.width = "20vw"
 
     let statistic_channel_lbl = p("канал, где будет статистика", "configurator_inputs_text")
+    if (!login_discord) {
+        statistic_channel_lbl.innerHTML += '<span style="color: #65e025">*</span>'
+
+    }
 
     let statistic_input_channel_id
     if (login_discord) {
@@ -417,6 +416,16 @@ function main() {
     block.appendChild(status_block)
     block.appendChild(statistic_block)
 
+    let _p = p("используйте -1, чтобы создать канал автоматически", "configurator_inputs_text")
+    _p.innerHTML = '<span style="color: #65e025">*</span>' + _p.textContent
+
+    _p.style.marginTop = "1vw"
+
+    if (!login_discord) {
+        block.appendChild(_p)
+
+    }
+
     update_logging_block(logging_switcher.checked)
     update_statistic_block(statistic_switcher.checked)
 
@@ -427,7 +436,7 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
     const status_value = document.getElementById("_input_status_text").value
 
-    if ( status_value.length === 0) {
+    if (status_value.length === 0) {
         danger("Необходимо указать статус бота")
         return 0
     }
@@ -436,7 +445,6 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
     configuration_key["status"]["type"] = document.getElementById("_input_bot_status_type").value
     configuration_key["status"]["text"] = status_value
-
 
 
     let logging_events = []
@@ -458,12 +466,12 @@ document.getElementById("save_btn").addEventListener("click", function () {
     configuration_key["statistic"]["values"] = statistic_types
 
 
-    configuration_key["logging"]["channel_id"]  = document.getElementById("input_channel_id").value
-    configuration_key["statistic"]["channel_id"]  = document.getElementById("statistic_input_channel_id").value
+    configuration_key["logging"]["channel_id"] = document.getElementById("input_channel_id").value
+    configuration_key["statistic"]["channel_id"] = document.getElementById("statistic_input_channel_id").value
     // console.log(logging_events)
 
-    configuration_key["logging"]["enable"]  = document.getElementById("logging_enable").checked
-    configuration_key["statistic"]["enable"]  = document.getElementById("statistic_enable").checked
+    configuration_key["logging"]["enable"] = document.getElementById("logging_enable").checked
+    configuration_key["statistic"]["enable"] = document.getElementById("statistic_enable").checked
 
 
     const answer = post_data("settings", configuration_key)

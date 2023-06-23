@@ -12,8 +12,8 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
         let min_size_lbl = p("минимальная длина сообщения: ", "configurator_inputs_text")
         let percent_lbl = p(automod + " минимум: ", "configurator_inputs_text")
         let percent_symbol_lbl = p("%", "configurator_inputs_text")
-        let input_min_size = input("select_roles", "text", "", "input_min_size")
-        let input_percent = input("select_roles", "text", "", "input_percent")
+        let input_min_size = input("select_roles", "number", "", "input_min_size")
+        let input_percent = input("select_roles", "number", "", "input_percent")
 
         let min_size_row = div("special_mini_row")
         let percent_row = div("special_mini_row")
@@ -62,7 +62,7 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
         let mentions_block = div("input_block")
 
         let mention_lbl = p("количество повторений в одном сообщении", "configurator_inputs_text")
-        let mention_input = input("select_roles", "text", "", "input_mentions")
+        let mention_input = input("select_roles", "number", "", "input_mentions")
 
         mention_input.addEventListener("input", function () {
             if (!vld_integer(mention_input.value)) {
@@ -94,13 +94,8 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
 
     action_select.style.filter = "none"
 
-    for (let i of [["удалить сообщение", "--remove"], ["выдать предупреждение", "--warn"], ["удалить сообщение и выдать предупреждение", "--remove-warn"]]) {
-        let opt = document.createElement("option")
-
-        opt.text = i[0]
-        opt.value = i[1]
-
-        action_select.appendChild(opt)
+    for (let i of [["отправить на проверку модераторам", "--send"], ["удалить сообщение", "--remove"], ["выдать предупреждение", "--warn"], ["удалить сообщение и выдать предупреждение", "--remove-warn"]]) {
+        action_select.appendChild(option(i[0], i[1], i[1] === configuration_key[command_name]["action"]))
     }
 
 
@@ -142,7 +137,7 @@ function reset_key_configurator(show_message=false) {
             auto_mod_config["enable"] = true
             auto_mod_config["roles"] = []
             auto_mod_config["channels"] = []
-            auto_mod_config["action"] = 0
+            auto_mod_config["action"] = "--send"
             auto_mod_config["description"] = COMMANDS_DESCRIPTIONS[j[0]]
 
             if (j[0] === "caps") {
@@ -357,6 +352,7 @@ document.getElementById("add_base_role_button").addEventListener("click", functi
     }
 
     console.log(base_role_value, base_role_text)
+    const last = base_save_settings(configuration_key)
 
     for (let cm in configuration_key) {
         // console.log(cm)
@@ -366,25 +362,38 @@ document.getElementById("add_base_role_button").addEventListener("click", functi
         configuration_key[cm]["roles"] = actual_roles
         // console.log(cm)
     }
+    console.log(last, configuration_key)
+    open_settings(configuration_key, "configurator", last, {
+            "slash": true,
+            "settings": true,
+            "automod": "",
+            "remove_after_close": false,
+            "parent_id": "",
+        })
 })
 document.getElementById("another_save_btn").addEventListener("click", function () {
     base_save_settings(configuration_key)
-    if (((configuration_key["afk"]["special_channel"] === " ") && (configuration_key["afk"]["enable"])) || ((configuration_key["report"]["special_channel"] === " ") && (configuration_key["report"]["enable"]))) {
 
-
-        if ((configuration_key["afk"]["special_channel"] === " ") && (configuration_key["afk"]["enable"])) {
-            danger("Необходимо указать канал или поставить авто-создание в команде /afk")
-
+    if (!login_discord) {
+        if (((configuration_key["afk"]["special_channel"] === "") && (configuration_key["afk"]["enable"])) || ((configuration_key["report"]["special_channel"] === " ") && (configuration_key["report"]["enable"]))) {
 
         }
-        console.log(configuration_key["report"])
-        if ((configuration_key["report"]["special_channel"] === " ") && (configuration_key["report"]["enable"])) {
-            danger("Необходимо указать канал или поставить авто-создание в команде /report")
-
-        }
-
-        return 0
     }
+    //
+    //
+    //     if ((configuration_key["afk"]["special_channel"] === " ") && (configuration_key["afk"]["enable"])) {
+    //         danger("Необходимо указать канал или поставить авто-создание в команде /afk")
+    //
+    //
+    //     }
+    //     console.log(configuration_key["report"])
+    //     if ((configuration_key["report"]["special_channel"] === " ") && (configuration_key["report"]["enable"])) {
+    //         danger("Необходимо указать канал или поставить авто-создание в команде /report")
+    //
+    //     }
+    //
+    //     return 0
+    // }
     console.log(configuration_key)
 
     // SaveDateToLocalStorage("moderation", configuration_key)

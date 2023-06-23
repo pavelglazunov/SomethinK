@@ -1,6 +1,6 @@
 @font-face {
     font-family: Itim;
-    src: url("/app/static/fonts/itim-cyrillic.otf");
+    src: url("/static/fonts/itim-cyrillic.otf");
 }
 
 :root {

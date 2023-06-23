@@ -107,7 +107,7 @@ input[type=checkbox]:focus {
 
     padding: 0.2vw;
     display: block;
-    height: 4vw;
+    height: 3vw;
 
     width: 12vw;
     overflow: hidden;
@@ -119,7 +119,7 @@ input[type=checkbox]:focus {
 
 #help_button:hover::before {
 
-    content: "указанные роли будут автоматически добавлены во все команды";
+    content: "указанные роли будут добавлены во все команды";
 
 
 }
