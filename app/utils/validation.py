@@ -1,5 +1,5 @@
 import json
-from shlex import quote
+# from shlex import quote
 
 """
 Валидация данных, полученных в JSON с сайта
@@ -55,6 +55,8 @@ def _length(data, length):
 
 def moderation(data: dict):
     if not _json(data): return 100
+    # data = json.dumps(data)
+    # data = dict(data)
     print(all([i in ALL_COMMANDS for i in data.keys()]), [i in ALL_COMMANDS for i in data.keys()])
     print(data.keys())
     print(data)
@@ -68,7 +70,7 @@ def moderation(data: dict):
         if not (v["description"] or len(v["description"].split()) != 0 or _length(v["description"], 200)): return 103
         if not all([_int(i[1]) for i in v["roles"]]) and v["roles"]: return
 
-        v["description"] = quote(v["description"])
+        # v["description"] = quote(v["description"])
         print(v["description"])
 
 
@@ -87,10 +89,20 @@ def another(data):
 def social_media(data):
     return False
 
+
+def customization(data):
+    return False
+
+
+def settings(data):
+    return False
+
 VALIDATION = {
     "moderation": moderation,
     "roles": roles,
     "messages": messages,
     "another": another,
-    "social_media": social_media
+    "social_media": social_media,
+    "customization": customization,
+    "settings": settings
 }

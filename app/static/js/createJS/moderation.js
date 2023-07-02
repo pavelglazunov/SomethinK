@@ -217,10 +217,11 @@ fetch('/api/get', {
 
         configuration_key = data["configuration_key"]
 
-        // console.log(">>", configuration_key)
+        console.log(">>", data["configuration_key"], typeof data["configuration_key"])
         // console.log(">>", typeof configuration_key)
-
-        if (Object.keys(configuration_key).length === 0) {
+        console.log(configuration_key)
+        console.log(Object.keys(configuration_key).length)
+        if (data["configuration_key"] === "{}") {
             console.log(55555)
             configuration_key = {}
             reset_key_configurator()

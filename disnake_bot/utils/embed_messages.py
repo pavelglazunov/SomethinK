@@ -1,6 +1,7 @@
 from disnake import Embed
+import datetime
 
-from disnake_bot.config import MODERATION_COMMANDS, MESSAGES_CONFIG
+from disnake_bot.config import MODERATION_COMMANDS
 
 
 def message(title, description, color):
@@ -16,10 +17,11 @@ class EmbedMessages:
     def __init__(self):
         self.embed = Embed()
 
-    async def send_embed(self, inter, title, body, color):
+    async def send_embed(self, inter, title, body, color, footer="Время выполнения команды: {}"):
         self.embed.title = title
         self.embed.description = body
         self.embed.color = int(color, 16)
+        self.embed.set_footer(text=footer.format(datetime.datetime.now()))
         await inter.response.send_message(embed=self.embed)
 
     # async def success(self, inter, title, description, color=0x24FF00):

@@ -81,6 +81,7 @@ def login_discord():
 
     user = db_sess.query(User).filter(User.email == email).first()
     user.confirm_user = True
+    user.discord = f"{username}#{discriminator}"
     db_sess.commit()
     login_user(user, remember=True)
 
@@ -100,7 +101,7 @@ def register():
                                    form=form,
                                    message="Пароли не совпадают")
         db_sess = db_session.create_session()
-        if len(form.name.data) > 64:
+        if len(form.name.data) > 20:
             return render_template('auth/register.html', title='Регистрация',
                                    form=form,
                                    message="Имя слишком длинное")
@@ -171,6 +172,8 @@ def logout():
 
     session["user_bot_token"] = ""
     session["user_guild_id"] = ""
+
+    session.clear()
 
     logout_user()
     return redirect("/")

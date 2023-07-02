@@ -149,7 +149,7 @@ fetch('/api/get', {
         console.log(">>", typeof configuration_key)
 
 
-        if (Object.keys(configuration_key).length === 0) {
+        if (data["configuration_key"] === "{}") {
             console.log(55555)
             configuration_key = {}
             reset_role_configuration_key()

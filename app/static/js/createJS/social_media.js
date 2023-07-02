@@ -28,11 +28,9 @@ const SM = {
 
 
 function reset_sm_configurator() {
-    console.log("start reset", configuration_key)
     configuration_key["youtube"] = {}
     configuration_key["twitch"] = {}
 
-    console.log("2 reset", configuration_key)
 
     // configuration_key["commands"] = {}
 
@@ -47,7 +45,6 @@ function reset_sm_configurator() {
             configuration_key[j] = command_config
         }
     }
-    console.log("finish reset", configuration_key)
 
 }
 
@@ -199,11 +196,11 @@ fetch('/api/get', {
         user_roles = data["roles"]
         configuration_key = data["configuration_key"]
 
-        if (Object.keys(configuration_key).length === 0) {
+        if (data["configuration_key"] === "{}") {
             console.log(55555)
             configuration_key = {}
             reset_sm_configurator()
-            generate_base_variant()
+            // generate_base_variant()
 
         } else {
             configuration_key = JSON.parse(configuration_key)
@@ -411,8 +408,8 @@ document.getElementById("reset_btn").addEventListener("click", function () {
         reset_sm_configurator()
 
 
-        const answer = post_data("messages", configuration_key)
-        console.log(configuration_key)
+        // const answer = post_data("messages", configuration_key)
+        // console.log(configuration_key)
 
         // while (document.getElementsByClassName("command_block")) {
         //     document.getElementsByClassName("command_block")[0].remove()
@@ -432,15 +429,18 @@ document.getElementById("reset_btn").addEventListener("click", function () {
         // document.getElementById("youtube_footer").innerHTML = ""
         // document.getElementById("twitch_footer").innerHTML = ""
 
-        main()
-        generate_base_variant()
+        // generate_base_variant()
+        const answer = post_data("social_media", configuration_key)
         answer.then(a => {
             if (a["status"] === "ok") {
                 warning("изменения сброшены")
+
                 return 0
             }
             danger(a["message"])
         })
+        main()
+
 
     }
 })

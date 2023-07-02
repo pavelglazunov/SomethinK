@@ -1,0 +1,65 @@
+.content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    justify-content: space-around;
+}
+
+p {
+    margin: 0.5vw 0;
+}
+
+.data_block {
+    display: flex;
+    flex-direction: column;
+
+    height: 15vw;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#_input_project_name {
+    background: none ;
+    min-width: 100%;
+    height: 3vw;
+    font-size: 1.5vw;
+}
+#save_btn {
+    background-color: #23272A;
+    /*width: 100%;*/
+    height: 3vw;
+    font-size: 2vw;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 0.5vw;
+
+    width: 50%;
+
+
+    /*color: #1b1b20;*/
+
+
+}
+
+#save_btn label {
+    width: 100%;
+
+    text-align: center;
+    line-height: 1em;
+    /*margin: auto;*/
+    padding-bottom: 0.3vw;
+    cursor: pointer;
+
+}
+
+#save_btn:hover {
+    filter: drop-shadow(10px 10px 10px #171B22);
+
+}
+
+

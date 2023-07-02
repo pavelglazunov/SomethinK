@@ -84,10 +84,11 @@ def get_token():
                                    auth_with_discord=bool(session.get("token"))
                                    )
 
-        session["user_bot_token"] = session.get("user_bot_token", form.token.data)
+        session["user_bot_token"] = session.get("user_bot_token") if session.get("user_bot_token") else form.token.data
         session["user_guild_id"] = requests.get(f"https://discord.com/api/v8/users/@me/guilds",
-                                                headers={"Authorization": f"Bot {session['user_bot_token']}"}).json()[0]["id"]
-        session["configurator"] = session.get("configurator", {
+                                                headers={"Authorization": f"Bot {session['user_bot_token']}"}).json()[
+            0]["id"]
+        session["configurator"] = session.get("configurator") if session.get("configurator") else {
             "moderation": {},
             "messages": {},
             "roles": {},
@@ -95,7 +96,7 @@ def get_token():
             "another": {},
             "settings": {},
             "customization": {}
-        })
+        }
 
         return render_template("create/token.html", form=form, status=True, message="токен подтвержден",
                                from_submit=True, auth_with_discord=bool(session.get("token")))
@@ -168,6 +169,15 @@ def get_settings():
     return render_template("create/settings.html", status=True)
 
 
-@create_bp.route("/create")
+@create_bp.route("/create", methods=["GET", "POST"])
+@login_required
 def create_page():
-    ...
+    if not has_bot_token():
+        return redirect("/create/token")
+
+    form = CreateFinsh()
+    print(form.create_button)
+    if form.validate_on_submit():
+        # print(session)
+        return render_template("create/create_bot.html", form=form, status=False)
+    return render_template("create/create_bot.html", form=form, status=True)

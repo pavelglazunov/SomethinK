@@ -1,0 +1,42 @@
+{% extends "create/create_base.html" %}
+
+{% block css_connect %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create/create_bot.css')}}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="content">
+    <div class="data_block">
+
+
+
+        <div class="data_header">
+            <p class="text">введите имя проекта, под которым будет сохранен бот</p>
+            <input type="text" placeholder="Имя проекта" id="_input_project_name" class="select_roles">
+<!--            {{ form.project_name(class="select_roles",id="_input_project_name", type="text", placeholder="Имя проекта") }}<br>-->
+<!--            {% for error in form.project_name.errors %}-->
+<!--            {% endfor %}-->
+        </div>
+<!--        {{ form.create_button(class="btn_save", id="save_btn", type="submit", placeholder="сохранить") }}-->
+<!--        {% for error in form.create_button.errors %}-->
+<!--        {% endfor %}-->
+<!--        <input type="submit">-->
+        <button id="save_btn" class="btn_save"><label>создать</label></button>
+
+    </div>
+    <div class="text">
+        <h1>важно</h1>
+        <p>После создания бота вы сможете скачать архив с его кодом.</p>
+        <p>После получения кода, необходимо разместить бота на хостинге, чтобы он мог работать 24/7. </p>
+        <p>К сожалению, мы не можем позволить себе хостить ботов пользователей, но для вашего удобства приводим несколько сервисов и инструкций к ним, на которых вы сможете разместить вашего бота</p>
+        <p>сервис1 - инструкция</p>
+        <p>сервис2 - инструкция</p>
+    </div>
+
+</div>
+
+<script src="/static/js/createJS/create_bot.js"></script>
+{% endblock %}

@@ -8,7 +8,7 @@ from flask_limiter.util import get_remote_address
 import os
 
 from .data import db_session
-from .data.users import User
+from .data.users import User, Projects
 
 app = Flask(__name__)
 app.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig')

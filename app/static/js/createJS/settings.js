@@ -163,7 +163,7 @@ fetch('/api/get', {
         user_channels = data["channels"]
         configuration_key = data["configuration_key"]
 
-        if (Object.keys(configuration_key).length === 0) {
+        if (data["configuration_key"] === "{}") {
             configuration_key = {}
             reset_settings_configuration_key()
         } else {
@@ -179,7 +179,6 @@ fetch('/api/get', {
 
 
 function main() {
-    console.log(block)
     block.innerHTML = ""
 
     let logging_block = div("input_block")

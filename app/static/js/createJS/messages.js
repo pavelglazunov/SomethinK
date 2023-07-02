@@ -51,8 +51,8 @@ fetch('/api/get', {
         user_channels = data["channels"]
 
         configuration_key = data["configuration_key"]
-
-        if (Object.keys(configuration_key).length === 0) {
+        console.log(data["configuration_key"])
+        if (data["configuration_key"] === "{}") {
             configuration_key = {}
             reset_message_configuration_key()
         } else {
@@ -920,7 +920,11 @@ document.getElementById("add_auto_response_block").addEventListener("click", fun
 document.getElementById("save_btn").addEventListener("click", function () {
 
 
-    let new_data = {}
+    let new_data = {
+        "time_message": {},
+        "events": {},
+        "auto_response": {},
+    }
     for (let tm of document.getElementsByClassName("time_message_block")) {
         let data = {}
         let embed = {}
@@ -1088,7 +1092,10 @@ document.getElementById("save_btn").addEventListener("click", function () {
             success()
             return 0
         }
-        danger(a["message"])
+        else {
+            danger(a["message"])
+            console.log(a, a["message"], 5555555555555555555)
+        }
     })
 
 

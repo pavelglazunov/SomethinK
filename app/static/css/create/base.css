@@ -145,7 +145,7 @@
 .btn_save:hover {
     /*background-color: #063a15;*/
     filter: drop-shadow(5px 5px 10px #171B22);
-    border: 2px solid #09af67;
+    /*border: 2px solid #09af67;*/
 }
 
 .main_bg {
