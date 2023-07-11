@@ -6,6 +6,7 @@ from flask_login import login_required, current_user
 
 from app import limiter
 from app.forms.create_forms import *
+from config import ONLINE
 from zenora import APIClient, GuildBase
 
 # from discord.utils import get as discord_get
@@ -74,6 +75,8 @@ def get_token():
     form = Token()
 
     if form.validate_on_submit():
+
+
         if not check_token_valid(form.token.data):
             print("invalid token")
             return render_template("create/token.html",

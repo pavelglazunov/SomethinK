@@ -1,8 +1,6 @@
 import disnake
 from disnake.ext import commands
-from disnake import ApplicationCommandInteraction as Inter
 import disnake_bot.config as cfg
-from enum import Enum
 
 from disnake_bot.utils.embed_messages import EmbedMessages, ErrorMessages
 
@@ -11,59 +9,30 @@ _errors = ErrorMessages()
 
 intents = disnake.Intents.all()
 command_sync_flags = commands.CommandSyncFlags.default()
-command_sync_flags.sync_commands_debug = cfg.sync_commands_debug
+command_sync_flags.sync_commands_debug = cfg.SYNC_COMMANDS_DEBUG
 
-bot = commands.Bot(command_prefix="/",
+bot = commands.Bot(command_prefix=cfg.PREFIX,
                    intents=intents,
                    test_guilds=[1076824052007714937],
                    command_sync_flags=command_sync_flags)
 
 
-@bot.slash_command(description="amogus////////")
-async def buttons(inter: Inter):
-    embed = disnake.Embed(
-
-    )
-
-    await inter.response.send_message(
-        embed=embed,
-        components=[
-
-            disnake.ui.Button(label="первая", style=disnake.ButtonStyle.success, custom_id="_help_first",
-                              disabled=True),
-            disnake.ui.Button(label="следующая", style=disnake.ButtonStyle.success, custom_id="_help_next",
-                              disabled=True),
-            disnake.ui.Button(label="1/9", style=disnake.ButtonStyle.gray, custom_id="_help_page", disabled=True),
-            disnake.ui.Button(label="предыдущая", style=disnake.ButtonStyle.success, custom_id="_help_previous"),
-            disnake.ui.Button(label="последняя", style=disnake.ButtonStyle.success, custom_id="_help_last"),
-        ]
-    )
-
-
-@bot.listen("on_button_click")
-async def help_listener(inter: Inter):
-    if inter.component.custom_id.startWith("_help"):
-        if inter.component.custom_id == "_help_previous":
-            await inter.response.send_message("Contact us at https://discord.gg/disnake!")
-        elif inter.component.custom_id == "_help_last":
-            await inter.response.send_message("Got it. Signing off!")
-
-
 @bot.event
 async def on_ready():
-    # Получаем объекты серверов, на которых находится бот
-    for guild in bot.guilds:
-        # Получаем объект бота на сервере
-        bot_member = guild.get_member(bot.user.id)
+    print(f"Бот {bot.user.name} готов к работе!")
 
-        # Получаем все права бота на сервере
-        bot_permissions = bot_member.guild_permissions
+    from on_load import loader
 
-        # Выводим все права бота на сервере в консоль
-        print(f'Права бота на сервере {guild.name}:')
-        for perm, value in bot_permissions:
-            if value:
-                print(f'{perm}: {value}')
+    await loader(bot)
+
+    # await channel.send("Сообщение раз в 10 секунд")
+    # from regulars import create_all_async_process
+    #
+    # await create_all_async_process(bot)
+    print("here XD")
+    # bot.loop.create_task(send_regular_message(bot=bot))
+
+
 # @bot.check
 # async def global_guild_only(ctx):
 #     if not ctx.guild:
@@ -73,13 +42,19 @@ async def on_ready():
 #     print("Connected")
 # from cogs.cog_help import HelpCog
 from cogs.moderation import ModerationCog
+from cogs.another import AnotherCog
+from cogs.settings import SettingsCog
+from disnake_bot.cogs.automod import AutomodCog
 
 from cogs.error_handler import ErrorHandlerCog
 
 #
 # bot.add_cog(HelpCog(bot))
 bot.add_cog(ModerationCog(bot))
+bot.add_cog(AnotherCog(bot))
 bot.add_cog(ErrorHandlerCog(bot))
+bot.add_cog(SettingsCog(bot))
+bot.add_cog(AutomodCog(bot))
 
 if __name__ == '__main__':
-    bot.run(cfg.token)
+    bot.run(cfg.TOKEN)

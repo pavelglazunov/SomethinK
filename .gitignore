@@ -37,3 +37,5 @@ disnake_bot/config.py
 ./test__bot
 /test__bot
 test__bot
+
+tests.py

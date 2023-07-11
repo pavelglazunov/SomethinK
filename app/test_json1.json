@@ -65,36 +65,103 @@
   },
   "customization": {},
   "messages": {
-    "add_tw": {
-      "channels": [],
-      "description": "добавить отслеживание твич канала",
-      "enable": true,
-      "roles": []
+    "auto_response": {
+      "7": {
+        "content": "not embed",
+        "embed": {
+          "author": "",
+          "color": "#BEC100",
+          "footer_content": "",
+          "header": "",
+          "image_url": ""
+        },
+        "enable_embed": false,
+        "trigger": "hellow",
+        "trigger_type": "inside"
+      },
+      "9": {
+        "content": "jk;ljkjkjkl",
+        "embed": {
+          "author": "hhehea",
+          "color": "#59ff8f",
+          "footer_content": "lkjlkjlk",
+          "header": "kj;lj",
+          "image_url": "klj"
+        },
+        "enable_embed": true,
+        "trigger": "not hellow",
+        "trigger_type": "start"
+      }
     },
-    "add_yt": {
-      "channels": [],
-      "description": "добавить отслеживание ютуб канала",
-      "enable": true,
-      "roles": []
+    "events": {
+      "4": {
+        "channel": "1093164701581594624",
+        "content": "text event",
+        "embed": {
+          "author": "",
+          "color": "#BEC100",
+          "footer_content": "",
+          "header": "",
+          "image_url": ""
+        },
+        "enable_embed": false,
+        "type": "join"
+      },
+      "6": {
+        "channel": "1077669672738111589",
+        "content": "body event",
+        "embed": {
+          "author": "i",
+          "color": "#3315ac",
+          "footer_content": "footerrrrr",
+          "header": "header event",
+          "image_url": "hhhrhr"
+        },
+        "enable_embed": true,
+        "type": "leave"
+      }
     },
-    "rm_tw": {
-      "channels": [],
-      "description": "удалить отслеживание твич канала",
-      "enable": true,
-      "roles": []
-    },
-    "rm_yt": {
-      "channels": [],
-      "description": "удалить отслеживание ютуб канала",
-      "enable": true,
-      "roles": []
-    },
-    "twitch": {},
-    "youtube": {}
+    "time_message": {
+      "1": {
+        "channel": "1078292043698282537",
+        "content": "text1",
+        "embed": {
+          "author": "",
+          "color": "#BEC100",
+          "footer_content": "",
+          "header": "",
+          "image_url": ""
+        },
+        "enable_embed": false,
+        "interval": "24",
+        "time": "12:00",
+        "units_of_measure": "hours"
+      },
+      "3": {
+        "channel": "1077669672738111589",
+        "content": "body",
+        "embed": {
+          "author": "I",
+          "color": "#bec100",
+          "footer_content": "footer",
+          "header": "header",
+          "image_url": "https://"
+        },
+        "enable_embed": true,
+        "interval": "12",
+        "time": "12:00",
+        "units_of_measure": "days"
+      }
+    }
   },
   "moderation": {
     "addrole": {
-      "channels": [],
+      "channels": [
+        [
+          1234567891011,
+          "reports_channel"
+        ]
+      ],
       "description": "выдать роль пользователю",
       "enable": true,
       "roles": []

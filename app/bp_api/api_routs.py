@@ -79,6 +79,7 @@ def submit_token():
 @api_bp.route("/start_creating", methods=["POST"])
 @login_required
 def start_creating():
+    print(session['configurator']['messages'])
     if not request.json:
         return jsonify({"status": "error"})
     if not _json(request.json):

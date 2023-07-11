@@ -14,6 +14,7 @@ from telegramAuthBot.api.auth_api import generate_api_token
 from app import mail, app
 
 import app.ds_config as api_config
+from config import ONLINE
 
 from zenora import APIClient
 

@@ -24,9 +24,6 @@ class EmbedMessages:
         self.embed.set_footer(text=footer.format(datetime.datetime.now()))
         await inter.response.send_message(embed=self.embed)
 
-    # async def success(self, inter, title, description, color=0x24FF00):
-    #     await inter.response.send_message(embed=message(title, description, color))
-
 
 class ErrorMessages:
     def __init__(self):

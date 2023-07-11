@@ -1,4 +1,5 @@
 import json
+
 # from shlex import quote
 
 """
@@ -8,10 +9,14 @@ import json
 
 код  | ошибка
 100 -> ошибка преобразования в JSON  
-101 -> неизвестная команда
+101 -> ошибка преобразования в integer
 102 -> ошибка преобразования в boolean
-103 -> ошибка в описании
-104 -> ошибка в списке ролей
+103 -> ошибка преобразования в string
+104 -> ошибка преобразования в float
+
+200 -> неизвестная команда
+201 -> ошибка в описании
+202 -> ошибка в списке ролей
  ->   
  ->   
  ->   
@@ -25,28 +30,43 @@ ALL_COMMANDS = ['ban', 'unban', 'mute', 'unmute', 'chatmute', 'chatunmute', 'tim
                 'add_tw', 'rm_tw', "ignore_admin", "ignore_bot"]
 
 
+def on_error(error_code):
+    def decorator(func):
+        def wrapper(*args):
+            try:
+                func(*args)
+                return 0
+            except Exception:
+                return error_code
+
+        return wrapper
+
+    return decorator
+
+
+@on_error(100)
 def _json(data):
-    try:
-        json.dumps(data)
-        return True
-    except Exception:
-        return False
+    json.dumps(data)
 
 
-def _boolean(data):
-    try:
-        bool(data)
-        return True
-    except TypeError:
-        return False
-
-
+@on_error(101)
 def _int(data):
-    try:
-        int(data)
-        return True
-    except Exception:
-        return False
+    int(data)
+
+
+@on_error(102)
+def _boolean(data):
+    bool(data)
+
+
+@on_error(103)
+def _string(data):
+    str(data)
+
+
+@on_error(104)
+def _float(data):
+    float(data)
 
 
 def _length(data, length):
@@ -54,24 +74,16 @@ def _length(data, length):
 
 
 def moderation(data: dict):
-    if not _json(data): return 100
+    if code := _json(data) != 0: return code
     # data = json.dumps(data)
     # data = dict(data)
-    print(all([i in ALL_COMMANDS for i in data.keys()]), [i in ALL_COMMANDS for i in data.keys()])
-    print(data.keys())
-    print(data)
-    print("==== START VALIDATION ====")
+
+    print("==== START MODERATION VALIDATION ====")
     if not all([i in ALL_COMMANDS for i in data.keys()]): return 101
     for k, v in data.items():
-        print(v)
-        if not _boolean(v["enable"]): return 102
-        print(">>", k)
-        print(k, "|", v["description"], len(v["description"].split()), _length(v["description"], 200))
-        if not (v["description"] or len(v["description"].split()) != 0 or _length(v["description"], 200)): return 103
-        if not all([_int(i[1]) for i in v["roles"]]) and v["roles"]: return
-
-        # v["description"] = quote(v["description"])
-        print(v["description"])
+        if code := _boolean(data) != 0: return code
+        # if not (v["description"] or len(v["description"].split()) != 0 or _length(v["description"], 200)): return 103
+        # if not all([_int(i[1]) for i in v["roles"]]) and v["roles"]: return
 
 
 def roles(data):
@@ -97,6 +109,7 @@ def customization(data):
 def settings(data):
     return False
 
+
 VALIDATION = {
     "moderation": moderation,
     "roles": roles,
@@ -106,3 +119,12 @@ VALIDATION = {
     "customization": customization,
     "settings": settings
 }
+
+if __name__ == '__main__':
+    with open("../test_json1.json", encoding="utf-8") as file:
+        _data: dict = json.load(file)
+
+        print(_data["moderation"])
+        for i in _data:
+            if _code := VALIDATION[i](_data[i]):
+                print(_code)
