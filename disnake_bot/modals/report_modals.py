@@ -3,6 +3,7 @@ import datetime
 import disnake
 from disnake.ext import commands
 from disnake_bot.config import REPORT_CHANNEL_ID
+from disnake_bot.utils.messages import send_message
 
 
 class ReportModal(disnake.ui.Modal):
@@ -28,10 +29,11 @@ class ReportModal(disnake.ui.Modal):
     async def callback(self, interaction: disnake.ModalInteraction) -> None:
         details = interaction.text_values["details"]
 
-        embed = disnake.Embed(color=0xfac20a, title="Заявка отправлена!")
-        embed.description = f"{interaction.author.mention}, Благодарим вас за **обратную связь**! " \
-                            f"Администрация сервера рассмотрит вашу **жалобу** и примет соответствующие меры"
-        await interaction.response.send_message(embed=embed, ephemeral=True)
+        # embed = disnake.Embed(color=0xfac20a, title="Заявка отправлена!")
+        # embed.description = f"{interaction.author.mention}, Благодарим вас за **обратную связь**! " \
+        #                     f"Администрация сервера рассмотрит вашу **жалобу** и примет соответствующие меры"
+        # await interaction.response.send_message(embed=embed, ephemeral=True)
+        await send_message(interaction, "report")
 
         channel = interaction.guild.get_channel(REPORT_CHANNEL_ID)  # Вставить ID канала куда будут отправляться заявки
         report_embed = disnake.Embed(color=0xfa0a76, title=f"Новая жалоба",

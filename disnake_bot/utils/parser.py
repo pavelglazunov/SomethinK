@@ -1,5 +1,5 @@
 import json
-from disnake_bot.config import EVERYONE_ID, CONFIG_JSON_FILENAME
+from disnake_bot.config import EVERYONE_ID, CONFIG_JSON_FILENAME, MESSAGES_JSON_FILENAME
 from disnake_bot.utils.decorators import edit_json
 
 
@@ -31,3 +31,8 @@ def edit_config(key: str, value, data: dict):
         current = current[k]
     current[keys[-1]] = value
     return 0
+
+
+@edit_json(MESSAGES_JSON_FILENAME)
+def load_messages(data):
+    return data

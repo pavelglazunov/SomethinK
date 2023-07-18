@@ -15,7 +15,7 @@ from disnake_bot.modals.feedback_modals import FeedbackTypeSelect
 
 from enum import Enum
 
-from disnake_bot import _message, _errors
+# from disnake_bot import _message, _errors
 
 logging_actions = {
     "выключено": "off",

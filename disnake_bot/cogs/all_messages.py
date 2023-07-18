@@ -6,13 +6,23 @@ from disnake_bot.automod.automods import automod
 from disnake_bot.automod.actions import ACTIONS, remove_pending_message
 from disnake_bot.event_logging import log
 
-from disnake_bot.utils.parser import get_command_allow_roles, get_command_allow_channels
-from disnake_bot.utils.decorators import allowed_channels
+from disnake_bot.utils.parser import parse_config
+from disnake_bot.utils.messages import send_event_message
+# from disnake_bot.utils.parser import get_command_allow_roles, get_command_allow_channels
+# from disnake_bot.utils.decorators import allowed_channels
 
-from disnake_bot import _message
+# from disnake_bot import _message
+
+auto_responses = parse_config("auto_responser")
+
+detect_trigger = {
+    "inside": lambda x, m: x in m,
+    "start": lambda x, m: m.startswith(x),
+    "only": lambda x, m: x == m,
+}
 
 
-class AutomodCog(commands.Cog):
+class AllMessagesCog(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
 
@@ -20,9 +30,18 @@ class AutomodCog(commands.Cog):
     async def on_message(self, message: disnake.Message):
         if message.author.bot:
             return
+
         if mod := automod(message.content):
             log(message, mod[0], "commands")
             await ACTIONS[mod[1]](message, mod[2])
+
+        for response in auto_responses:
+            trigger_type = response["trigger_type"]
+            trigger = response["trigger"]
+            print(trigger, trigger_type, detect_trigger[trigger_type](trigger, message.content))
+            if detect_trigger[trigger_type](trigger, message.content):
+                channel = message.channel
+                await send_event_message(channel, response, message.author)
 
     @commands.Cog.listener("on_button_click")
     async def button_listener(self, inter: disnake.MessageInteraction):

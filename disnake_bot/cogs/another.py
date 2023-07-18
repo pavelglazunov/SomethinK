@@ -9,8 +9,7 @@ from disnake_bot.utils.parser import get_command_allow_roles, get_command_allow_
 from disnake_bot.utils.decorators import allowed_channels
 from disnake_bot.config import WEATHER_API_KEY
 from disnake_bot.event_logging import log
-
-from disnake_bot import _message, _errors
+from disnake_bot.utils.messages import send_message, send_long_message, error
 
 from translate import Translator
 
@@ -45,14 +44,15 @@ class AnotherCog(commands.Cog):
         color: Цвет в формате HEX (без #) или -1 для очистки цвета
         """
 
+        await send_long_message(inter, "color")
         color = color.lower()
         try:
             int(color, 16)
         except Exception:
-            await inter.response.send_message("Вы ввели неправильный цвет", ephemeral=True)
+            await error(inter, "color_input_error")
             return
         if len(color) == 2 and color != "-1":
-            await inter.response.send_message("Введено неверное значение цвета", ephemeral=True)
+            await error(inter, "color_input_error")
             return
         if color == "-1":
             for user_role in inter.user.roles:
@@ -66,12 +66,12 @@ class AnotherCog(commands.Cog):
                     await guild_role.delete(
                         reason="Роль {} была удаленна после того, как последний участник ({}) снял ее при помощи команды /color -1 в {}".format(
                             guild_role.name, inter.user.name, datetime.datetime.now()))
-            await inter.response.send_message("Ваш цвет сброшен", ephemeral=True)
+            await inter.edit_original_message("Ваш цвет сброшен")
 
             return 0
 
         if len([i for i in color if i in "0123456789abcdef"]) != len(color):
-            await inter.response.send_message("Введено неверное значение цвета", ephemeral=True)
+            await error(inter, "color_input_error")
             return
 
         for r in inter.guild.roles:
@@ -96,7 +96,7 @@ class AnotherCog(commands.Cog):
         await inter.user.add_roles(role,
                                    reason="Пользователь {} изменил цвет на {} при помощи команды /color путем получения роли color_{} в {}".format(
                                        inter.user.name, color, color, datetime.datetime.now()))
-        await inter.response.send_message("Ваш цвет изменен на #{}".format(color), ephemeral=True)
+        await inter.edit_original_message("Ваш цвет изменен на #{}".format(color))
 
     @commands.slash_command(name="nick", description="Изменить имя в чате")
     @commands.has_any_role(*get_command_allow_roles("nick"))
@@ -114,7 +114,9 @@ class AnotherCog(commands.Cog):
         await inter.user.edit(nick=name,
                               reason="Пользователь {} изменил имя в чате на {} при помощи команды /nick в {}".format(
                                   inter.user.name, name, datetime.datetime.now()))
-        await inter.response.send_message("Ваше имя изменено на {}".format(name), ephemeral=True)
+
+        await send_message(inter, "nick", user="", **{"argument": name})
+        # await inter.response.send_message("Ваше имя изменено на {}".format(name), ephemeral=True)
 
     @commands.slash_command(name="joke", description="Случайный анекдот")
     @commands.has_any_role(*get_command_allow_roles("joke"))
@@ -128,8 +130,12 @@ class AnotherCog(commands.Cog):
         ----------
 
         """
+        await send_long_message(inter, "joke")
         joke = requests.get(" http://rzhunemogu.ru/RandJSON.aspx?CType=1").text[12:-2]
-        await inter.response.send_message(joke + "\n\nАнекдоты взяты с сайта http://rzhunemogu.ru/")
+
+        await send_message(inter, "joke", user="", **{"result": joke,
+                                                      "edit_original_message": True})
+        # await inter.response.send_message(joke + "\n\nАнекдоты взяты с сайта http://rzhunemogu.ru/")
 
     @commands.slash_command(name="weather", description="Актуальная погода")
     @commands.has_any_role(*get_command_allow_roles("weather"))
@@ -143,6 +149,7 @@ class AnotherCog(commands.Cog):
         ----------
         city: Город
         """
+        await send_long_message(inter, "weather")
         weather = requests.get(
             f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q={city}&aqi=no&lang=ru").json()
         # print(weather)
@@ -150,7 +157,9 @@ class AnotherCog(commands.Cog):
             answer = f"{weather['current']['condition']['text']}. Температура воздуха: {weather['current']['temp_c']}°. Скорость ветра: {weather['current']['wind_kph']} км/ч"
         else:
             answer = "Произошла ошибка в запросе: " + weather.get("error").get("message")
-        await inter.response.send_message(answer)
+
+        await send_message(inter, "weather", user="", **{"result": answer,
+                                                         "edit_original_message": True})
 
     @commands.slash_command(name="translate", description="Перевод текста с одного языка на другой")
     @commands.has_any_role(*get_command_allow_roles("translate"))
@@ -167,9 +176,13 @@ class AnotherCog(commands.Cog):
         to_language: перевести на
         text: Текст, который нудно перевести
         """
+        # await inter.
+        await send_long_message(inter, "translate")
         translator = Translator(from_lang=from_language, to_lang=to_language)
         answer = translator.translate(text)
-        await inter.response.send_message(answer)
+        await send_message(inter, "translate", user="", **{"result": answer, "from_language": from_language,
+                                                           "to_language": to_language, "text": text,
+                                                           "edit_original_message": True})
 
     @commands.slash_command(name="say", description="Написать текст от имени бота")
     @commands.has_any_role(*get_command_allow_roles("say"))
@@ -184,7 +197,8 @@ class AnotherCog(commands.Cog):
         text: Текст, который нудно перевести
         """
 
-        await inter.response.send_message(text)
+        # await inter.response.send_message(text)
+        await send_message(inter, "say", user="", **{"result": text})
 
     @commands.slash_command(name="avatar", description="Получить аватар пользователя")
     @commands.has_any_role(*get_command_allow_roles("avatar"))
@@ -200,7 +214,6 @@ class AnotherCog(commands.Cog):
         """
         embed = disnake.Embed()
 
-        embed.title = "Аватар пользователя {}".format(member.name)
         embed.set_image(member.avatar)
 
         await inter.send(embed=embed)

@@ -1,5 +1,5 @@
 from disnake.ext import commands
-from disnake_bot import _message, _errors
+# from disnake_bot import _message, _errors
 # from disnake_bot.config import MESSAGES_CONFIG, MODERATION_COMMANDS, MODERATION_ROLES_ID, EVERYONE_COMMANDS
 
 
