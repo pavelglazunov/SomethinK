@@ -8,28 +8,28 @@
 {% block content %}
 
 <div class="content">
-    <div class="data" id="data_block_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
-        <p class="text_block">В этом разделе вы можете настроить бота</p>
+<!--    <div class="data" id="data_block_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">-->
+<!--        <p class="text_block">В этом разделе вы можете настроить бота</p>-->
 
-        <div class="sticky_block">
-            <div class="block" id="configurator"  style="max-width: 30vw; margin-bottom: 2vw; padding-bottom: 1vw">
-                <p class="about_configurator">В этом блоке вы сможете настроить необходимые команды</p>
-                <p class="about_configurator">Данный блок не является обязательным для заполнения</p>
-                <p class="about_configurator">Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение "все"</p>
-                <p class="about_configurator">Если вы не заполните поле "описание", в команде будет установлено базовое значение (указано в заголовке каждой команды)</p>
-                <p class="about_configurator"><span style="color: #dc3545">*</span> - обязательно для заполнения</p>
-            </div>
+<!--        <div class="sticky_block">-->
+<!--            <div class="block" id="configurator"  style="max-width: 30vw; margin-bottom: 2vw; padding-bottom: 1vw">-->
+<!--                <p class="about_configurator">В этом блоке вы сможете настроить необходимые команды</p>-->
+<!--                <p class="about_configurator">Данный блок не является обязательным для заполнения</p>-->
+<!--                <p class="about_configurator">Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение "все"</p>-->
+<!--                <p class="about_configurator">Если вы не заполните поле "описание", в команде будет установлено базовое значение (указано в заголовке каждой команды)</p>-->
+<!--                <p class="about_configurator"><span style="color: #dc3545">*</span> - обязательно для заполнения</p>-->
+<!--            </div>-->
 
-            <div class="buttons">
-                <button class="btn_save" id="save_btn">сохранить</button>
-                <button class="btn_reset" id="reset_btn">сбросить</button>
-            </div>
-        </div>
-    </div>
+<!--            <div class="buttons">-->
+<!--                <button class="btn_save" id="save_btn">сохранить</button>-->
+<!--                <button class="btn_reset" id="reset_btn">сбросить</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
 
     <div class="functions">
-        <div class="block" style="min-width: 44vw">
+        <div class="block" style="min-width: 44vw; margin-bottom: 1vw">
             <p class="block_header" style="min-width: 44vw">настройки</p>
             <div class="loading" style="margin-top: 1vw"></div>
 
@@ -38,7 +38,10 @@
             </div>
 
         </div>
-
+        <div class="buttons" style="margin: 0; display: flex; justify-content: start">
+            <button class="btn_save" id="save_btn" style="margin-right: 1vw">сохранить</button>
+            <button class="btn_reset" id="reset_btn">сбросить</button>
+        </div>
     </div>
 </div>
 

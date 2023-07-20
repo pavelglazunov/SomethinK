@@ -1,9 +1,8 @@
 import os
 from app import app, db_session
-from telegramAuthBot import dp
+from telegramAuthBot import dp, remove_codes
 from aiogram.utils import executor
 from threading import Thread
-
 
 # class FlaskApp(threading.Thread):
 #     def run(self) -> None:
@@ -44,9 +43,16 @@ from threading import Thread
 if __name__ == '__main__':
     db_session.global_init("app/db/db.db")
 
-    app.run(host="127.0.0.1", port=8080, debug=True, threaded=True)
-    # Thread(target=lambda: app.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)).start()
-    # executor.start_polling(dp, skip_updates=True)
+    # app.run(host="127.0.0.1", port=8080, debug=True, threaded=True)
+
+    # Flask app
+    Thread(target=lambda: app.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)).start()
+
+    # Clear register codes
+    Thread(target=remove_codes).start()
+
+    # Telegram bot
+    executor.start_polling(dp, skip_updates=True)
 
     # print("here")
 # flask_app = FlaskApp()

@@ -2,6 +2,7 @@ from aiogram import Bot
 from aiogram.utils import executor
 from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from .api.remove_codes import remove_codes
 
 from config import BaseConfig
 

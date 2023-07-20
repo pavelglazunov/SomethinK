@@ -44,25 +44,19 @@ const ALL_COMMANDS = {
     "invite": "создать приглашение на сервер",
 }
 const ACTIVITY_ROLES = [
-    ["cs:go", "visual studio"],
-    ["valorant", "PyCharm"],
-    ["dota 2", "clion"],
-    ["league of legends", "IntelJS"],
-    ["minecraft", "WebStorm"],
-    ["fortnite", "PhpStorm"]]
+    ["Dota 2", "Counter-Strike: Global Offensive"],
+    ["VALORANT", "Minecraft"],
+    ["League of Legends", "Fortnite"]]
+    // ["league of legends", "IntelJS"],
+    // ["minecraft", "WebStorm"],
+    // ["fortnite", "PhpStorm"]]
 const ACTIVITY_ROLES_COLORS = {
-    "csgo": "BFC204",
-    "visualstudio": "318DFA",
-    "valorant": "F44B34",
-    "pycharm": "59FA31",
-    "dota2": "27A008",
-    "clion": "31FABE",
-    "leagueoflegends": "1698C1",
-    "inteljs": "0048D3",
-    "minecraft": "2BF227",
-    "webstorm": "0E54DC",
-    "fortnite": "EE27F2",
-    "phpstorm": "9A0CCC",
+    "Counter-Strike: Global Offensive": "BFC204",
+    "VALORANT": "F44B34",
+    "Dota 2": "27A008",
+    "League of Legends": "1698C1",
+    "Minecraft": "2BF227",
+    "Fortnite": "EE27F2",
 }
 const COMMANDS = [
     ["ban", "unban"],
@@ -116,7 +110,7 @@ const COMMANDS_WITH_API_TOKEN = {
 }
 
 const COMMAND_WITH_SPECIAL_FORM = {
-    "afk": ["voice", "канал, куда будет перемещен пользователь"],
+    // "afk": ["voice", "канал, куда будет перемещен пользователь"],
     "report": ["text", "канал, куда будут приходить жалобы"]
 }
 const AUTO_MODERATION = [

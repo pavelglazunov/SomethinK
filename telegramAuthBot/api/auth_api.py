@@ -43,9 +43,6 @@ def submit_api_token(code):
     if hash_code in data:
         email = data[hash_code]["email"]
 
-        # if datetime.datetime.strptime(data["time_over"], datetime.datetime.) > datetime.datetime.now():
-        #     return "Время действия кода истекло"
-
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == email).first()
         user.confirm_user = True

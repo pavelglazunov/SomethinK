@@ -1,19 +1,37 @@
 {% extends "base.html" %}
 
+
+{% block css_connect %}
+<link href="/static/css/auth/select_auth_type.css" rel="stylesheet">
+<link href="/static/css/auth/auth.css" rel="stylesheet">
+{% endblock %}
+
+
 {% block content %}
 
-<form action="" method="post" class="register_form_class">
-    {{ form.hidden_tag() }}
+<div class="auth_content">
+    <form action="" method="post" class="auth_block">
+        <div class="form_content">
+            <p class="block_header">Вход</p>
 
-    {{ form.email(class="form-control", type="email", placeholder="Email", style="height: 20px, width:
-    210px") }}<br>
-    {% for error in form.email.errors %}
-    {% endfor %}
-    {{ form.password(class="form-control", type="password", placeholder="Password", style="height: 20px, width:
-    210px") }}
-    {% for error in form.password.errors %}
-    {% endfor %}
-    {{ form.submit(type="submit", class="btn_btn-primary") }}
-    <div>{{ message }}</div>
-</form>
+            {{ form.hidden_tag() }}
+
+            {{ form.email(class="auth_text_inputs", type="email", placeholder="Email", style="height: 20px, width:
+            210px") }}<br>
+            {% for error in form.email.errors %}
+            {% endfor %}
+            {{ form.password(class="auth_text_inputs", type="password", placeholder="Password", style="height: 20px, width:
+            210px") }}
+            {% for error in form.password.errors %}
+            {% endfor %}
+            <div class="auth_error_message">{{ message }}</div>
+
+            {{ form.submit(type="submit", class="auth_button", style="margin-top: 2vw;") }}
+
+        </div>
+
+        <p class="block_footer">Еще нет аккаунта? <a href="/auth/register" class="block_footer_link">Создайте его!</a></p>
+    </form>
+</div>
+
 {% endblock %}

@@ -26,6 +26,8 @@ roles_content.style.minWidth = "40vw"
 
 function updateAR(value) {
     for (let i of Object.keys(ACTIVITY_ROLES_COLORS)) {
+
+
         // console.log(i)
 
 
@@ -60,6 +62,7 @@ function create_activity_roles_element(el_name, title) {
     let role_add_cb = input("blue_checkbox", "checkbox", "role_cb", "cb_" + el_name)
     let lbl = p(title, "configurator_inputs_text", "lbl_" + el_name)
 
+    lbl.style.fontSize = "0.9vw"
     color_select.value = configuration_key[el_name]["value"]
     role_add_cb.checked = configuration_key[el_name]["enable"]
 
@@ -92,6 +95,7 @@ function save_command() {
 }
 
 function reset_role_configuration_key() {
+    configuration_key = {}
     // console.log(5)
     configuration_key["start_roles"] = {
         "roles": []
@@ -100,7 +104,7 @@ function reset_role_configuration_key() {
 
     for (let _r of ACTIVITY_ROLES) {
         for (let r of _r) {
-            r = r.replace(" ", "").replace(":", "").replace(" ", "").toLowerCase()
+            // r = r.replace(" ", "").replace(":", "").replace(" ", "").toLowerCase()
             // console.log(r)
 
             configuration_key[r] = {
@@ -113,6 +117,7 @@ function reset_role_configuration_key() {
     configuration_key["update_interval"] = 5
     configuration_key["ar_enable"] = false
 
+    console.log(configuration_key)
     // configuration_key["ar_update"] = {
     //     "enable": true,
     //     "description": "включить/выключить обновление ролей активности",
@@ -153,8 +158,7 @@ fetch('/api/get', {
             console.log(55555)
             configuration_key = {}
             reset_role_configuration_key()
-        }
-        else {
+        } else {
             configuration_key = JSON.parse(configuration_key)
 
         }
@@ -220,8 +224,7 @@ function main() {
         _ar_row.style.marginTop = "0"
         for (let j of i) {
 
-            let _ar_name = j.replace(" ", "").replace(":", "").replace(" ", "").toLowerCase()
-            _ar_row.appendChild(create_activity_roles_element(_ar_name, j))
+            _ar_row.appendChild(create_activity_roles_element(j, j))
 
         }
         activity_roles_block.appendChild(_ar_row)
@@ -231,12 +234,13 @@ function main() {
 
     let interval_row = div("row")
     interval_row.appendChild(p("интервал обновления ролей:", "configurator_inputs_text", "interval_lbl"))
-    let input_interval_form = input("select_roles", "text", "", "input_interval")
+    let input_interval_form = input("select_roles", "number", "", "input_interval")
     input_interval_form.style.width = "2vw"
     input_interval_form.style.height = "1.5vw"
     input_interval_form.style.margin = "0 1vw"
     input_interval_form.style.filter = "none"
     input_interval_form.style.textAlign = "center"
+    input_interval_form.max = "604800"
 
     input_interval_form.value = configuration_key["update_interval"]
 
@@ -297,7 +301,6 @@ document.getElementById("save_btn").addEventListener("click", function () {
         }
         danger(a["message"])
     })
-
 
 
 })

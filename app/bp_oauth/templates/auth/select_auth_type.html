@@ -1,15 +1,47 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <a href="/auth/register">Зарегистрироваться</a>
-    <a href="/auth/login">войти</a>
-    <a href="{{ redirect_oauth_url }}">войти Discord</a>
-</body>
-</html>
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <link href="/static/css/auth/select_auth_type.css" rel="stylesheet">-->
+<!--    <title>Document</title>-->
+<!--</head>-->
+{% extends 'base.html' %}
+
+{% block css_connect %}
+<link href="/static/css/auth/select_auth_type.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block title %}{% endblock %}
+{% block content %}
+
+    <h1 class="main_header">выберите способ авторизации</h1>
+    <div class="content">
+        <div class="auth_block">
+            <div class="block_header">Discord</div>
+            <div class="block_content">
+                <p class="block_text">При данном способе входа, сайт получит доступ к вашим серверам и сможет автоматически заполнять ID каналов и ролей</p>
+                <img class="block_image" src="/static/img/icons8-discord-96.svg">
+            </div>
+            <a class="auth_button" href="{{ redirect_oauth_url }}">Войти</a>
+
+            <!--            <div class="auth_button">Войти</div>-->
+        </div>
+        <div class="auth_block">
+            <div class="block_header">Телеграм</div>
+            <div class="block_content">
+                <p class="block_text">При данном способе входа, сайт не сможет получить доступ к вашим серверам поэтому Вам придется переносить ID каналов и ролей вручную <br>PS это очень просто)</p>
+                <img class="block_image" src="/static/img/icons8-mail-96.svg">
+            </div>
+<!--            <a class="auth_button" href="{{ redirect_oauth_url }}">Войти</a>-->
+            <a class="auth_button" href="/auth/login">Войти</a>
+            <a class="auth_button" href="/auth/register">Зарегистрироваться</a>
+        </div>
+    </div>
+
+
+
+{% endblock %}

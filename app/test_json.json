@@ -1,41 +1,610 @@
 {
-  "location": {
-    "name": "Москва",
-    "region": "Moscow City",
-    "country": "Россия",
-    "lat": 55.75,
-    "lon": 37.62,
-    "tz_id": "Europe/Moscow",
-    "localtime_epoch": 1688384014,
-    "localtime": "2023-07-03 14:33"
-  },
-  "current": {
-    "last_updated_epoch": 1688383800,
-    "last_updated": "2023-07-03 14:30",
-    "temp_c": 22.0,
-    "temp_f": 71.6,
-    "is_day": 1,
-    "condition": {
-      "text": "Солнечно",
-      "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png",
-      "code": 1000
+  "another": {
+    "avatar": {
+      "channels": [],
+      "description": "получить аватар пользователя",
+      "enable": false,
+      "roles": []
     },
-    "wind_mph": 18.6,
-    "wind_kph": 29.9,
-    "wind_degree": 250,
-    "wind_dir": "WSW",
-    "pressure_mb": 1007.0,
-    "pressure_in": 29.74,
-    "precip_mm": 0.0,
-    "precip_in": 0.0,
-    "humidity": 43,
-    "cloud": 0,
-    "feelslike_c": 23.1,
-    "feelslike_f": 73.6,
-    "vis_km": 10.0,
-    "vis_miles": 6.0,
-    "uv": 6.0,
-    "gust_mph": 17.2,
-    "gust_kph": 27.7
+    "color": {
+      "channels": [],
+      "description": "поменять цвет имени на сервере",
+      "enable": true,
+      "roles": []
+    },
+    "embed": {
+      "channels": [],
+      "description": "создать embed",
+      "enable": false,
+      "roles": []
+    },
+    "gpt": {
+      "channels": [],
+      "description": "общения с chatGPT",
+      "enable": true,
+      "roles": [],
+      "token": "fsjdfsjdfklsdjfiosjfksjdfksajflkdjflkasjfdlkajflks"
+    },
+    "invite": {
+      "channels": [],
+      "description": "создать приглашение на сервер",
+      "enable": false,
+      "roles": []
+    },
+    "joke": {
+      "channels": [],
+      "description": "случайная шутка",
+      "enable": true,
+      "roles": []
+    },
+    "nick": {
+      "channels": [],
+      "description": "поменять имя на сервере",
+      "enable": false,
+      "roles": []
+    },
+    "say": {
+      "channels": [],
+      "description": "написать сообщения от имени бота",
+      "enable": false,
+      "roles": []
+    },
+    "translate": {
+      "channels": [],
+      "description": "перевести текст",
+      "enable": true,
+      "roles": []
+    },
+    "weather": {
+      "channels": [],
+      "description": "актуальная погода",
+      "enable": false,
+      "roles": [],
+      "token": ""
+    }
+  },
+  "customization": {},
+  "messages": {
+    "auto_response": {
+      "4": {
+        "content": "Админов нет дома, перезвонить позже",
+        "embed": {
+          "author": "",
+          "color": "#BEC100",
+          "footer_content": "",
+          "header": "",
+          "image_url": ""
+        },
+        "enable_embed": false,
+        "trigger": "админ",
+        "trigger_type": "start"
+      }
+    },
+    "events": {
+      "3": {
+        "channel": "1078299645010264205",
+        "content": "Добро пожаловать на сервер, {user_mention}",
+        "embed": {
+          "author": "server",
+          "color": "#bec100",
+          "footer_content": "Приятного времяпрепровождения",
+          "header": "Привет",
+          "image_url": ""
+        },
+        "enable_embed": true,
+        "type": "join"
+      }
+    },
+    "time_message": {
+      "1": {
+        "channel": "1126812726853914675",
+        "content": "this is first regular message",
+        "embed": {
+          "author": "",
+          "color": "#BEC100",
+          "footer_content": "",
+          "header": "",
+          "image_url": ""
+        },
+        "enable_embed": false,
+        "interval": "24",
+        "time": "12:00",
+        "units_of_measure": "weeks"
+      }
+    }
+  },
+  "moderation": {
+    "addrole": {
+      "channels": [],
+      "description": "выдать роль пользователю",
+      "enable": false,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "afk": {
+      "channels": [],
+      "description": "переместить пользователя в AFK канал",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "ban": {
+      "channels": [
+        [
+          "private",
+          "1093164701581594624"
+        ]
+      ],
+      "description": "заблокировать пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "caps": {
+      "action": "--send",
+      "channels": [],
+      "description": "бот будет реагировать на сообщения с капсом, если выполняются условия, указанные ниже",
+      "enable": true,
+      "min_length": 20,
+      "percent": 80,
+      "roles": [
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "chatmute": {
+      "channels": [],
+      "description": "выключить пользователю возможность писать в чат",
+      "enable": false,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "chatunmute": {
+      "channels": [],
+      "description": "включить пользователю возможность писать в чат",
+      "enable": false,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "clear": {
+      "channels": [],
+      "description": "удалить сообщения",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "deafen": {
+      "channels": [],
+      "description": "выключить звук пользователю",
+      "enable": false,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "fullban": {
+      "channels": [],
+      "description": "заблокировать пользователя и удалить все его сообщения",
+      "enable": false,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "kick": {
+      "channels": [],
+      "description": "выгнать пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "links": {
+      "action": "--send",
+      "description": "заблокировать пользователя и удалить все его сообщения",
+      "channels": [
+        [
+          "main",
+          "1078299645010264205"
+        ]
+      ],
+      "enable": true,
+      "roles": [
+        [
+          "moder",
+          "1076912083830046860"
+        ],
+        [
+          "владелец сервера",
+          "-1"
+        ]
+      ]
+    },
+    "mentions": {
+      "action": "--send",
+      "channels": [],
+      "count": 3,
+      "description": "бот будет реагировать на сообщения с повторяющимися упоминаниями, если выполняются условия, указанные ниже",
+      "enable": true,
+      "roles": [
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "move": {
+      "channels": [],
+      "description": "переместить пользователя в другой голосовой канал",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "mute": {
+      "channels": [],
+      "description": "выключить микрофон пользователю",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "ping": {
+      "channels": [],
+      "description": "посмотреть пинг сервера и бота",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "report": {
+      "channels": [],
+      "description": "отправить жалобу на пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ],
+      "special_channel": "-1"
+    },
+    "rmrole": {
+      "channels": [],
+      "description": "забрать роль у пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "rmtimeout": {
+      "channels": [],
+      "description": "удалить таймаут у пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "rmwarn": {
+      "channels": [],
+      "description": "снять предупреждение с пользователя",
+      "enable": false,
+      "roles": [
+        [
+          "владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "slowmode": {
+      "channels": [],
+      "description": "включить/выключить медленный режим",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "smile": {
+      "action": "--send",
+      "channels": [],
+      "description": "бот будет реагировать на сообщения со смайликами, если выполняются условия, указанные ниже",
+      "enable": true,
+      "min_length": 20,
+      "percent": 80,
+      "roles": [
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "timeout": {
+      "channels": [],
+      "description": "выдать пользователю таймаут",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "unban": {
+      "channels": [],
+      "description": "разблокировать пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "undeafen": {
+      "channels": [],
+      "description": "включить звук у пользователя",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "unmute": {
+      "channels": [],
+      "description": "включить микрофон пользователю",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "vkick": {
+      "channels": [],
+      "description": "отключить пользователя от голосового канала",
+      "enable": true,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "warn": {
+      "channels": [],
+      "description": "выдать предупреждение пользователю",
+      "enable": false,
+      "roles": [
+        [
+          "владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    },
+    "warns": {
+      "channels": [],
+      "description": "посмотреть список предупреждений пользователя",
+      "enable": false,
+      "roles": [
+        [
+          "владелец сервера",
+          "-1"
+        ],
+        [
+          "moder",
+          "1076912083830046860"
+        ]
+      ]
+    }
+  },
+  "roles": {
+    "ar_enable": true,
+    "Counter-Strike: Global Offensive": {
+      "enable": true,
+      "value": "#BFC204"
+    },
+    "Dota 2": {
+      "enable": true,
+      "value": "#27A008"
+    },
+    "Fortnite": {
+      "enable": false,
+      "value": "#EE27F2"
+    },
+    "League of Legends": {
+      "enable": false,
+      "value": "#1698C1"
+    },
+    "Minecraft": {
+      "enable": true,
+      "value": "#2BF227"
+    },
+    "VALORANT": {
+      "enable": true,
+      "value": "#F44B34"
+    },
+    "start_roles": {
+      "roles": [
+        [
+          "SK",
+          "1120294227549618246"
+        ]
+      ]
+    },
+    "update_interval": "5"
+  },
+  "settings": {
+    "logging": {
+      "channel_id": "-1",
+      "enable": true,
+      "values": [
+        "auto_moderation",
+        "commands",
+        "statistic",
+        "auto_response",
+        "time_messages",
+        "events"
+      ]
+    },
+    "status": {
+      "text": "лучшего бота",
+      "type": "playing"
+    }
+  },
+  "social_media": {
+    "twitch": {},
+    "youtube": {
+      "1": {
+        "channel_id": "1130223180745818183",
+        "link": "https://www.youtube.com/watch?v=Uk-uYmC3w5Y",
+        "message": "New video"
+      }
+    }
   }
 }

@@ -34,17 +34,17 @@ function reset_sm_configurator() {
 
     // configuration_key["commands"] = {}
 
-    for (let i of SM_COMMANDS) {
-        for (let j of i) {
-            let command_config = {}
-            command_config["enable"] = true
-            command_config["description"] = ALL_COMMANDS[j]
-            command_config["roles"] = []
-            command_config["channels"] = []
-
-            configuration_key[j] = command_config
-        }
-    }
+    // for (let i of SM_COMMANDS) {
+    //     for (let j of i) {
+    //         let command_config = {}
+    //         command_config["enable"] = true
+    //         command_config["description"] = ALL_COMMANDS[j]
+    //         command_config["roles"] = []
+    //         command_config["channels"] = []
+    //
+    //         configuration_key[j] = command_config
+    //     }
+    // }
 
 }
 
@@ -112,7 +112,7 @@ function generate_block(
         }
 
     } else {
-        _input_channel_id = input("select_roles", "number", "", "_input_channel_id_" + count)
+        _input_channel_id = input("select_roles", "number", "", "_input_channel_id_" + counter)
         _input_channel_id.value = channel_id
         _input_channel_id.placeholder = " ID канала, куда будут приходить уведомления"
         _input_channel_id.value = channel_id
@@ -225,6 +225,7 @@ function main() {
             configuration_key["youtube"][yt]["channel_id"],
             configuration_key["youtube"][yt]["message"],
             "youtube",
+            Object.keys(configuration_key.youtube).indexOf(yt) === 0
 
         ))
     }
@@ -233,7 +234,8 @@ function main() {
             configuration_key["twitch"][tw]["link"],
             configuration_key["twitch"][tw]["channel_id"],
             configuration_key["twitch"][tw]["message"],
-            "twitch"
+            "twitch",
+            Object.keys(configuration_key.twitch).indexOf(tw) === 0
         ))
     }
 
@@ -242,45 +244,42 @@ function main() {
     //     generate_base_variant()
     //
     // }
-
     // youtube_blocks.appendChild(generate_block(
     //     "", "", "", "youtube", true
     // ))
-
         // console.log("<<<<<<<<<<<<<<", configuration_key)
-    for (let i of SM_COMMANDS[0]) {
-        youtube_footer.appendChild(create_command_block(configuration_key, "configurator", base_save_settings, i, {
-            "slash": true,
-            "settings": true,
-            "automod": "",
-            "remove_after_close": true,
-            "parent_id": "configurator_parent",
-        }))
-        let el = document.getElementsByName(i)[0]
-        el.style.borderColor = SM["youtube"]["color"]
-        el.style.backgroundColor = SM["youtube"]["bg"]
-        el.style.setProperty('--after-color', SM["youtube"]["color"])
-    }
-
-    for (let i of SM_COMMANDS[1]) {
-        twitch_footer.appendChild(create_command_block(configuration_key, "configurator", base_save_settings, i, {
-            "slash": true,
-            "settings": true,
-            "automod": "",
-            "remove_after_close": true,
-            "parent_id": "configurator_parent",
-        }))
-        // cmd.style.borderColor = SM["twitch"]["color"]
-        let el = document.getElementsByName(i)[0]
-        el.style.borderColor = SM["twitch"]["color"]
-        el.style.backgroundColor = SM["twitch"]["bg"]
-        el.style.setProperty('--after-color', SM["twitch"]["color"])
-
-    }
-
-    for (let i of document.getElementsByClassName("command_block")) {
-        i.style.width = "14vw"
-    }
+    // for (let i of SM_COMMANDS[0]) {
+    //     youtube_footer.appendChild(create_command_block(configuration_key, "configurator", base_save_settings, i, {
+    //         "slash": true,
+    //         "settings": true,
+    //         "automod": "",
+    //         "remove_after_close": true,
+    //         "parent_id": "configurator_parent",
+    //     }))
+    //     let el = document.getElementsByName(i)[0]
+    //     el.style.borderColor = SM["youtube"]["color"]
+    //     el.style.backgroundColor = SM["youtube"]["bg"]
+    //     el.style.setProperty('--after-color', SM["youtube"]["color"])
+    // }
+    //
+    // for (let i of SM_COMMANDS[1]) {
+    //     twitch_footer.appendChild(create_command_block(configuration_key, "configurator", base_save_settings, i, {
+    //         "slash": true,
+    //         "settings": true,
+    //         "automod": "",
+    //         "remove_after_close": true,
+    //         "parent_id": "configurator_parent",
+    //     }))
+    //     // cmd.style.borderColor = SM["twitch"]["color"]
+    //     let el = document.getElementsByName(i)[0]
+    //     el.style.borderColor = SM["twitch"]["color"]
+    //     el.style.backgroundColor = SM["twitch"]["bg"]
+    //     el.style.setProperty('--after-color', SM["twitch"]["color"])
+    //
+    // }
+    // for (let i of document.getElementsByClassName("command_block")) {
+    //     i.style.width = "14vw"
+    // }
 
 
     document.getElementById("add_youtube_block").addEventListener("click", function () {
@@ -317,7 +316,7 @@ function main() {
 }
 
 document.getElementById("save_btn").addEventListener("click", function () {
-    base_save_settings(configuration_key)
+    // base_save_settings(configuration_key)
 
     let new_yt_data = {}
     for (let yt of document.getElementsByClassName("youtube")) {

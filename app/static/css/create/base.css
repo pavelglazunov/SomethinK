@@ -848,7 +848,8 @@
     /*background-color: #00FC0A;*/
     cursor: pointer;
 
-    background: url("/static/img/setting_icon.svg") no-repeat;
+    background: url("/static/img/icons8-settings-50.svg") no-repeat;
+    background-size: 1.5vw;
 }
 
 .configurator_content {

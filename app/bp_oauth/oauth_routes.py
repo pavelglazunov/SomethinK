@@ -1,3 +1,4 @@
+import base64
 import datetime
 
 from flask import Blueprint, render_template, session, redirect, request, url_for
@@ -124,8 +125,7 @@ def register():
         # print(msg)
         # with app.app_context():
         #     mail.send(msg)
-        code = generate_api_token(form.email.data)
-        print(code)
+
 
         user = User()
         user.name = form.name.data
@@ -140,12 +140,19 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         # print(token)
-        login_user(user, remember=True)
-        return render_template("auth/confirm.html", code=code)
+        login_user(user, remember=True, duration=datetime.timedelta(days=7))
+        return redirect(f"confirm")
         # return redirect('/auth/confirm_email')
     return render_template('auth/register.html', form=form)
 
 
+@oauth_bp.route("/confirm")
+@login_required
+def confirm_user():
+    print()
+    code = generate_api_token(current_user.email)
+    print(code)
+    return render_template("/auth/confirm.html", code=code)
 # @oauth_bp.route("/confirm_email/<token>", methods=["GET", "POST"])
 # def confirm(token):
 #     try:

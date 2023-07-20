@@ -1,16 +1,44 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    Для подтверждения аккаунта перейдите в телеграмм бота по ссылке: <a href="https://t.me/SomethinKAuthBot">https://t.me/SomethinKAuthBot</a>
-    и отправить ему данный код: {{ code }}
-    <button>копировать</button>
-</body>
+{% extends "base.html" %}
 
-</html>
+
+{% block css_connect %}
+<link href="/static/css/auth/select_auth_type.css" rel="stylesheet">
+<link href="/static/css/auth/auth.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="/static/js/toast.js"></script>
+<script src="/static/js/toasts.js"></script>
+<link href="/static/css/create/toast.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth_content">
+
+    <div class="auth_block add_padding">
+        <p>Для подтверждения аккаунта перейдите в телеграм бота по ссылке: </p>
+        <a target="_blank" class="block_link" href="https://t.me/SomethinKAuthBot">https://t.me/SomethinKAuthBot</a>
+        <p>и отправьте ему данный код:</p>
+        <div class="code_row">
+            <p>{{ code }}</p>
+            <button id="copy_button" class="copy-link-button">
+            <span class="material-icons">content_copy</span>
+            </button>
+        </div>
+
+        <p style="font-size: 1vw">Код будет действителен в течение 10 минут</p>
+    </div>
+
+</div>
+
+<script>
+    let copy_button = document.getElementById("copy_button")
+
+    copy_button.addEventListener("click", function () {
+        navigator.clipboard.writeText("{{ code }}")
+        successText("Код скопирован")
+    })
+</script>
+
+{% endblock %}
+

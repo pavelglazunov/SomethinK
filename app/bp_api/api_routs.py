@@ -6,7 +6,7 @@ from app.utils.discord_api import USER_GET_FUNC
 
 from app import limiter
 
-from app.utils.validation import VALIDATION, _json
+from app.utils.validation import VALIDATION, validation
 from app.generator.generator import progres, generate
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
@@ -53,10 +53,10 @@ def update_user_bot_config():
     if not request.json:
         return jsonify({"status": "error"})
 
-    if code := (VALIDATION[request.headers.get("configuration_name")](request.json)):
-        return jsonify({"status": "failed", "message": "Произошла ошибка при сохранении данных, пожалуйста,"
-                                                       f" повторите запрос или обратитесь в поддержку."
-                                                       f" Код ошибки: {code}"})
+    # if code := (VALIDATION[request.headers.get("configuration_name")](request.json)):
+    #     return jsonify({"status": "failed", "message": "Произошла ошибка при сохранении данных, пожалуйста,"
+    #                                                    f" повторите запрос или обратитесь в поддержку."
+    #                                                    f" Код ошибки: {code}"})
 
     try:
         # session["configurator"][request.headers.get("configuration_name")] = request.json
@@ -79,11 +79,18 @@ def submit_token():
 @api_bp.route("/start_creating", methods=["POST"])
 @login_required
 def start_creating():
+    print(55555555)
     print(session['configurator']['messages'])
-    if not request.json:
-        return jsonify({"status": "error"})
-    if not _json(request.json):
-        return jsonify({"status": "error"})
+    print(session.get("configurator"))
+    print(dict(session.get("configurator")))
+    print(json.dumps(dict(session.get("configurator")), ensure_ascii=False))
+    # if not request.json:
+    #     return jsonify({"status": "error"})
+    # if not _json(request.json):
+    #     return jsonify({"status": "error"})
+
+    if not (error_code := validation(dict(session.get("configurator")))):
+        return jsonify({"status": "error", "message": f"Код ошибки: {error_code}"})
 
     # print(request.json)
     # for cfg_name, cfg_json in session.get("configurator").items():

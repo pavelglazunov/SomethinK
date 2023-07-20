@@ -120,7 +120,7 @@ function reset_key_configurator(show_message=false) {
             let command_config = {}
             command_config["enable"] = true
             command_config["description"] = COMMANDS_DESCRIPTIONS[j]
-            command_config["roles"] = []
+            command_config["roles"] = [["Владелец сервера", "-1"]]
             command_config["channels"] = []
             if (j in COMMAND_WITH_SPECIAL_FORM) {
                 command_config["special_channel"] = "-1"

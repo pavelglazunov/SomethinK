@@ -631,7 +631,7 @@ function generate_auto_response_block(
 
     let _input_trigger = input("select_roles", "text", "", "_input_trigger_" + count)
 
-
+    _input_trigger.maxLength = 50
     // _input_channel_id.style.width = "100%"
 
     let data_row = div("mini_row")
