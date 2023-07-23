@@ -4,18 +4,14 @@ from disnake.ext import commands
 import disnake
 
 
-def show_error(error):
-    pass
-
-
-def allowed_channels(*channels):
+def allowed_channels(*channels) -> bool:
     async def predicate(ctx: disnake.ApplicationCommandInteraction):
+        print("channels> ", channels)
         if not channels:  # если список каналов пустой, выполняем команду всегда
             return True
         if ctx.channel.id in channels:
             return True
         else:
-            await ctx.response.send_message("Команда может быть выполнена только в разрешенных каналах.")
             return False
 
     return commands.check(predicate)
@@ -37,5 +33,3 @@ def edit_json(json_name):
         return wrapper
 
     return decorator
-
-

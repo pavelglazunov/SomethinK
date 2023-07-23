@@ -1,7 +1,7 @@
-from disnake.ext import commands
 import disnake
-from disnake_bot.utils.parser import parse_config
+from disnake.ext import commands
 
+from disnake_bot.utils.parser import parse_config
 from disnake_bot.utils.messages import send_event_message
 
 
@@ -27,7 +27,7 @@ class EventsCog(commands.Cog):
 
         for ev in join_events:
             channel = self.bot.get_channel(int(ev.get("channel")))
-            await send_event_message(channel, ev, member)
+            await send_event_message(channel, ev, member, "join")
 
     @commands.Cog.listener()
     async def on_member_remove(self, member: disnake.Member):
@@ -35,4 +35,4 @@ class EventsCog(commands.Cog):
 
         for ev in leave_events:
             channel = self.bot.get_channel(int(ev.get("channel")))
-            await send_event_message(channel, ev, member)
+            await send_event_message(channel, ev, member, "leave")

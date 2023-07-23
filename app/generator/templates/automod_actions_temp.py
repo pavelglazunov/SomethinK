@@ -1,3 +1,4 @@
+AUTOMOD_BASE_IMPORTS = """
 import datetime
 
 import disnake
@@ -6,8 +7,9 @@ from disnake_bot.utils.warnings import add_warning
 
 
 from disnake_bot.utils.decorators import edit_json
-from disnake_bot.config import PENDING_MESSAGES_CHANNEL_ID, PENDING_MESSAGES_JSON_FILENAME
 
+"""
+AUTOMOD_ACTION_SEND = """
 
 @edit_json(PENDING_MESSAGES_JSON_FILENAME)
 def add_pending_message(message_data, data):
@@ -58,16 +60,23 @@ async def send_to_moderation(message: Message, *_):
     await message.reply("Автомодерация нашла что-то подозрительное, сообщение было отправлено на проверку")
     await message.delete()
 
+"""
+AUTOMOD_ACTION_SEND_IMPORTS = """from disnake_bot.config import PENDING_MESSAGES_CHANNEL_ID, PENDING_MESSAGES_JSON_FILENAME"""
+AUTOMOD_ACTION_REMOVE = """
 
 async def remove(message: Message, *_):
     await message.delete()
 
+"""
+AUTOMOD_ACTION_WARN = """
 
 async def warn(message: Message, reason: str, word):
     add_warning(message.author.name, "Автомодерация", reason)
     await message.reply(
         "Пользователь {} получает предупреждение за чрезмерное использование {}".format(message.author.name, word))
 
+"""
+AUTOMOD_ACTION_REMOVE_AND_WARN = """
 
 async def remove_and_warn(message: Message, reason: str, word):
     add_warning(message.author.name, "Автомодерация", reason)
@@ -75,6 +84,8 @@ async def remove_and_warn(message: Message, reason: str, word):
         "Пользователь {} получает предупреждение за чрезмерное использование {}".format(message.author.name, word))
     await message.delete()
 
+"""
+AUTOMOD_ACTION_FUNCS_LIST = """
 
 ACTIONS = {
     "--remove": remove,
@@ -82,3 +93,5 @@ ACTIONS = {
     "--remove-warn": remove_and_warn,
     "--send": send_to_moderation
 }
+
+"""

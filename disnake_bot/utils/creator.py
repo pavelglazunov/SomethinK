@@ -1,5 +1,5 @@
-from disnake.ext import commands
 import disnake
+from disnake.ext import commands
 from disnake_bot.utils.parser import parse_config, edit_config
 
 
@@ -48,6 +48,6 @@ async def create_logging_channel(bot: commands.Bot):
         bot.guilds[0].default_role: disnake.PermissionOverwrite(read_messages=False, ),
         bot.guilds[0].owner: disnake.PermissionOverwrite(read_messages=True),
     })
-    await channel.send("Мы рекомендуем отключить уведомления в данном канале, так как в нем будут появляться логи")
+    await channel.send("Мы рекомендуем отключить уведомления в данном канале, так как в нем будут отображаться логи")
 
     edit_config("channels_ID.logging_channel_id", channel.id)

@@ -1,14 +1,10 @@
-import datetime
-
 import disnake
-from disnake.ext import commands
-from disnake_bot.config import REPORT_CHANNEL_ID
 
 
 class EmbedModal(disnake.ui.Modal):
     def __init__(self):
 
-        components = []
+        components = list()
         components.append(disnake.ui.TextInput(
             label="Заголовок",
             placeholder="текст",
@@ -54,7 +50,7 @@ class EmbedModal(disnake.ui.Modal):
         embed = disnake.Embed()
         embed.title = interaction.text_values["title"]
         embed.description = interaction.text_values["description"]
-        embed.footer.text = interaction.text_values["footer"]
+        embed.set_footer(text=interaction.text_values["footer"])
         embed.color = int(interaction.text_values["color"], 16)
 
         await interaction.response.send_message(embed=embed)

@@ -1,12 +1,10 @@
-import disnake
+import asyncio
+
 from disnake.ext import commands
 from disnake_bot.utils.parser import parse_config
-import asyncio
 
 
 async def start_activity_roles_updating(bot: commands.Bot):
-    print("ar")
-
     while not bot.is_closed():
         all_activity_roles: dict = parse_config("activity_roles.roles")
         interval = int(parse_config("activity_roles.update_interval")) * 60
@@ -20,11 +18,9 @@ async def start_activity_roles_updating(bot: commands.Bot):
                 if role in user.roles:
                     await user.remove_roles(role)
 
-            print(user.activities)
             if act := user.activity:
 
                 if act.name.lower() in all_activity_roles.keys():
-                    print(act.name)
                     role = bot.guilds[0].get_role(all_activity_roles[act.name.lower()]["role_id"])
                     await user.add_roles(role)
 

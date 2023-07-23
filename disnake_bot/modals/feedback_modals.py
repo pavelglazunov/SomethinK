@@ -1,13 +1,11 @@
 import datetime
 
 import disnake
-from disnake.ext import commands
-from disnake_bot.config import REPORT_CHANNEL_ID
 
 
 class FeedbackModal(disnake.ui.Modal):
     def __init__(self, arg, bot: disnake.ApplicationCommandInteraction):
-        self.arg = arg  # arg - это аргумент, который передается в конструкторе класса ReportUserSelect
+        self.arg = arg
         self.bot = bot
 
         if arg == "report":
@@ -57,7 +55,7 @@ class FeedbackModal(disnake.ui.Modal):
             ),
             disnake.ui.TextInput(
                 label="Как с вами можно связаться",
-                placeholder="Укажите телеграм/дискорд или другой способ связи (необязательно) и как к вам можно обращаться",
+                placeholder="(необязательно) Укажите телеграм/дискорд или другой способ связи",
                 custom_id="connect",
                 style=disnake.TextInputStyle.paragraph,
                 required=False,
@@ -122,17 +120,6 @@ class FeedbackModal(disnake.ui.Modal):
         user_embed.color = int("00FF00", 16)
 
         await interaction.response.send_message(embed=user_embed)
-        # embed = disnake.Embed(color=0xfac20a, title="Заявка отправлена!")
-        # embed.description = f"{interaction.author.mention}, Благодарим вас за **обратную связь**! " \
-        #                     f"Администрация сервера рассмотрит вашу **жалобу** и примет соответствующие меры"
-        # await interaction.response.send_message(embed=embed, ephemeral=True)
-        #
-        # channel = interaction.guild.get_channel(REPORT_CHANNEL_ID)  # Вставить ID канала куда будут отправляться заявки
-        # report_embed = disnake.Embed(color=0xfa0a76, title=f"Новая жалоба от {interaction.author.name}",
-        #                              description=f"Жалоба на {self.arg}")
-        # report_embed.add_field(name="Детали", value=details)
-        # report_embed.footer.text = f"Жалоба получена в {datetime.datetime.now()}"
-        # await channel.send(embed=report_embed)
 
 
 class FeedbackTypeSelect(disnake.ui.Select):

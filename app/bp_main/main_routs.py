@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, session, redirect, request
+import os
+
+from flask import Blueprint, render_template, session, redirect, request, send_from_directory
 from flask_login import login_required, login_user, logout_user, current_user
 
 from app.data import db_session
@@ -32,6 +34,11 @@ def profile(user_id):
     else:
         return "Это не ваша страница, что вы тут забыли???"
 
+
+@main_bp.route('/favicon.ico')
+def favicon():
+    print("====>>", os.getcwd())
+    return send_from_directory(os.getcwd(), 'static/favicon/favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 # @main_bp.route("/api")
 # def apt():
