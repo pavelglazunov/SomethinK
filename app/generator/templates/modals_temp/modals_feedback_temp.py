@@ -1,3 +1,5 @@
+MODAL_FEEDBACK = """
+
 import datetime
 import disnake
 
@@ -100,12 +102,12 @@ class FeedbackModal(disnake.ui.Modal):
 
         embed.add_field(
             name="Метаданные: ",
-            value=f"Server ID: {server_id}\n"
-                  f"Server name: {server_name}\n"
-                  f"Bot ID: {bot_id}\n"
-                  f"Bot name: {bot_name}\n"
-                  f"From ID: {from_user_id}\n"
-                  f"From name: {from_user_name}\n"
+            value=f"Server ID: {server_id}\\n"
+                  f"Server name: {server_name}\\n"
+                  f"Bot ID: {bot_id}\\n"
+                  f"Bot name: {bot_name}\\n"
+                  f"From ID: {from_user_id}\\n"
+                  f"From name: {from_user_name}\\n"
                   f"Time: {actual_datetime}",
             inline=False
         )
@@ -140,3 +142,5 @@ class FeedbackTypeSelect(disnake.ui.Select):
             await interaction.response.defer()
         else:
             await interaction.response.send_modal(FeedbackModal(interaction.values[0], self.bot))
+
+"""

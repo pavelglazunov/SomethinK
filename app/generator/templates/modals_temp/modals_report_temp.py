@@ -1,9 +1,10 @@
+MODAL_REPORT = """
 import datetime
 
 import disnake
-from disnake_bot.utils.messages import send_message
-from disnake_bot.utils.parser import parse_config
 
+from _____project_name_for_imports_____.utils.messages import send_message
+from _____project_name_for_imports_____.utils.parser import parse_config
 
 class ReportModal(disnake.ui.Modal):
     def __init__(self, member: disnake.Member):
@@ -35,3 +36,5 @@ class ReportModal(disnake.ui.Modal):
         report_embed.add_field(name="жалоба пришла от", value=f"{interaction.author.mention}", inline=False)
         report_embed.set_footer(text=f"Жалоба получена в {datetime.datetime.now()}")
         await channel.send(embed=report_embed)
+
+"""

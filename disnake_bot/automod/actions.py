@@ -6,7 +6,8 @@ from disnake_bot.utils.warnings import add_warning
 
 
 from disnake_bot.utils.decorators import edit_json
-from disnake_bot.config import PENDING_MESSAGES_CHANNEL_ID, PENDING_MESSAGES_JSON_FILENAME
+from disnake_bot.config import PENDING_MESSAGES_JSON_FILENAME
+from disnake_bot.utils.parser import parse_config
 
 
 @edit_json(PENDING_MESSAGES_JSON_FILENAME)
@@ -41,7 +42,7 @@ async def send_to_moderation(message: Message, *_):
         "message_send_time": str(message_time)
     })
 
-    pending_message_channel = message.guild.get_channel(PENDING_MESSAGES_CHANNEL_ID)
+    pending_message_channel = message.guild.get_channel(parse_config("channels_ID.pending_message_channel_id"))
     embed = disnake.Embed(title="Новое сообщение для проверки")
     embed.add_field(name="Текст сообщения", value=message_content, inline=False)
     embed.add_field(name="Информация", value=f"ID сообщения: {message_id}\n"

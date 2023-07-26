@@ -12,7 +12,7 @@ from zenora import APIClient, GuildBase
 # from discord.utils import get as discord_get
 
 import config as api_config
-from app.utils.discord_api import get_user_roles, get_user_channels, check_token_valid
+from app.utils.discord_api import get_user_roles, get_user_channels, check_token_valid, get_everyone_id
 
 create_bp = Blueprint("create", __name__, template_folder="templates", static_folder="static", url_prefix="/create")
 
@@ -76,7 +76,6 @@ def get_token():
 
     if form.validate_on_submit():
 
-
         if not check_token_valid(form.token.data):
             print("invalid token")
             return render_template("create/token.html",
@@ -100,6 +99,8 @@ def get_token():
             "settings": {},
             "customization": {}
         }
+        print(get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")))
+        session["everyone_id"] = get_everyone_id(session.get("user_guild_id"), session.get("user_bot_token"))[0]
 
         return render_template("create/token.html", form=form, status=True, message="токен подтвержден",
                                from_submit=True, auth_with_discord=bool(session.get("token")))

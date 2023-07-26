@@ -25,9 +25,9 @@
       "roles": [],
       "token": "fsjdfsjdfklsdjfiosjfksjdfksajflkdjflkasjfdlkajflks"
     },
-    "invite": {
+    "feedback": {
       "channels": [],
-      "description": "создать приглашение на сервер",
+      "description": "Связь с разработчиками бота",
       "enable": false,
       "roles": []
     },
@@ -93,6 +93,19 @@
         },
         "enable_embed": true,
         "type": "join"
+      },
+      "4": {
+        "channel": "1078299645010264205",
+        "content": "Добро пожаловать на сервер, {user_mention}",
+        "embed": {
+          "author": "server",
+          "color": "#bec100",
+          "footer_content": "Приятного времяпрепровождения",
+          "header": "Привет",
+          "image_url": ""
+        },
+        "enable_embed": true,
+        "type": "leave"
       }
     },
     "time_message": {
@@ -151,7 +164,7 @@
           "1093164701581594624"
         ]
       ],
-      "description": "заблокировать пользователя",
+      "description": "заблокировать пользователя ЪУЪ",
       "enable": true,
       "roles": [
         [
@@ -165,7 +178,7 @@
       ]
     },
     "caps": {
-      "action": "--send",
+      "action": "--warn",
       "channels": [],
       "description": "бот будет реагировать на сообщения с капсом, если выполняются условия, указанные ниже",
       "enable": true,
@@ -269,7 +282,7 @@
       ]
     },
     "links": {
-      "action": "--send",
+      "action": "--remove",
       "description": "заблокировать пользователя и удалить все его сообщения",
       "channels": [
         [
@@ -290,7 +303,7 @@
       ]
     },
     "mentions": {
-      "action": "--send",
+      "action": "--remove-warn",
       "channels": [],
       "count": 3,
       "description": "бот будет реагировать на сообщения с повторяющимися упоминаниями, если выполняются условия, указанные ниже",
@@ -515,7 +528,7 @@
     "warn": {
       "channels": [],
       "description": "выдать предупреждение пользователю",
-      "enable": false,
+      "enable": true,
       "roles": [
         [
           "владелец сервера",
@@ -577,7 +590,7 @@
         ]
       ]
     },
-    "update_interval": "5"
+    "update_interval": "10"
   },
   "settings": {
     "logging": {
@@ -586,9 +599,10 @@
       "values": [
         "auto_moderation",
         "commands",
-        "statistic",
         "auto_response",
         "time_messages",
+        "activity_roles",
+        "sm",
         "events"
       ]
     },
@@ -598,13 +612,24 @@
     }
   },
   "social_media": {
-    "twitch": {},
+    "twitch": {
+      "1": {
+        "channel_id": "1126812726853914675",
+        "link": "https://www.twitch.tv/jesusavgn",
+        "message": "Новая трансляция  на канале меня, ссылка: {url}"
+      }
+    },
     "youtube": {
       "1": {
-        "channel_id": "1130223180745818183",
-        "link": "https://www.youtube.com/watch?v=Uk-uYmC3w5Y",
-        "message": "New video"
+        "channel_id": "1126812726853914675",
+        "link": "https://www.youtube.com/@pavelglazunov",
+        "message": "Новое видео на канале меня, ссылка: {url}"
       }
     }
+  },
+  "bot_metadata": {
+    "bot_token": "MTA3NjgyNDQwNjIwNDA5NjYwMg.GV84Cv.p3PFBnXPupteyNK4NdYiZq-5FOE6G85ZUYvgeg",
+    "everyone_id": 1076824052007714937,
+    "project_name": "testbot"
   }
 }

@@ -1,7 +1,10 @@
-from disnake_bot.config import CONFIG_JSON_FILENAME, MESSAGES_JSON_FILENAME
-from disnake_bot.utils.decorators import edit_json
+UTILS_PARSER_IMPORTS = """
+from _____project_name_for_imports_____.config import CONFIG_JSON_FILENAME, MESSAGES_JSON_FILENAME
+from _____project_name_for_imports_____.utils.decorators import edit_json
 
 
+ """
+UTILS_PARSER_GET_ALLOW = """
 def get_command_allow_roles(command):
     allowed_roles = parse_config(f"commands.{command}.roles")
     return allowed_roles if allowed_roles else [everyone_id]
@@ -11,6 +14,9 @@ def get_command_allow_channels(command):
     allowed_channels = parse_config(f"commands.{command}.channels")
     return allowed_channels if allowed_channels else []
 
+
+ """
+UTILS_PARSER_BASE = """
 
 @edit_json(CONFIG_JSON_FILENAME)
 def parse_config(key: str, data: dict):
@@ -33,6 +39,6 @@ def edit_config(key: str, value, data: dict):
 @edit_json(MESSAGES_JSON_FILENAME)
 def load_messages(data):
     return data
-
-
+    
 everyone_id = parse_config("roles_ID.everyone_id")
+"""

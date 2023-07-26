@@ -1,1 +1,317 @@
-{"channels_ID": {"report_channel_id": 1130233926598807644, "pending_message_channel_id": 1126504930665058426, "logging_channel_id": 1130239861446688900}, "status": {"type": "play", "text": "в бота от SomethinK"}, "roles_ID": {"everyone_id": 1076824052007714937}, "ar_update_interval": 10, "get_commands_from_direct_message": false, "roles_for_new_members": [1120294227549618246], "automod": {"links": "--remove", "smiles": "--remove-warn", "caps": "--warn", "mentions": "--send", "emoji_min_message_length": 20, "emoji_min_percent": 80, "caps_min_length": 20, "caps_min_percent": 80, "mentions_min_count": 5, "links_ignore_channels": [1078299645010264205], "links_ignore_roles": [-1, 1120294227549618246], "caps_ignore_channels": [], "caps_ignore_roles": [-1, 1120294227549618246], "mentions_ignore_channels": [], "mentions_ignore_roles": [-1, 1120294227549618246], "smile_ignore_channels": [], "smile_ignore_roles": [-1, 1120294227549618246]}, "regular_messages": [{"channel": "1077669672738111589", "content": "Тут есть чья-то ава и интервал 1 минута", "embed": {"author": "Регулярное сообщение (нач 16:32)", "color": "#bec100", "footer_content": "с цветом #bec100", "header": "header", "image_url": "https://cdn.discordapp.com/avatars/632867095864016906/f11b199564d8d4d259e7175c1b0c49c4.png?size=1024"}, "enable_embed": true, "interval": "1", "time": "16:32", "units_of_measure": "minutes"}, {"channel": "1078292043698282537", "content": "Регулярное сообщение, запуститься в 16:06 с интервалом 1 минута", "embed": {"author": "", "color": "#BEC100", "footer_content": "", "header": "", "image_url": ""}, "enable_embed": false, "interval": "1", "time": "16:06", "units_of_measure": "minutes"}], "activity_roles": {"ar_enable": true, "update_interval": "5", "roles": {"VALORANT": {"role_id": 1127314381907173446, "value": "F44B34"}, "Counter-Strike: Global Offensive": {"role_id": 1127314383207419945, "value": "BFC204"}, "Dota 2": {"role_id": 1127314505727217724, "value": "27A008"}, "Fortnite": {"role_id": 1127314507027456101, "value": "EE27F2"}, "League of Legends": {"role_id": 1127313129571897526, "value": "1698C1"}, "Minecraft": {"role_id": 1127313131228643380, "value": "2BF227"}}}, "events": {"join": [{"channel": "1093164701581594624", "content": "Hello, {user_name}, this is hello message without embed", "embed": {"author": "", "color": "#BEC100", "footer_content": "", "header": "", "image_url": ""}, "enable_embed": false}], "leave": [{"channel": "1077669672738111589", "content": "This is server {server_name}. All this mentions ...", "embed": {"author": "{server_name}", "color": "#3315ac", "footer_content": "Actual time {time}", "header": "Goodbye, {user_name}", "image_url": "https://store.steampowered.com/app/1033880/Press_F_to_pay_respects/?l=russian&snr=1_1056_4_1056_curator-tabs&curator_clanid=26974515"}, "enable_embed": true, "type": "leave"}]}, "auto_responser": [{"trigger": "привет автоответчик", "trigger_type": "only", "content": "not embed", "embed": {"author": "", "color": "#BEC100", "footer_content": "", "header": "Автоответчик", "image_url": ""}, "enable_embed": true}], "social_media_notifications": {"youtube": [{"channel_id": "1126812726853914675", "link": "https://www.youtube.com/@pavelglazunov", "message": "Новое видео на канале меня, ссылка: {url}"}], "twitch": [{"channel_id": "1126812726853914675", "link": "https://www.twitch.tv/jesusavgn", "message": "Новая трансляция  на канале меня, ссылка: {url}"}]}, "commands": {"avatar": {"channels": [], "roles": []}, "color": {"channels": [], "roles": []}, "embed": {"channels": [], "roles": []}, "gpt": {"channels": [], "roles": []}, "joke": {"channels": [], "roles": []}, "nick": {"channels": [], "roles": []}, "say": {"channels": [], "roles": []}, "translate": {"channels": [], "roles": []}, "weather": {"channels": [], "roles": []}, "feedback": {"channels": [], "roles": []}, "addrole": {"channels": [], "roles": []}, "afk": {"channels": [], "roles": []}, "ban": {"channels": [1077669672738111589], "roles": [1076912083830046860]}, "chatmute": {"channels": [], "roles": []}, "chatunmute": {"channels": [], "roles": []}, "clear": {"channels": [], "roles": []}, "deafen": {"channels": [], "roles": []}, "fullban": {"channels": [], "roles": []}, "kick": {"channels": [], "roles": []}, "move": {"channels": [], "roles": []}, "mute": {"channels": [], "roles": []}, "ping": {"channels": [], "roles": []}, "report": {"channels": [], "roles": []}, "rmrole": {"channels": [], "roles": []}, "rmtimeout": {"channels": [], "roles": []}, "rmwarn": {"channels": [], "roles": []}, "slowmode": {"channels": [], "roles": []}, "timeout": {"channels": [], "roles": []}, "unban": {"channels": [], "roles": []}, "undeafen": {"channels": [], "roles": []}, "unmute": {"channels": [], "roles": []}, "vkick": {"channels": [], "roles": []}, "warn": {"channels": [], "roles": []}, "warns": {"channels": [], "roles": []}}}
+{
+  "channels_ID": {
+    "report_channel_id": 1130233926598807644,
+    "pending_message_channel_id": 1126504930665058426,
+    "logging_channel_id": 1130239861446688900
+  },
+  "status": {
+    "type": "play",
+    "text": "в бота от SomethinK"
+  },
+  "roles_ID": {
+    "everyone_id": 1076824052007714937
+  },
+  "ar_update_interval": 10,
+  "get_commands_from_direct_message": false,
+  "roles_for_new_members": [
+    1120294227549618246
+  ],
+  "automod": {
+    "links": "--remove",
+    "smiles": "--remove-warn",
+    "caps": "--warn",
+    "mentions": "--send",
+    "emoji_min_message_length": 20,
+    "emoji_min_percent": 80,
+    "caps_min_length": 20,
+    "caps_min_percent": 80,
+    "mentions_min_count": 5,
+    "links_ignore_channels": [
+      1078299645010264205
+    ],
+    "links_ignore_roles": [
+      -1,
+      1120294227549618246
+    ],
+    "caps_ignore_channels": [],
+    "caps_ignore_roles": [
+      -1,
+      1120294227549618246
+    ],
+    "mentions_ignore_channels": [],
+    "mentions_ignore_roles": [
+      -1,
+      1120294227549618246
+    ],
+    "smile_ignore_channels": [],
+    "smile_ignore_roles": [
+      -1,
+      1120294227549618246
+    ]
+  },
+  "regular_messages": [
+    {
+      "channel": "1077669672738111589",
+      "content": "Тут есть чья-то ава и интервал 1 минута",
+      "embed": {
+        "author": "Регулярное сообщение (нач 16:32)",
+        "color": "#bec100",
+        "footer_content": "с цветом #bec100",
+        "header": "header",
+        "image_url": "https://cdn.discordapp.com/avatars/632867095864016906/f11b199564d8d4d259e7175c1b0c49c4.png?size=1024"
+      },
+      "enable_embed": true,
+      "interval": "1",
+      "time": "16:32",
+      "units_of_measure": "minutes"
+    },
+    {
+      "channel": "1078292043698282537",
+      "content": "Регулярное сообщение, запуститься в 16:06 с интервалом 1 минута",
+      "embed": {
+        "author": "",
+        "color": "#BEC100",
+        "footer_content": "",
+        "header": "",
+        "image_url": ""
+      },
+      "enable_embed": false,
+      "interval": "1",
+      "time": "16:06",
+      "units_of_measure": "minutes"
+    }
+  ],
+  "activity_roles": {
+    "ar_enable": true,
+    "roles": {
+      "VALORANT": {
+        "role_id": 1127314381907173446,
+        "value": "F44B34"
+      },
+      "Counter-Strike: Global Offensive": {
+        "role_id": 1127314383207419945,
+        "value": "BFC204"
+      },
+      "Dota 2": {
+        "role_id": 1127314505727217724,
+        "value": "27A008"
+      },
+      "Fortnite": {
+        "role_id": 1127314507027456101,
+        "value": "EE27F2"
+      },
+      "League of Legends": {
+        "role_id": 1127313129571897526,
+        "value": "1698C1"
+      },
+      "Minecraft": {
+        "role_id": 1127313131228643380,
+        "value": "2BF227"
+      }
+    }
+  },
+  "events": {
+    "join": [
+      {
+        "channel": "1093164701581594624",
+        "content": "Hello, {user_name}, this is hello message without embed",
+        "embed": {
+          "author": "",
+          "color": "#BEC100",
+          "footer_content": "",
+          "header": "",
+          "image_url": ""
+        },
+        "enable_embed": false
+      }
+    ],
+    "leave": [
+      {
+        "channel": "1077669672738111589",
+        "content": "This is server {server_name}. All this mentions ...",
+        "embed": {
+          "author": "{server_name}",
+          "color": "#3315ac",
+          "footer_content": "Actual time {time}",
+          "header": "Goodbye, {user_name}",
+          "image_url": "https://store.steampowered.com/app/1033880/Press_F_to_pay_respects/?l=russian&snr=1_1056_4_1056_curator-tabs&curator_clanid=26974515"
+        },
+        "enable_embed": true,
+        "type": "leave"
+      }
+    ]
+  },
+  "auto_responser": [
+    {
+      "trigger": "привет автоответчик",
+      "trigger_type": "only",
+      "content": "not embed",
+      "embed": {
+        "author": "",
+        "color": "#BEC100",
+        "footer_content": "",
+        "header": "Автоответчик",
+        "image_url": ""
+      },
+      "enable_embed": true
+    }
+  ],
+  "social_media_notifications": {
+    "youtube": [
+      {
+        "channel_id": "1126812726853914675",
+        "link": "https://www.youtube.com/@pavelglazunov",
+        "message": "Новое видео на канале меня, ссылка: {url}"
+      }
+    ],
+    "twitch": [
+      {
+        "channel_id": "1126812726853914675",
+        "link": "https://www.twitch.tv/jesusavgn",
+        "message": "Новая трансляция  на канале меня, ссылка: {url}"
+      }
+    ]
+  },
+  "commands": {
+    "avatar": {
+      "channels": [],
+      "roles": []
+    },
+    "color": {
+      "channels": [],
+      "roles": []
+    },
+    "embed": {
+      "channels": [],
+      "roles": []
+    },
+    "gpt": {
+      "channels": [],
+      "roles": []
+    },
+    "joke": {
+      "channels": [],
+      "roles": []
+    },
+    "nick": {
+      "channels": [],
+      "roles": []
+    },
+    "say": {
+      "channels": [],
+      "roles": []
+    },
+    "translate": {
+      "channels": [],
+      "roles": []
+    },
+    "weather": {
+      "channels": [],
+      "roles": []
+    },
+    "feedback": {
+      "channels": [],
+      "roles": []
+    },
+    "addrole": {
+      "channels": [],
+      "roles": []
+    },
+    "afk": {
+      "channels": [],
+      "roles": []
+    },
+    "ban": {
+      "channels": [
+        1077669672738111589
+      ],
+      "roles": [
+        1076912083830046860
+      ]
+    },
+    "chatmute": {
+      "channels": [],
+      "roles": []
+    },
+    "chatunmute": {
+      "channels": [],
+      "roles": []
+    },
+    "clear": {
+      "channels": [],
+      "roles": []
+    },
+    "deafen": {
+      "channels": [],
+      "roles": []
+    },
+    "fullban": {
+      "channels": [],
+      "roles": []
+    },
+    "kick": {
+      "channels": [],
+      "roles": []
+    },
+    "move": {
+      "channels": [],
+      "roles": []
+    },
+    "mute": {
+      "channels": [],
+      "roles": []
+    },
+    "ping": {
+      "channels": [],
+      "roles": []
+    },
+    "report": {
+      "channels": [],
+      "roles": []
+    },
+    "rmrole": {
+      "channels": [],
+      "roles": []
+    },
+    "rmtimeout": {
+      "channels": [],
+      "roles": []
+    },
+    "rmwarn": {
+      "channels": [],
+      "roles": []
+    },
+    "slowmode": {
+      "channels": [],
+      "roles": []
+    },
+    "timeout": {
+      "channels": [],
+      "roles": []
+    },
+    "unban": {
+      "channels": [],
+      "roles": []
+    },
+    "undeafen": {
+      "channels": [],
+      "roles": []
+    },
+    "unmute": {
+      "channels": [],
+      "roles": []
+    },
+    "vkick": {
+      "channels": [],
+      "roles": []
+    },
+    "warn": {
+      "channels": [],
+      "roles": []
+    },
+    "warns": {
+      "channels": [],
+      "roles": []
+    }
+  }
+}

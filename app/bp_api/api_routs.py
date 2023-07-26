@@ -1,6 +1,9 @@
 import json
+import os
+import string
 
 from flask import Blueprint, jsonify, session, request, redirect
+from flask import send_file
 from flask_login import login_required
 from app.utils.discord_api import USER_GET_FUNC
 
@@ -80,10 +83,11 @@ def submit_token():
 @login_required
 def start_creating():
     print(55555555)
-    print(session['configurator']['messages'])
-    print(session.get("configurator"))
+    # print(session['configurator']['messages'])
+    # print(session.get("configurator"))
     print(dict(session.get("configurator")))
-    print(json.dumps(dict(session.get("configurator")), ensure_ascii=False))
+
+    # print(json.dumps(dict(session.get("configurator")), ensure_ascii=False))
     # if not request.json:
     #     return jsonify({"status": "error"})
     # if not _json(request.json):
@@ -99,13 +103,26 @@ def start_creating():
     #                                                        f" повторите запрос или обратитесь в поддержку."
     #                                                        f" Код ошибки: {code}"})
     #     print(cfg_name, cfg_json)
+    project_name = request.json["project_name"]
+    for i in project_name:
+        if not (i.lower() in string.ascii_lowercase):
+            return jsonify({"status": "error", "message": f"Некорректное имя"})
 
+    print(project_name)
+    session["configurator"]["bot_metadata"] = {
+        "bot_token": session.get("user_bot_token"),
+        "project_name": project_name,
+        "everyone_id": session["everyone_id"]
+    }
+
+    print(session["configurator"]["bot_metadata"])
     generate(dict(session.get("configurator")))
     print(session.get("configurator"))
     print(dict(session.get("configurator")))
     print(json.dumps(dict(session.get("configurator")), ensure_ascii=False))
+    print()
+    return send_file(f"{os.getcwd()}\\app\\generator\\{project_name}.zip", as_attachment=True)
 
-    return jsonify({"status": "ok"})
 
 
 @api_bp.route("/progres")

@@ -21,7 +21,7 @@ function main() {
         }
 
         for (let i of value) {
-            if (letters.indexOf(i) === -1) {
+            if (letters.indexOf(i.toLowerCase()) === -1) {
                 warning("Имя проекта может содержать только английские буквы и знак _")
                 return 0
             }

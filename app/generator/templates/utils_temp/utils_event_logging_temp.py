@@ -1,13 +1,15 @@
+UTILS_EVENT_LOGGING_FILE = """
+
 import datetime
 
-from disnake_bot.config import LOGGING_EVENT_TYPES
+from _____project_name_for_imports_____.config import LOGGING_EVENT_TYPES
 import disnake
 
 
 async def log(ctx: disnake.ApplicationCommandInteraction, event_name, event_type, error=None, **kwargs):
     if not (event_type in LOGGING_EVENT_TYPES):
         return
-    from disnake_bot.utils.parser import parse_config
+    from _____project_name_for_imports_____.utils.parser import parse_config
 
     if event_type in ("commands", "auto_response", "ERROR"):
         author = f"{ctx.author.name} ({ctx.author.id})"
@@ -33,5 +35,6 @@ async def log(ctx: disnake.ApplicationCommandInteraction, event_name, event_type
     log_data += f"errors: {error}"
 
     await channel_to_send.send(log_data)
-    # print(log_data)
+    print(log_data)
     return True
+"""

@@ -7,6 +7,11 @@ def get_user_roles(guild, token):
                                                                 headers={"Authorization": f"Bot {token}"}).json()]
 
 
+def get_everyone_id(guild, token):
+    return [role["id"] for role in requests.get(f"https://discord.com/api/v8/guilds/{guild}/roles",
+                                                headers={"Authorization": f"Bot {token}"}).json() if role["name"] == "@everyone"]
+
+
 def get_user_channels(guild, token):
     r = requests.get(f"https://discord.com/api/v8/guilds/{guild}/channels",
                      headers={"Authorization": f"Bot {token}"}).json()

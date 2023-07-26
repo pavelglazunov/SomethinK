@@ -1,3 +1,4 @@
+ANOTHER_COMMANDS_IMPORTS = """
 import datetime
 
 import openai
@@ -5,14 +6,16 @@ import disnake
 import requests
 from disnake.ext import commands
 
-from disnake_bot.modals.embed_modals import EmbedModal
-from disnake_bot.modals.feedback_modals import FeedbackTypeSelect
-from disnake_bot.utils.parser import get_command_allow_roles, get_command_allow_channels
-from disnake_bot.utils.decorators import allowed_channels
-from disnake_bot.config import WEATHER_API_KEY, GPT_API_KEY
-from disnake_bot.utils.messages import send_message, send_long_message, get_description
-from disnake_bot.utils.messages import send_error_message, detected_error
+from _____project_name_for_inputs_____.utils.parser import get_command_allow_roles, get_command_allow_channels
+from _____project_name_for_inputs_____.utils.decorators import allowed_channels
+from _____project_name_for_inputs_____.config import WEATHER_API_KEY, GPT_API_KEY
+from _____project_name_for_inputs_____.utils.messages import send_message, send_long_message, get_description
+from _____project_name_for_inputs_____.modals.report_modals import ReportModal
+from _____project_name_for_inputs_____.modals.embed_modals import EmbedModal
+from _____project_name_for_inputs_____.utils.messages import send_error_message, detected_error
 
+ """
+ANOTHER_COMMANDS_HEADER = """
 from translate import Translator
 
 languages = commands.option_enum({
@@ -26,25 +29,31 @@ languages = commands.option_enum({
     "Итальянский": "it",
     "Португальский": "pt"
 })
+
 openai.api_key = GPT_API_KEY
 
+ """
 
+ANOTHER_COMMANDS_COG = """
 class AnotherCog(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
+
+     """
+COMMAND_COLOR = """
 
     @commands.slash_command(name="color", description=get_description("color"))
     @commands.has_any_role(*get_command_allow_roles("color"))
     @allowed_channels(*get_command_allow_channels("color"))
     async def color(self, inter: disnake.ApplicationCommandInteraction,
                     color: commands.String[0, 6] or commands.String[2, 2]):
-        """
+        \"\"\"
         Изменить цвет имени в чате
 
         Parameters
         ----------
-        color: Цвет в формате HEX (без #) или -1 для очистки цвета
-        """
+        color: Цвет в формате HEX (без ) или -1 для очистки цвета
+        \"\"\"
 
         await send_long_message(inter, "color")
         color = color.lower()
@@ -101,50 +110,60 @@ class AnotherCog(commands.Cog):
         await send_message(inter, "color", user=inter.author,
                            **{"argument": color, "edit_original_message": True})
 
+
+     """
+COMMAND_NICK = """
+
     @commands.slash_command(name="nick", description=get_description("nick"))
     @commands.has_any_role(*get_command_allow_roles("nick"))
     @allowed_channels(*get_command_allow_channels("nick"))
     async def nick(self, inter: disnake.ApplicationCommandInteraction, name: str):
-        """
+        \"\"\"
         Изменить имя в чате
 
         Parameters
         ----------
         name: Новое имя
-        """
+        \"\"\"
         await inter.user.edit(nick=name,
                               reason="Пользователь {} изменил имя в чате на {} при помощи команды /nick в {}".format(
                                   inter.user.name, name, datetime.datetime.now()))
 
         await send_message(inter, "nick", user="", **{"argument": name})
 
+     """
+COMMAND_JOKE = """
+
     @commands.slash_command(name="joke", description=get_description("joke"))
     @commands.has_any_role(*get_command_allow_roles("joke"))
     @allowed_channels(*get_command_allow_channels("joke"))
     async def joke(self, inter: disnake.ApplicationCommandInteraction):
-        """
+        \"\"\"
         Случайный анекдот
 
         Parameters
         ----------
-        """
+        \"\"\"
         await send_long_message(inter, "joke")
         joke = requests.get(" http://rzhunemogu.ru/RandJSON.aspx?CType=1").text[12:-2]
 
         await send_message(inter, "joke", user="", **{"result": joke,
                                                       "edit_original_message": True})
 
+     """
+COMMAND_WEATHER = """
+
     @commands.slash_command(name="weather", description=get_description("weather"))
     @commands.has_any_role(*get_command_allow_roles("weather"))
     @allowed_channels(*get_command_allow_channels("weather"))
     async def weather(self, inter: disnake.ApplicationCommandInteraction, city: str):
-        """
+        \"\"\"
         Актуальная погода
 
         Parameters
         ----------
         city: Город
-        """
+        \"\"\"
         await send_long_message(inter, "weather")
         weather = requests.get(
             f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q={city}&aqi=no&lang=ru").json()
@@ -156,12 +175,15 @@ class AnotherCog(commands.Cog):
         await send_message(inter, "weather", user="", **{"result": answer,
                                                          "edit_original_message": True})
 
+     """
+COMMAND_TRANSLATE = """
+
     @commands.slash_command(name="translate", description=get_description("translate"))
     @commands.has_any_role(*get_command_allow_roles("translate"))
     @allowed_channels(*get_command_allow_channels("translate"))
     async def translate(self, inter: disnake.ApplicationCommandInteraction, from_language: languages,
                         to_language: languages, text: str):
-        """
+        \"\"\"
         Перевод текста с одного языка на другой
 
         Parameters
@@ -169,7 +191,7 @@ class AnotherCog(commands.Cog):
         from_language: перевести с
         to_language: перевести на
         text: Текст, который нудно перевести
-        """
+        \"\"\"
         await send_long_message(inter, "translate")
         translator = Translator(from_lang=from_language, to_lang=to_language)
         answer = translator.translate(text)
@@ -177,47 +199,56 @@ class AnotherCog(commands.Cog):
                                                            "to_language": to_language, "text": text,
                                                            "edit_original_message": True})
 
+     """
+COMMAND_SAY = """
+
     @commands.slash_command(name="say", description=get_description("say"))
     @commands.has_any_role(*get_command_allow_roles("say"))
     @allowed_channels(*get_command_allow_channels("say"))
     async def say(self, inter: disnake.ApplicationCommandInteraction, text: str):
-        """
+        \"\"\"
         Написать текст от имени бота
 
         Parameters
         ----------
         text: Текст, который нудно перевести
-        """
+        \"\"\"
         await send_message(inter, "say", user="", **{"result": text})
+
+     """
+COMMAND_AVATAR = """
 
     @commands.slash_command(name="avatar", description=get_description("avatar"))
     @commands.has_any_role(*get_command_allow_roles("avatar"))
     @allowed_channels(*get_command_allow_channels("avatar"))
     async def avatar(self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member):
-        """
+        \"\"\"
         Получить аватар пользователя
 
         Parameters
         ----------
         member: Пользователь
-        """
+        \"\"\"
         embed = disnake.Embed()
 
         embed.set_image(member.avatar)
 
         await inter.send(embed=embed)
 
+     """
+COMMAND_GPT = """
+
     @commands.slash_command(name="gpt", description=get_description("gpt"))
     @commands.has_any_role(*get_command_allow_roles("gpt"))
     @allowed_channels(*get_command_allow_channels("gpt"))
     async def gpt(self, inter: disnake.ApplicationCommandInteraction, message: str):
-        """
+        \"\"\"
         Общение с chatGPT
 
         Parameters
         ----------
         message: Текст сообщения
-        """
+        \"\"\"
         await send_long_message(inter, "gpt")
         if len(message) > 1999:
             await send_error_message(inter, "long_message_to_gpt_error", **{"edit_original_message": True})
@@ -239,69 +270,38 @@ class AnotherCog(commands.Cog):
         except openai.error.RateLimitError:
             await send_error_message(inter, "gpt_limit_error", **{"edit_original_message": True})
 
+     """
+
+COGS_COMMAND_EMBED = """
+
     @commands.slash_command(name="embed", description=get_description("embed"))
     @commands.has_any_role(*get_command_allow_roles("embed"))
     @allowed_channels(*get_command_allow_channels("embed"))
     async def embed(self, inter: disnake.ApplicationCommandInteraction):
-        """
+        \"\"\"
         Создать embed
 
         Parameters
         ----------
-        """
+        \"\"\"
         await inter.response.send_modal(modal=EmbedModal())
+
+     """
+COGS_COMMAND_FEEDBACK = """
 
     @commands.slash_command(name="feedback", description=get_description("feedback"))
     @commands.has_any_role(*get_command_allow_roles("feedback"))
     @allowed_channels(*get_command_allow_channels("feedback"))
     async def feedback(self, inter: disnake.ApplicationCommandInteraction):
-        """
+        \"\"\"
         Обратиться к разработчику бота
 
         Parameters
         ----------
-        """
+        \"\"\"
         view = disnake.ui.View()
         view.add_item(FeedbackTypeSelect(self.bot))
         await inter.response.send_message(view=view,
                                           ephemeral=True)
 
-    @nick.error
-    async def nick_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @color.error
-    async def color_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @joke.error
-    async def joke_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @weather.error
-    async def weather_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @translate.error
-    async def translate_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @say.error
-    async def say_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @avatar.error
-    async def avatar_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @gpt.error
-    async def gpt_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @embed.error
-    async def embed_error(self, ctx, error_):
-        await detected_error(ctx, error_)
-
-    @feedback.error
-    async def feedback_error(self, ctx, error_):
-        await detected_error(ctx, error_)
+     """
