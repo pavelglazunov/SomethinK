@@ -361,6 +361,19 @@ def generate(key: dict):
         },
     }
 
+    not_bot_files_keys = {
+        "requirements": {
+            "base": True,
+            "openai": False,
+            "translate": False,
+            "scrapetube": False
+        },
+        "information": {
+            "information": True
+        }
+
+    }
+
     files_flags = {
         "automod.actions.py": False,
         "automod.automods.py": False,
@@ -585,6 +598,9 @@ def generate(key: dict):
 
             main_files_keys["config"]["bot_config_file_gpt_api_key"] = True
             replacement_config["_____gpt_api_token_____"] = command_data.get("token")
+
+            not_bot_files_keys["requirements"]["openai"] = True
+
         if command == "weather":
             cogs_files_keys["another"]["cogs_another_commands_import_requests"] = True
             cogs_files_keys["another"]["cogs_another_commands_import_weather_api_key"] = True
@@ -594,6 +610,8 @@ def generate(key: dict):
         if command == "translate":
             cogs_files_keys["another"]["cogs_another_commands_import_translate"] = True
             cogs_files_keys["another"]["cogs_another_commands_translate_language_list"] = True
+
+            not_bot_files_keys["requirements"]["translate"] = True
 
         if command == "joke":
             cogs_files_keys["another"]["cogs_another_commands_import_requests"] = True
@@ -743,6 +761,8 @@ def generate(key: dict):
         regular_files_keys["__init__"]["regulars_init_social_media_youtube"] = True
         regular_files_keys["__init__"]["regulars_init_add_process_youtube"] = True
 
+        not_bot_files_keys["requirements"]["scrapetube"] = True
+
         __youtube = _social_media.get("youtube", {})
         __youtube_list = []
         for k, v in __youtube.items():
@@ -827,7 +847,11 @@ def generate(key: dict):
                   not_create=blocked_files)
     create_folder(".", main_files_keys, key.get("bot_metadata", {}).get("project_name"), **replacement_config)
 
-    shutil.make_archive(key.get("bot_metadata", {}).get("project_name"), "zip", key.get("bot_metadata", {}).get("project_name"))
+    create_folder(".", not_bot_files_keys, key.get("bot_metadata", {}).get("project_name"), extension="txt")
+    # create_folder(".", not_bot_files_keys, key.get("bot_metadata", {}).get("project_name"), **replacement_config)
+
+    shutil.make_archive(key.get("bot_metadata", {}).get("project_name"), "zip",
+                        key.get("bot_metadata", {}).get("project_name"))
     shutil.rmtree(key.get("bot_metadata", {}).get("project_name"))
     os.chdir("../..")
 

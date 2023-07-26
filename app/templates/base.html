@@ -21,18 +21,25 @@
 </noscript>
 <header>
     <div class="header">
-        <div class="header-text">
+        <div>
             {% if current_user.is_authenticated %}
-            <a href="/user/{{ current_user.id }}">{{ current_user.name }}</a>
+            <a class="header-text header_text_border_right" href="/user/{{ current_user.id }}">{{ current_user.name }}</a>
             {% else %}
-            <a class="main_login_btn" href="/auth">войти</a>
+            <a class="main_login_btn header-text header_text_border_right" href="/auth">войти</a>
             {% endif %}
         </div>
-        <div class="header-text">SomethinK</div>
+
+        <div class="header_right_texts">
+            <a class="header-text header_text_border_left" href="https://www.donationalerts.com/r/somethinkbots" target="_blank">Поддержать проект</a>
+            <a class="header-text header_text_border_left">Техподдержка</a>
+            <a class="header-text header_text_border_left" style="color: #00FC0A" href="/">SomethinK</a>
+
+        </div>
     </div>
 </header>
 {% block content %}
 
 {% endblock %}
+
 </body>
 </html>

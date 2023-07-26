@@ -17,7 +17,7 @@ const STATISTIC_LIST = [
 const LOGGING_EVENTS = [
     ["auto_moderation", "автомодерация"],
     ["commands", "команды"],
-    ["statistic", "обновление статистики"],
+    // ["statistic", "обновление статистики"],
     ["auto_response", "автоответчик"],
     ["time_messages", "регулярные сообщения"],
     ["activity_roles", "роли активности"],
@@ -250,7 +250,7 @@ function main() {
     logging_right_block.appendChild(logging_event_lbl)
 
 
-    for (let cmd = 0; cmd < 8; cmd += 2) {
+    for (let cmd = 0; cmd < 6; cmd += 2) {
         let row = div("mimi_wor")
         row.style.display = "flex"
         row.style.flexDirection = "row"

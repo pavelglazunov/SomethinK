@@ -9,7 +9,7 @@ from app.utils.discord_api import USER_GET_FUNC
 
 from app import limiter
 
-from app.utils.validation import VALIDATION, validation
+from app.utils.validation import validation
 from app.generator.generator import progres, generate
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
@@ -92,8 +92,9 @@ def start_creating():
     #     return jsonify({"status": "error"})
     # if not _json(request.json):
     #     return jsonify({"status": "error"})
+    #
 
-    if not (error_code := validation(dict(session.get("configurator")))):
+    if error_code := validation(dict(session.get("configurator"))):
         return jsonify({"status": "error", "message": f"Код ошибки: {error_code}"})
 
     # print(request.json)

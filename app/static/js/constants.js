@@ -41,7 +41,7 @@ const ALL_COMMANDS = {
     "avatar": "получить аватар пользователя",
     "gpt": "общения с chatGPT",
     "embed": "создать embed",
-    "invite": "создать приглашение на сервер",
+    "feedback": "создать приглашение на сервер",
 }
 const ACTIVITY_ROLES = [
     ["Dota 2", "Counter-Strike: Global Offensive"],

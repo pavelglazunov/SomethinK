@@ -170,6 +170,9 @@ def moderation(data: dict):
     if not data.get("moderation"):
         return 278
     for _command in data["moderation"].values():
+        print(_command)
+        if _command.get("action"):
+            continue
         if error_code := valid_command_data(_command):
             return error_code
     return False
@@ -250,6 +253,7 @@ def valid_command_data(data: dict) -> bool or int:
 
     # description =
     if not isinstance(data.get("description", None), str):
+        print(data)
         return 103
     if not isinstance(data['enable'], bool):
         return 102
@@ -541,16 +545,21 @@ def validation(data) -> bool or int:
     try:
         if data["another"] != {}:
             for _command in data["another"].values():
+                if _command.get("action"):
+                    _command["description"] = "_"
                 if error_code := valid_command_data(_command):
                     return error_code
 
         if data["moderation"] != {}:
             for _command in data["moderation"].values():
+                if _command.get("action"):
+                    _command["description"] = "_"
                 if error_code := valid_command_data(_command):
                     return error_code
         # print(*data["messages"]["time_message"].values())
         if data["messages"] != {}:
-            for _command in [*data["messages"]["auto_response"].values()] + [*data["messages"]["events"].values()] + [*data["messages"]["time_message"].values()]:
+            for _command in [*data["messages"]["auto_response"].values()] + [*data["messages"]["events"].values()] + [
+                *data["messages"]["time_message"].values()]:
                 if error_code := validate_message_data(_command):
                     return error_code
 
@@ -578,12 +587,12 @@ def validation(data) -> bool or int:
 # for i in _data:
 #     if _code := VALIDATION[i](_data[i]):
 #         print(_code)
-VALIDATION = {
-    "moderation": moderation,
-    "roles": roles,
-    "messages": messages,
-    "another": another,
-    "social_media": social_media,
-    "customization": customization,
-    "settings": settings
-}
+# VALIDATION = {
+#     "moderation": moderation,
+#     "roles": roles,
+#     "messages": messages,
+#     "another": another,
+#     "social_media": social_media,
+#     "customization": customization,
+#     "settings": settings
+# }

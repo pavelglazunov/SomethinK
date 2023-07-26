@@ -10,6 +10,8 @@ from app.generator.templates.regulars_temp import *
 from app.generator.templates.automod_temp import *
 from app.generator.templates.main_temp import *
 
+from app.generator.templates.not_bot_files_temp.requirements_add_temp import *
+
 # from templates.modals_temp import *
 # from templates.cogs_temp import *
 # from templates.another_commands_temp import *
@@ -18,6 +20,9 @@ from app.generator.templates.main_temp import *
 # from templates.regulars_temp import *
 # from templates.automod_temp import *
 # from templates.main_temp import *
+
+with open("app/generator/templates/not_bot_files_temp/information.txt", "r", encoding="utf-8") as file:
+    INFORMATION_FILE = file.read()
 
 TEMPLATES = {
     'cogs_command_imports': COGS_COMMAND_IMPORTS,
@@ -208,6 +213,12 @@ TEMPLATES = {
     'bot_config_file_base_values': BOT_CONFIG_FILE_BASE_VALUES,
     'bot_config_file_weather_api_key': BOT_CONFIG_FILE_WEATHER_API_KEY,
     'bot_config_file_gpt_api_key': BOT_CONFIG_FILE_GPT_API_KEY,
+
+    "base": BASE,
+    "openai": OPENAI,
+    "translate": TRANSLATION,
+    "scrapetube": SCRAPETUBE,
+    "information": INFORMATION_FILE
 }
 
 REPLACEMENT = dict()

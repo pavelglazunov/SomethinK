@@ -140,6 +140,11 @@
 
     transition: all 0.4s ease;
 
+    /*background-color: #23272A;*/
+
+    /*filter: drop-shadow(5px 5px 10px #171B22);*/
+
+
 }
 
 .btn_save:hover {

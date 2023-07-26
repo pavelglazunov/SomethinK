@@ -27,13 +27,17 @@ function main() {
             }
         }
         const answer = start_creating(value)
-        answer.then(a => {
-            if (a["status"] === "ok") {
-                successText("Поехали!")
-                return 0
-            }
-            danger(a["message"])
-        })
+        console.log(answer)
+        // const answer = start_creating(value)
+        // answer.then(a => {
+        //     console.log(a)
+        //
+        //     if (a["status"] === "ok") {
+        //         successText("Поехали!")
+        //         return 0
+        //     }
+        //     danger(a["message"])
+        // })
     })
 }
 

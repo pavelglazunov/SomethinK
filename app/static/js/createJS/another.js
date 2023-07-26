@@ -63,7 +63,7 @@ ANOTHER_COMMANDS = [
     ["joke", "weather"],
     ["translate", "say"],
     ["avatar", "gpt"],
-    ["embed", "invite"]
+    ["embed", "feedback"]
 ]
 
 function main() {
