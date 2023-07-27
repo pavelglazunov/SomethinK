@@ -21,7 +21,7 @@ const LOGGING_EVENTS = [
     ["auto_response", "автоответчик"],
     ["time_messages", "регулярные сообщения"],
     ["activity_roles", "роли активности"],
-    ["sm", "оповещения ютуб/твич"],
+    // ["sm", "оповещения ютуб/твич"],
     ["events", "события"],
 
 ]
@@ -454,6 +454,7 @@ document.getElementById("save_btn").addEventListener("click", function () {
 
     let logging_events = []
     for (let i of LOGGING_EVENTS) {
+        console.log(i)
         if (document.getElementById("logging_" + i[0]).checked) {
             logging_events.push(i[0])
         }

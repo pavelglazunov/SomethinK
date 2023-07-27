@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block css_connect %}
+<!--<link href="/app/static/css/create/toast.css" rel="stylesheet">-->
+<link href="/static/css/errors/error.css" rel="stylesheet">
+<!--<script src="/app/static/js/toast.js"></script>-->
+{% endblock %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="error_content">
+    <div class="error_code_block">
+        <p class="error_page_text error_code_text">{{error_code}}</p>
+
+    </div>
+    <p class="error_page_text">Похоже, мы не можем найти нужную вам страницу</p>
+
+    <a class="error_page_button error_page_text" href="/">на главную</a>
+    <a class="error_page_button error_page_text" href="https://t.me/SomethinKsupportBot" target="_blank">техподдержка</a>
+</div>
+
+
+{% endblock %}

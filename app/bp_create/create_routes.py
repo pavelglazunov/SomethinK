@@ -13,6 +13,7 @@ from zenora import APIClient, GuildBase
 
 import config as api_config
 from app.utils.discord_api import get_user_roles, get_user_channels, check_token_valid, get_everyone_id
+from app.bp_create.base_config import BASE_CONFIG
 
 create_bp = Blueprint("create", __name__, template_folder="templates", static_folder="static", url_prefix="/create")
 
@@ -90,15 +91,8 @@ def get_token():
         session["user_guild_id"] = requests.get(f"https://discord.com/api/v8/users/@me/guilds",
                                                 headers={"Authorization": f"Bot {session['user_bot_token']}"}).json()[
             0]["id"]
-        session["configurator"] = session.get("configurator") if session.get("configurator") else {
-            "moderation": {},
-            "messages": {},
-            "roles": {},
-            "social_media": {},
-            "another": {},
-            "settings": {},
-            "customization": {}
-        }
+        session["configurator"] = session.get("configurator") if session.get("configurator") else BASE_CONFIG.copy()
+
         print(get_user_roles(session.get("user_guild_id"), session.get("user_bot_token")))
         session["everyone_id"] = get_everyone_id(session.get("user_guild_id"), session.get("user_bot_token"))[0]
 

@@ -929,6 +929,7 @@ input[type=number] {
     -moz-appearance:textfield; /* Firefox */
 }
 
+
 /*.select_roles::-webkit-outer-spin-button,*/
 /*.select_roles::-webkit-inner-spin-button {*/
 /*    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/

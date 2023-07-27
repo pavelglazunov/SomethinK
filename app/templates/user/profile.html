@@ -1,6 +1,134 @@
 {% extends "base.html" %}
 
+{% block css_connect %}
+<link href="/static/css/main/index.css" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-профиль номер: {{data}}
-<a href="/auth/logout">выйти</a>
+
+<section class="section" style="margin-top: 5vw">
+    <div class="section_header">
+        <div class="line" style="width: 17vw"></div>
+        <div class="section_name">ваши боты</div>
+
+    </div>
+
+    <div class="overlay hidden"></div>
+
+    <div class="bots_block">
+        <div class="modal hidden">
+            <!--            <div class="">-->
+            <h3 class="modal_header">удалить бота?</h3>
+            <!--            <p class="modal_header" id="modal_text"></p>-->
+            <p class="remove_bot_text" id="modal_text"></p>
+            <!--            </div>-->
+
+<!--            <input type="email" id="email" placeholder="brendaneich@js.com"/>-->
+            <button id="I_really_want_to_remove_this_cool_bot_button" class="I_really_want_to_remove_this_cool_bot">удалить бота</button>
+        </div>
+
+        {% for el in data.user_project %}
+        <div class="project" id="project_{{ el.id }}">
+            <p class="bot_name">{{ el.name }}</p>
+            <div class="bots_buttons">
+                <div class="project_buttons bot_edit_button" id="bot_edit_button_{{ el.id }}">редактировать</div>
+                <div class="project_buttons bot_remove_button" project_name="{{ el.name }}"
+                        id="bot_remove_button_{{ el.id }}">удалить
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <!--    <p>Projects: {{ data.user_project }}</p>-->
+
+</section>
+
+<script>
+    const modal_header_text = document.getElementById("modal_text")
+
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+
+    const project_edit_buttons = document.getElementsByClassName("bot_edit_button")
+    const project_remove_buttons = document.getElementsByClassName("bot_remove_button")
+    for (let i of project_edit_buttons) {
+        i.addEventListener("click", function () {
+            let button_id = i.id
+
+            const response = fetch("../api/edit", {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "project_id": button_id
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer",
+                // body: JSON.stringify(data)
+
+
+            })
+            if (response.status === 429) {
+                danger("Слишком много запросов в минуту")
+                return 0
+            }
+
+            window.location.href = "http://127.0.0.1:8080/create/moderation"
+
+
+        })
+    }
+    let selected_bot_id
+    for (let i of project_remove_buttons) {
+        i.addEventListener("click", function () {
+            console.log(122)
+            selected_bot_id = i.id
+
+            let name = i.getAttribute("project_name")
+            modal_header_text.textContent = "Вы уверены, что хотите безвозвратно удалить бота " + name + "?"
+
+            modal.classList.remove("hidden");
+            overlay.classList.remove("hidden");
+        })
+    }
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
+    document.getElementById("I_really_want_to_remove_this_cool_bot_button").addEventListener("click", function () {
+        console.log(selected_bot_id)
+        const response = fetch("../api/remove", {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "project_id": selected_bot_id
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            // body: JSON.stringify(data)
+
+
+        })
+
+        // window.location.reload()
+
+        // window.location.href = "http://127.0.0.1:8080/create/moderation"
+    })
+
+    // const closeModalBtn = document.querySelector(".btn-close");
+
+    // closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
+
+</script>
+
+<!--профиль номер: {{data}}-->
+<!--<a href="/auth/logout">выйти</a>-->
 {% endblock %}

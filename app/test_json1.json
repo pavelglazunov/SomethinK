@@ -3,187 +3,111 @@
     "avatar": {
       "channels": [],
       "description": "получить аватар пользователя",
-      "enable": false,
+      "enable": False,
       "roles": []
     },
     "color": {
       "channels": [],
       "description": "поменять цвет имени на сервере",
-      "enable": false,
+      "enable": False,
       "roles": []
     },
     "embed": {
       "channels": [],
       "description": "создать embed",
-      "enable": false,
+      "enable": False,
+      "roles": []
+    },
+    "feedback": {
+      "channels": [],
+      "description": "создать приглашение на сервер",
+      "enable": True,
       "roles": []
     },
     "gpt": {
       "channels": [],
       "description": "общения с chatGPT",
-      "enable": false,
+      "enable": False,
       "roles": [],
       "token": ""
-    },
-    "invite": {
-      "channels": [],
-      "description": "создать приглашение на сервер",
-      "enable": false,
-      "roles": []
     },
     "joke": {
       "channels": [],
       "description": "случайная шутка",
-      "enable": false,
+      "enable": False,
       "roles": []
     },
     "nick": {
       "channels": [],
       "description": "поменять имя на сервере",
-      "enable": false,
+      "enable": False,
       "roles": []
     },
     "say": {
       "channels": [],
       "description": "написать сообщения от имени бота",
-      "enable": false,
+      "enable": False,
       "roles": []
     },
     "translate": {
       "channels": [],
       "description": "перевести текст",
-      "enable": false,
+      "enable": False,
       "roles": []
     },
     "weather": {
       "channels": [],
       "description": "актуальная погода",
-      "enable": false,
+      "enable": False,
       "roles": [],
       "token": ""
     }
   },
   "customization": {},
   "messages": {
-    "auto_response": {
-      "7": {
-        "content": "not embed",
-        "embed": {
-          "author": "",
-          "color": "#BEC100",
-          "footer_content": "",
-          "header": "",
-          "image_url": ""
-        },
-        "enable_embed": false,
-        "trigger": "hellow1",
-        "trigger_type": "inside"
-      },
-      "9": {
-        "content": "jk;ljkjkjkl",
-        "embed": {
-          "author": "hhehea",
-          "color": "#59ff8f",
-          "footer_content": "lkjlkjlk",
-          "header": "kj;lj",
-          "image_url": "klj"
-        },
-        "enable_embed": true,
-        "trigger": "not hellow",
-        "trigger_type": "start"
-      }
-    },
-    "events": {
-      "4": {
-        "channel": "1093164701581594624",
-        "content": "text event",
-        "embed": {
-          "author": "",
-          "color": "#BEC100",
-          "footer_content": "",
-          "header": "",
-          "image_url": ""
-        },
-        "enable_embed": false,
-        "type": "join"
-      },
-      "6": {
-        "channel": "1077669672738111589",
-        "content": "body event",
-        "embed": {
-          "author": "i",
-          "color": "#3315ac",
-          "footer_content": "footerrrrr",
-          "header": "header event",
-          "image_url": "hhhrhr"
-        },
-        "enable_embed": true,
-        "type": "leave"
-      }
-    },
-    "time_message": {
-      "1": {
-        "channel": "1078292043698282537",
-        "content": "text1",
-        "embed": {
-          "author": "",
-          "color": "#BEC100",
-          "footer_content": "",
-          "header": "",
-          "image_url": ""
-        },
-        "enable_embed": false,
-        "interval": "24",
-        "time": "12:00",
-        "units_of_measure": "hours"
-      },
-      "3": {
-        "channel": "1077669672738111589",
-        "content": "body",
-        "embed": {
-          "author": "I",
-          "color": "#bec100",
-          "footer_content": "footer",
-          "header": "header",
-          "image_url": "https://"
-        },
-        "enable_embed": true,
-        "interval": "12",
-        "time": "12:00",
-        "units_of_measure": "days"
-      }
-    }
+    "auto_response": {},
+    "events": {},
+    "time_message": {}
   },
   "moderation": {
     "addrole": {
-      "channels": [
-        [
-          1234567891011,
-          "reports_channel"
-        ]
-      ],
+      "channels": [],
       "description": "выдать роль пользователю",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "afk": {
       "channels": [],
       "description": "переместить пользователя в AFK канал",
-      "enable": true,
-      "roles": [],
-      "special_channel": "-1"
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "ban": {
       "channels": [],
       "description": "заблокировать пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "caps": {
       "action": "--send",
       "channels": [],
       "description": "бот будет реагировать на сообщения с капсом, если выполняются условия, указанные ниже",
-      "enable": true,
+      "enable": True,
       "min_length": 20,
       "percent": 80,
       "roles": []
@@ -191,44 +115,74 @@
     "chatmute": {
       "channels": [],
       "description": "выключить пользователю возможность писать в чат",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "chatunmute": {
       "channels": [],
       "description": "включить пользователю возможность писать в чат",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "clear": {
       "channels": [],
       "description": "удалить сообщения",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "deafen": {
       "channels": [],
       "description": "выключить звук пользователю",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "fullban": {
       "channels": [],
       "description": "заблокировать пользователя и удалить все его сообщения",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "kick": {
       "channels": [],
       "description": "выгнать пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "links": {
       "action": "--send",
       "channels": [],
       "description": "бот будет реагировать на сообщения с ссылками",
-      "enable": true,
+      "enable": True,
       "roles": []
     },
     "mentions": {
@@ -236,63 +190,103 @@
       "channels": [],
       "count": 3,
       "description": "бот будет реагировать на сообщения с повторяющимися упоминаниями, если выполняются условия, указанные ниже",
-      "enable": true,
+      "enable": True,
       "roles": []
     },
     "move": {
       "channels": [],
       "description": "переместить пользователя в другой голосовой канал",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "mute": {
       "channels": [],
       "description": "выключить микрофон пользователю",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "ping": {
       "channels": [],
       "description": "посмотреть пинг сервера и бота",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "report": {
       "channels": [],
       "description": "отправить жалобу на пользователя",
-      "enable": true,
-      "roles": [],
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ],
       "special_channel": "-1"
     },
     "rmrole": {
       "channels": [],
       "description": "забрать роль у пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "rmtimeout": {
       "channels": [],
       "description": "удалить таймаут у пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "rmwarn": {
       "channels": [],
       "description": "снять предупреждение с пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "slowmode": {
       "channels": [],
       "description": "включить/выключить медленный режим",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "smile": {
       "action": "--send",
       "channels": [],
       "description": "бот будет реагировать на сообщения со смайликами, если выполняются условия, указанные ниже",
-      "enable": true,
+      "enable": True,
       "min_length": 20,
       "percent": 80,
       "roles": []
@@ -300,139 +294,119 @@
     "timeout": {
       "channels": [],
       "description": "выдать пользователю таймаут",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "unban": {
       "channels": [],
       "description": "разблокировать пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "undeafen": {
       "channels": [],
       "description": "включить звук у пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "unmute": {
       "channels": [],
       "description": "включить микрофон пользователю",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "vkick": {
       "channels": [],
       "description": "отключить пользователя от голосового канала",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "warn": {
       "channels": [],
       "description": "выдать предупреждение пользователю",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     },
     "warns": {
       "channels": [],
       "description": "посмотреть список предупреждений пользователя",
-      "enable": true,
-      "roles": []
+      "enable": True,
+      "roles": [
+        [
+          "Владелец сервера",
+          "-1"
+        ]
+      ]
     }
   },
   "roles": {
-    "ar_enable": true,
-    "clion": {
-      "enable": false,
-      "value": "#31FABE"
-    },
-    "csgo": {
-      "enable": false,
+    "Counter-Strike: Global Offensive": {
+      "enable": False,
       "value": "#BFC204"
     },
-    "dota2": {
-      "enable": false,
+    "Dota 2": {
+      "enable": False,
       "value": "#27A008"
     },
-    "fortnite": {
-      "enable": false,
+    "Fortnite": {
+      "enable": False,
       "value": "#EE27F2"
     },
-    "inteljs": {
-      "enable": false,
-      "value": "#0048D3"
-    },
-    "leagueoflegends": {
-      "enable": false,
+    "League of Legends": {
+      "enable": False,
       "value": "#1698C1"
     },
-    "minecraft": {
-      "enable": false,
+    "Minecraft": {
+      "enable": False,
       "value": "#2BF227"
     },
-    "phpstorm": {
-      "enable": false,
-      "value": "#9A0CCC"
-    },
-    "pycharm": {
-      "enable": false,
-      "value": "#59FA31"
-    },
-    "start_roles": {
-      "roles": [
-        [
-          "@everyone",
-          "1076824052007714937"
-        ],
-        [
-          "SomethinK",
-          "1076828482920792120"
-        ]
-      ]
-    },
-    "update_interval": "5",
-    "valorant": {
-      "enable": false,
+    "VALORANT": {
+      "enable": False,
       "value": "#F44B34"
     },
-    "visualstudio": {
-      "enable": false,
-      "value": "#318DFA"
+    "ar_enable": False,
+    "start_roles": {
+      "roles": []
     },
-    "webstorm": {
-      "enable": false,
-      "value": "#0E54DC"
-    }
+    "update_interval": "5"
   },
   "settings": {
     "logging": {
       "channel_id": "-1",
-      "enable": true,
+      "enable": True,
       "values": [
         "auto_moderation",
         "commands"
-      ]
-    },
-    "logoff": {
-      "channels": [],
-      "enable": true,
-      "roles": []
-    },
-    "logon": {
-      "channels": [],
-      "enable": true,
-      "roles": []
-    },
-    "statistic": {
-      "channel_id": "-1",
-      "enable": true,
-      "values": [
-        "text",
-        "voice",
-        "member",
-        "roles",
-        "category",
-        "messages"
       ]
     },
     "status": {
@@ -441,30 +415,6 @@
     }
   },
   "social_media": {
-    "add_tw": {
-      "channels": [],
-      "description": "добавить отслеживание твич канала",
-      "enable": true,
-      "roles": []
-    },
-    "add_yt": {
-      "channels": [],
-      "description": "добавить отслеживание ютуб канала",
-      "enable": true,
-      "roles": []
-    },
-    "rm_tw": {
-      "channels": [],
-      "description": "удалить отслеживание твич канала",
-      "enable": true,
-      "roles": []
-    },
-    "rm_yt": {
-      "channels": [],
-      "description": "удалить отслеживание ютуб канала",
-      "enable": true,
-      "roles": []
-    },
     "twitch": {},
     "youtube": {}
   }

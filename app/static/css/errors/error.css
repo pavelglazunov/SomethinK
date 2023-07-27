@@ -1,0 +1,82 @@
+@font-face {
+    font-family: Itim;
+    src: url("/static/fonts/itim-cyrillic.otf");
+}
+
+.error_content {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error_page_text {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vw;
+
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    margin: 0.5vw;
+
+}
+
+.error_small_text {
+    font-size: 1vw;
+    color: #c3c5d0;
+
+}
+
+.error_code_text {
+    font-size: 10vw;
+    color: white;
+    margin: 0;
+
+    font-family: Itim, sans-serif;
+    cursor: pointer;
+
+}
+
+.error_code_block {
+    width: 60%;
+    border-bottom: 1px #52565F solid;
+    height: max-content;
+
+    margin-top: 2vw;
+    padding: 1vw 0 0 0;
+}
+
+.error_page_button {
+    width: 15vw;
+    height: 4vw;
+
+    border: 1px #4A74C6 solid;
+    border-radius: 0.8vw;
+
+    margin-top: 2vw;
+
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition-duration: 0.3s;
+
+    background-color: #23272A;
+}
+
+
+.error_page_button:hover {
+    filter: drop-shadow(5px 5px 10px #171B22);
+    /*background-color: #282E3B;*/
+    background-color: #25282d;
+}

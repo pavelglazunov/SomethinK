@@ -1,4 +1,4 @@
-update_chapter(8)
+update_chapter(7)
 
 const letters = "qwertyuiopasdfghjklzxcvbnm_"
 

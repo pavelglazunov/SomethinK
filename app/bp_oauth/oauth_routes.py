@@ -126,7 +126,6 @@ def register():
         # with app.app_context():
         #     mail.send(msg)
 
-
         user = User()
         user.name = form.name.data
         user.email = form.email.data
@@ -153,6 +152,8 @@ def confirm_user():
     code = generate_api_token(current_user.email)
     print(code)
     return render_template("/auth/confirm.html", code=code)
+
+
 # @oauth_bp.route("/confirm_email/<token>", methods=["GET", "POST"])
 # def confirm(token):
 #     try:

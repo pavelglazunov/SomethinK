@@ -49,7 +49,7 @@ if __name__ == '__main__':
     Thread(target=lambda: app.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)).start()
 
     # Clear register codes
-    Thread(target=remove_codes).start()
+    # Thread(target=remove_codes).start()
 
     # Telegram bot
     executor.start_polling(dp, skip_updates=True)
