@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 
 from app import limiter
 from app.forms.create_forms import *
-from config import ONLINE
+# from config import ONLINE
 from zenora import APIClient, GuildBase
 
 # from discord.utils import get as discord_get

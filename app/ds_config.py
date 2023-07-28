@@ -11,4 +11,6 @@ APPLICATION_ID = "1083291047905480725"
 # OAUTH_URL = f"https://discord.com/api/oauth2/authorize?client_id=1083291047905480725&redirect_uri={parse.quote(REDIRECT_URL)}&response_type=code&scope=identify&"
 # OAUTH_URL = f"https://discord.com/api/oauth2/authorize?client_id=1083291047905480725&redirect_uri={parse.quote(REDIRECT_URL)}&response_type=code&scope=identify%20guilds%20email%20guilds.join%20guilds.members.read"
 # OAUTH_URL = f"https://discord.com/api/oauth2/authorize?client_id=1083291047905480725&redirect_uri={parse.quote(REDIRECT_URL)}&response_type=code&scope=email%20guilds.join%20guilds%20identify"
+
+
 OAUTH_URL = f"https://discord.com/api/oauth2/authorize?client_id=1083291047905480725&redirect_uri={parse.quote(REDIRECT_URL)}&response_type=code&scope=identify%20guilds%20email%20role_connections.write%20guilds.join%20guilds.members.read"

@@ -18,6 +18,7 @@ class User(SqlAlchemyBase, UserMixin):
     confirm_user = sqlalchemy.Column(sqlalchemy.Boolean)
     premium = sqlalchemy.Column(sqlalchemy.Boolean)
     discord = sqlalchemy.Column(sqlalchemy.String)
+    # discord_auth_token = sqlalchemy.Column(sqlalchemy.String)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)

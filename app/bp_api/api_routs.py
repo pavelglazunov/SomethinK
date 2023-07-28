@@ -147,7 +147,7 @@ def remove_bot():
     #                                         headers={"Authorization": f"Bot {session['user_bot_token']}"}).json()[
     #     0]["id"]
 
-    return jsonify({"status": "ok", "url": "/create/moderation"})
+    return jsonify({"status": "ok", "message": "Бот успешно удален"})
 
 
 @api_bp.route("/start_creating", methods=["POST"])
@@ -188,7 +188,7 @@ def start_creating():
     }
 
     print(session["configurator"]["bot_metadata"])
-    # generate(dict(session.get("configurator")))
+    generate(dict(session.get("configurator")))
 
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.email == current_user.email).first()

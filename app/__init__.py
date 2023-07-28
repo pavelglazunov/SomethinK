@@ -27,8 +27,8 @@ from .bp_oauth.oauth_routes import oauth_bp
 from .bp_api.api_routs import api_bp
 from .bp_errors.errors_routs import errors_bp
 
+app.register_blueprint(errors_bp)
 app.register_blueprint(main_bp)
 app.register_blueprint(create_bp)
 app.register_blueprint(oauth_bp)
 app.register_blueprint(api_bp)
-app.register_blueprint(errors_bp)

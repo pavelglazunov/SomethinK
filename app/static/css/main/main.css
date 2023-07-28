@@ -26,6 +26,8 @@ body {
     background: #23272A;
     padding: 0;
     margin: 0;
+    /*min-height: 100vh;*/
+    height: 100vh;
 }
 
 .header {
@@ -235,13 +237,15 @@ body {
 }
 
 .main_footer {
+
+    /*position: absolute;*/
     width: 100%;
-    height: 3vw;
+    height: 2vw;
     background-color: #23272A;
 
-    /*border-top: 1px #52565F solid;*/
+    border-top: 1px #52565F solid;
 
-    margin-top: 6vw;
+    margin-top: 1vw;
 
     display: flex;
     justify-content: space-between;

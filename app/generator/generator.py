@@ -852,6 +852,7 @@ def generate(key: dict):
 
     shutil.make_archive(key.get("bot_metadata", {}).get("project_name"), "zip",
                         key.get("bot_metadata", {}).get("project_name"))
+    # print(os.getcwd(), "=========================")
     shutil.rmtree(key.get("bot_metadata", {}).get("project_name"))
     os.chdir("../..")
 

@@ -1,49 +1,81 @@
 {% extends "base.html" %}
 
 {% block css_connect %}
+<link href="/app/static/css/create/toast.css" rel="stylesheet">
 <link href="/static/css/main/index.css" rel="stylesheet">
+<script src="/app/static/js/toast.js"></script>
 {% endblock %}
 
 {% block content %}
+<!--<section class="section" style="margin-top: 5vw">-->
+<!--    <div class="section_content">-->
+<!--        <h1 class="section_text">{{ data.username }}</h1>-->
+<!--        <div class="user_data">-->
+<!--            <div class="user_data_row">-->
+<!--                <div class="red_button logout_button">выйти из аккаунта</div>-->
+<!--                <div class="red_button remove_account_button">удалить аккаунт</div>-->
+<!--&lt;!&ndash;                {% if data.auth_with_discord %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="connect_discord_button">Дискорд привязан</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="{{ data.redirect_oauth_url }}" class="connect_discord_button not_connect">привязать дискорд</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                {% endif %}&ndash;&gt;-->
+<!--&lt;!&ndash;                <img class="discord_accept_icon" src="/static/img/icons8-accept.svg">&ndash;&gt;-->
+<!--&lt;!&ndash;                <p>Discord привязан</p>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-<section class="section" style="margin-top: 5vw">
-    <div class="section_header">
-        <div class="line" style="width: 17vw"></div>
-        <div class="section_name">ваши боты</div>
 
-    </div>
+<!--</section>-->
 
-    <div class="overlay hidden"></div>
+<div class="user_page_content">
+    <section class="section" style="margin-top: 5vw">
+        <div class="section_header">
+            <div class="line" style="width: 17vw"></div>
+            <div class="section_name">ваши боты</div>
 
-    <div class="bots_block">
-        <div class="modal hidden">
-            <!--            <div class="">-->
-            <h3 class="modal_header">удалить бота?</h3>
-            <!--            <p class="modal_header" id="modal_text"></p>-->
-            <p class="remove_bot_text" id="modal_text"></p>
-            <!--            </div>-->
-
-<!--            <input type="email" id="email" placeholder="brendaneich@js.com"/>-->
-            <button id="I_really_want_to_remove_this_cool_bot_button" class="I_really_want_to_remove_this_cool_bot">удалить бота</button>
         </div>
 
-        {% for el in data.user_project %}
-        <div class="project" id="project_{{ el.id }}">
-            <p class="bot_name">{{ el.name }}</p>
-            <div class="bots_buttons">
-                <div class="project_buttons bot_edit_button" id="bot_edit_button_{{ el.id }}">редактировать</div>
-                <div class="project_buttons bot_remove_button" project_name="{{ el.name }}"
-                        id="bot_remove_button_{{ el.id }}">удалить
+        <div class="overlay hidden"></div>
+
+        <div class="bots_block">
+            <div class="modal hidden">
+                <!--            <div class="">-->
+                <div class="modal_text_block">
+                    <h3 class="modal_header">удалить бота?</h3>
+                    <p class="remove_bot_text" id="modal_text"></p>
+                </div>
+
+                <button id="I_really_want_to_remove_this_cool_bot_button" class="I_really_want_to_remove_this_cool_bot">
+                    удалить бота
+                </button>
+            </div>
+
+            {% for el in data.user_project %}
+            <div class="project" id="project_{{ el.id }}">
+                <p class="bot_name">{{ el.name }}</p>
+                <div class="bots_buttons">
+                    <div class="project_buttons bot_edit_button" id="bot_edit_button_{{ el.id }}">редактировать</div>
+                    <div class="red_button bot_remove_button" project_name="{{ el.name }}"
+                         style="height: 2vw; width: max-content;"
+                         id="bot_remove_button_{{ el.id }}">удалить
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+
+
+        <!--    <p>Projects: {{ data.user_project }}</p>-->
+
+    </section>
+    <div class="logout_footer">
+        <a href="/create/token" class="green_button logout_button">создать бота</a>
+        <a href="/auth/logout" class="red_button logout_button">выйти из аккаунта</a>
+        <div class="red_button remove_account_button" id="remove_account :(">удалить аккаунт</div>
     </div>
+</div>
 
-
-    <!--    <p>Projects: {{ data.user_project }}</p>-->
-
-</section>
 
 <script>
     const modal_header_text = document.getElementById("modal_text")
@@ -88,6 +120,9 @@
             console.log(122)
             selected_bot_id = i.id
 
+            console.log(i.id)
+            console.log(selected_bot_id)
+
             let name = i.getAttribute("project_name")
             modal_header_text.textContent = "Вы уверены, что хотите безвозвратно удалить бота " + name + "?"
 
@@ -117,6 +152,18 @@
 
         })
 
+        closeModal()
+
+        // console.log(response.json())
+        const removed = document.getElementById("project_" + selected_bot_id.split("_")[3])
+        console.log(selected_bot_id)
+        console.log(selected_bot_id.split("_"))
+        console.log(selected_bot_id.split("_")[-1])
+        console.log(selected_bot_id.split("_")[3])
+        removed.remove()
+        // if (response["status"] === "ok") {
+        //     successText(response["message"])
+        // }
         // window.location.reload()
 
         // window.location.href = "http://127.0.0.1:8080/create/moderation"
@@ -127,6 +174,13 @@
     // closeModalBtn.addEventListener("click", closeModal);
     overlay.addEventListener("click", closeModal);
 
+</script>
+<script>
+    remove_button = document.getElementById("remove_account :(")
+
+    remove_button.addEventListener("click", function () {
+
+    })
 </script>
 
 <!--профиль номер: {{data}}-->

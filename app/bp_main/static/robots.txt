@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /user/
+Disallow: /create/
+Disallow: /auth/
+
+User-agent: *
+Allow: /
