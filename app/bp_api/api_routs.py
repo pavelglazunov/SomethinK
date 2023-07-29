@@ -6,7 +6,7 @@ import requests
 
 from flask import Blueprint, jsonify, session, request, redirect
 from flask import send_file
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, logout_user
 from app.utils.discord_api import USER_GET_FUNC
 
 from app.data import db_session
@@ -18,6 +18,18 @@ from app.utils.validation import validation
 from app.generator.generator import progres, generate
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
+
+
+def validate_project_id(project_id):
+    try:
+        project_id = int(project_id.split("_")[-1])
+    except ValueError:
+        return True
+
+    if project_id < 0:
+        return True
+
+    return False
 
 
 @api_bp.route("/discord_login", methods=["GET", "POST"])
@@ -150,6 +162,58 @@ def remove_bot():
     return jsonify({"status": "ok", "message": "Бот успешно удален"})
 
 
+@api_bp.route("/download", methods=["GET", "POST"])
+def download_bot():
+    project_id = request.headers.get("project_id")
+
+    if validate_project_id(project_id):
+        return jsonify({"status": "error", "message": f"Код ошибки: Hack attack? Stop please"})
+
+    db_sess = db_session.create_session()
+    # user = db_sess.query(User).filter(User.email == current_user.email).first()
+
+    project_configurator = db_sess.query(Projects).filter(
+        Projects.id == int(project_id.split("_")[-1])).first().config_json
+
+    print(project_configurator)
+    # try:
+    #     project_id = int(project_id.split("_")[-1])
+    # except ValueError:
+    #     return jsonify({"status": "error", "message": f"Код ошибки: Hack attack? Stop please"})
+    #
+    # if project_id < 0:
+    #     return jsonify({"status": "error", "message": f"Код ошибки: Hack attack? Stop please"})
+    generate(dict(project_configurator))
+    return send_file(
+        f"{os.getcwd()}\\app\\generator\\{project_configurator.get('bot_metadata', {}).get('project_name', 'Unknown')}.zip",
+        as_attachment=True)
+
+
+@api_bp.route("/remove_account", methods=["GET", "POST"])
+@login_required
+def remove_account():
+    user_password = request.headers.get("password")
+
+    db_sess = db_session.create_session()
+
+    user = db_sess.query(User).filter(User.email == current_user.email).first()
+
+    if not user.check_password(user_password):
+        print("incorrect password")
+        return jsonify({"status": "error", "message": "Неверный пароль"})
+
+    user_projects = db_sess.query(Projects).filter(Projects.author_id == user.id).all()
+    logout_user()
+    session.clear()
+
+    db_sess.delete(user)
+    for pr in user_projects:
+        db_sess.delete(pr)
+    db_sess.commit()
+
+    return jsonify({"status": "ok", "message": "Аккаунт удален"})
+
+
 @api_bp.route("/start_creating", methods=["POST"])
 @login_required
 def start_creating():
@@ -158,6 +222,12 @@ def start_creating():
     # print(session.get("configurator"))
     print(dict(session.get("configurator")))
 
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.email == current_user.email).first()
+    user_projects = db_sess.query(Projects).filter(Projects.author_id == user.id).all()
+
+    if len(user_projects) >= 5:
+        return jsonify({"status": "error", "message": f"Достигнул лимит в 5 ботов"})
     # print(json.dumps(dict(session.get("configurator")), ensure_ascii=False))
     # if not request.json:
     #     return jsonify({"status": "error"})
@@ -190,8 +260,6 @@ def start_creating():
     print(session["configurator"]["bot_metadata"])
     generate(dict(session.get("configurator")))
 
-    db_sess = db_session.create_session()
-    user = db_sess.query(User).filter(User.email == current_user.email).first()
     # print(user.id, current_user.id)
 
     project = Projects()

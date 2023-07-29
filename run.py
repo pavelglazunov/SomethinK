@@ -1,8 +1,11 @@
 import os
 from app import app, db_session
+from telegramAuthBot import start_bot
 from telegramAuthBot import dp, remove_codes
 from aiogram.utils import executor
 from threading import Thread
+import threading
+import asyncio
 
 # class FlaskApp(threading.Thread):
 #     def run(self) -> None:
@@ -43,6 +46,21 @@ from threading import Thread
 if __name__ == '__main__':
     db_session.global_init("app/db/db.db")
 
+    # bot_thread = Thread(target=start_bot)
+    # bot_thread.daemon = True
+
+    # bot_thread.start()
+
+    # thread = Thread(target=start_polling)
+
+    # thread.start()
+    # bot_thread = threading.Thread(target=start_bot)
+    # bot_thread.start()
+    # asyncio.run(start_auth_bot())
+
+    # Создаем и запускаем новый поток для бота
+    # bot_thread = threading.Thread(target=asyncio.run, args=(start_auth_bot(),))
+    # bot_thread.start()
     # app.run(host="127.0.0.1", port=8080, debug=True, threaded=True)
 
     # Flask app
@@ -52,7 +70,8 @@ if __name__ == '__main__':
     # Thread(target=remove_codes).start()
 
     # Telegram bot
-    executor.start_polling(dp, skip_updates=True)
+    # executor.start_polling(dp, skip_updates=True)
+    # Thread(target=executor.start_polling, args=(dp, ), kwargs=({"skip_updates": True})).start()
 
     # print("here")
 # flask_app = FlaskApp()

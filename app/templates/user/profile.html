@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block css_connect %}
-<link href="/app/static/css/create/toast.css" rel="stylesheet">
+<link href="/static/css/create/toast.css" rel="stylesheet">
 <link href="/static/css/main/index.css" rel="stylesheet">
-<script src="/app/static/js/toast.js"></script>
+<script src="/static/js/toast.js"></script>
+<script src="/static/js/toasts.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -56,6 +57,9 @@
                 <p class="bot_name">{{ el.name }}</p>
                 <div class="bots_buttons">
                     <div class="project_buttons bot_edit_button" id="bot_edit_button_{{ el.id }}">редактировать</div>
+                    <div class="project_buttons bot_download_button" id="bot_download_button_{{ el.id }}"
+                         project_name="{{ el.name }}">скачать
+                    </div>
                     <div class="red_button bot_remove_button" project_name="{{ el.name }}"
                          style="height: 2vw; width: max-content;"
                          id="bot_remove_button_{{ el.id }}">удалить
@@ -70,9 +74,22 @@
 
     </section>
     <div class="logout_footer">
-        <a href="/create/token" class="green_button logout_button">создать бота</a>
-        <a href="/auth/logout" class="red_button logout_button">выйти из аккаунта</a>
-        <div class="red_button remove_account_button" id="remove_account :(">удалить аккаунт</div>
+        <div class="buttons_block">
+            <a href="/create/token" class="green_button logout_button">создать бота</a>
+            <a href="/auth/logout" class="red_button logout_button">выйти из аккаунта</a>
+            <div class="red_button remove_account_button" id="remove_account :(">удалить аккаунт</div>
+        </div>
+        <div class="forms_block hidden" id="form_block">
+            <p class="texts" style="font-size: 1vw">Для удаления аккаунта введите пароль</p>
+            <input class="red_input" type="password" placeholder="Пароль" id="password_input">
+        </div>
+
+        <div class="forms_block hidden" id="remove_account_button_form">
+            <div class="remove_account red_button" id="really_remove_account_button">
+                удалить
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -83,8 +100,9 @@
     const modal = document.querySelector(".modal");
     const overlay = document.querySelector(".overlay");
 
-    const project_edit_buttons = document.getElementsByClassName("bot_edit_button")
     const project_remove_buttons = document.getElementsByClassName("bot_remove_button")
+
+    const project_edit_buttons = document.getElementsByClassName("bot_edit_button")
     for (let i of project_edit_buttons) {
         i.addEventListener("click", function () {
             let button_id = i.id
@@ -176,11 +194,136 @@
 
 </script>
 <script>
-    remove_button = document.getElementById("remove_account :(")
+    const project_download_buttons = document.getElementsByClassName("bot_download_button")
+    for (let i of project_download_buttons) {
+        i.addEventListener("click", async function () {
+            let button_id = i.id
+            let project_name = i.getAttribute("project_name")
+
+            const response = await fetch("../api/download", {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "project_id": button_id
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer",
+                // body: JSON.stringify(data)
+
+
+            })
+            if (response.status === 429) {
+                danger("Слишком много запросов в минуту")
+                return 0
+            }
+            const blob = await response.blob();
+
+            if (blob.type === "application/json") {
+                // Если ответ в виде JSON
+                const json = await blob.text();
+                const data = JSON.parse(json);
+
+                if (data.status !== "ok") {
+                    // Если статус не 'ok' - показываем ошибку
+                    danger(data.message);
+                    return 0;
+                }
+            } else {
+                // Если ответ не в виде JSON - скачиваем файл
+                const url = URL.createObjectURL(blob);
+
+                // Создаем ссылку для скачивания файла
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = project_name + ".zip"; // Указываем имя файла
+                document.body.appendChild(link);
+
+                // Кликаем по ссылке для скачивания файла
+                link.click();
+
+                // Удаляем ссылку
+                document.body.removeChild(link);
+
+                // Освобождаем ресурсы
+                URL.revokeObjectURL(url);
+            }
+            // window.location.href = "http://127.0.0.1:8080/create/moderation"
+
+
+        })
+    }
+</script>
+<script>
+    const remove_button = document.getElementById("remove_account :(")
 
     remove_button.addEventListener("click", function () {
+        let form = document.getElementById("form_block")
+        if (form.classList.contains("hidden")) {
+            form.classList.remove("hidden")
+            remove_button.textContent = "отмена"
+        }
+        else {
+            form.classList.add("hidden")
+            remove_account_button.classList.add("hidden")
+            remove_button.textContent = "удалить аккаунт"
+
+        }
+    })
+    const remove_account_button = document.getElementById("remove_account_button_form")
+    const password_input = document.getElementById("password_input")
+    password_input.addEventListener("input", function () {
+
+        if (password_input.value !== "") {
+
+            console.log(remove_account_button.classList)
+            if (remove_account_button.classList.contains("hidden")) {
+                remove_account_button.classList.remove("hidden")
+
+            }
+        }
+        else {
+            remove_account_button.classList.add("hidden")
+        }
+    })
+
+
+    const really_remove_account_button = document.getElementById("really_remove_account_button")
+    really_remove_account_button.addEventListener("click", async function () {
+        const response = await fetch("../api/remove_account", {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "password": password_input.value
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            // body: JSON.stringify(data)
+
+
+        })
+        if (response.status === 429) {
+            danger("Слишком много запросов в минуту")
+            return 0
+        }
+
+        const answer = await response.json()
+
+        if (answer["status"] !== "ok") {
+            danger(answer["message"])
+            return 0
+        }
+
+        window.location.href = "http://127.0.0.1:8080/"
+
 
     })
+
 </script>
 
 <!--профиль номер: {{data}}-->

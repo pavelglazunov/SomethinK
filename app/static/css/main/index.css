@@ -138,12 +138,24 @@
     /*margin-top: 15vw;*/
 
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
 
     padding: 0 1vw;
     /*margin-bottom: -7vw;*/
 
     /*margin-top: 20vw;*/
+}
+
+.buttons_block {
+    display: flex;
+    flex-direction: column;
+}
+
+.forms_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 1vw;
 }
 
 /*.full_screen {*/
@@ -195,6 +207,7 @@
 
 
 }
+
 
 .not_connect {
     border: 1px #ffc107 solid;
@@ -346,7 +359,6 @@
     height: 3vw;
 
 
-
     font-family: Itim, sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -378,6 +390,14 @@
     /*filter: drop-shadow(5px 5px 10px #171B22);*/
 }
 
+/*.project_download_icon {*/
+/*    width: 2vw;*/
+/*    height: 2vw;*/
+
+/*    color: #00FC0A;*/
+
+/*}*/
+
 .bots_block {
     width: 100%;
 
@@ -394,6 +414,18 @@
 }
 
 .bot_edit_button:hover {
+    filter: drop-shadow(5px 5px 10px #171B22);
+    background-color: #25282d;
+
+}
+
+.bot_download_button {
+    border: 1px #4A74C6 solid;
+    margin-right: 1vw;
+
+}
+
+.bot_download_button:hover {
     filter: drop-shadow(5px 5px 10px #171B22);
     background-color: #25282d;
 
@@ -443,7 +475,6 @@
     border: 1px #D65048 solid;
 
     background-color: #D65048;
-
 
 
 }
@@ -550,6 +581,15 @@
     cursor: pointer;
 }
 
+.texts {
+    font-family: Itim, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2vw;
+
+    color: #c3c5d0;
+}
+
 .red_button {
 
     font-family: Itim, sans-serif;
@@ -591,6 +631,7 @@
     filter: drop-shadow(5px 5px 10px #171B22);
 }
 
+
 .green_button {
 
     font-family: Itim, sans-serif;
@@ -630,4 +671,50 @@
     /*color: #23272A;*/
 
     filter: drop-shadow(5px 5px 10px #171B22);
+}
+
+
+.red_input {
+
+    font-family: Itim, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2vw;
+
+    /*text-align: center;*/
+
+    color: #FFFFFF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #23272A;
+    border: 1px #C4302B solid;
+
+    border-radius: 0.5vw;
+
+    margin-bottom: 1vw;
+
+    width: 17vw;
+    height: 3vw;
+
+    /*cursor: pointer;*/
+    text-decoration: none;
+
+    transition-duration: 0.5s;
+
+    padding: 0 1vw;
+
+}
+
+input:focus {
+    outline: none;
+}
+
+.red_input:hover {
+    /*background-color: #C4302B;*/
+    color: #FFFFFF;
+
+    /*filter: drop-shadow(5px 5px 10px #171B22);*/
 }

@@ -44,27 +44,6 @@ async function post_data(type, data) {
     return await response.json()
 }
 
-// async function start_creating(project_name) {
-//     const response = await fetch("../api/start_creating", {
-//         method: "POST",
-//         mode: "cors",
-//         cache: "no-cache",
-//         credentials: "same-origin",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         redirect: "follow",
-//         referrerPolicy: "no-referrer",
-//         body: JSON.stringify({"project_name": project_name})
-//
-//
-//     })
-//     if (response.status === 429) {
-//         danger("Слишком много запросов в минуту")
-//         return
-//     }
-//     return await response.json()
-// }
 async function start_creating(project_name) {
     try {
         const response = await fetch("../api/start_creating", {
