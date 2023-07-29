@@ -4,34 +4,132 @@
 {% block css_connect %}
 <link href="/static/css/auth/select_auth_type.css" rel="stylesheet">
 <link href="/static/css/auth/auth.css" rel="stylesheet">
+<link href="/static/css/create/toast.css" rel="stylesheet">
+
+<script src="/static/js/toast.js"></script>
+<script src="/static/js/toasts.js"></script>
 {% endblock %}
 
 
 {% block content %}
 
 <div class="auth_content">
-    <form action="" method="post" class="auth_block">
-        <div class="form_content">
-            <p class="block_header">Вход</p>
+    <form action="" method="post" class="form_content">
+        <p class="block_header">Вход</p>
 
-            {{ form.hidden_tag() }}
+        <div class="inputs_colon">
+            <p style="font-size: 1vw; margin: 1vw 0 0 0" id="check_code_lbl" class="hidden">На указанную почту был
+                отправлен код, пожалуйста, введите
+                его</p>
+            <label for="email_input_form"></label><input type="email" class="auth_text_inputs" placeholder="Почта"
+                                                         id="email_input_form"/>
+            <label for="code_input_form"></label><input type="text" class="auth_text_inputs hidden" placeholder="Код"
+                                                        id="code_input_form">
 
-            {{ form.email(class="auth_text_inputs", type="email", placeholder="Email", style="height: 20px, width:
-            210px") }}<br>
-            {% for error in form.email.errors %}
-            {% endfor %}
-            {{ form.password(class="auth_text_inputs", type="password", placeholder="Password", style="height: 20px, width:
-            210px") }}
-            {% for error in form.password.errors %}
-            {% endfor %}
-            <div class="auth_error_message">{{ message }}</div>
+            <button class="auth_button" id="submit_button">отправить код</button>
+            <div class="privacy_row" id="privacy_row">
+                <label for="accept_policy_form"></label><input type="checkbox"
+                                                               class="blue_checkbox"
+                                                               id="accept_policy_form"
+                                                               style="margin-left: 0"
+                                                               checked="checked"/>
 
-            {{ form.submit(type="submit", class="auth_button", style="margin-top: 2vw;") }}
+                <p style="font-size: 0.8vw" id="accept_policy_lbl">Нажимая отправить я принимаю <a href="/privacy"
+                                                                                                   class="block_footer_link">политику
+                    конфиденциальности</a></p>
+
+
+            </div>
+        </div>
+
+
+        <div class="button_block">
+
 
         </div>
 
-        <p class="block_footer">Еще нет аккаунта? <a href="/auth/register" class="block_footer_link">Создайте его!</a></p>
+
     </form>
 </div>
+
+<script>
+    const send_button = document.getElementById("submit_button")
+    const email_form = document.getElementById("email_input_form")
+    const code_form = document.getElementById("code_input_form")
+    const accept_privacy_row = document.getElementById("privacy_row")
+    const checkbox_form = document.getElementById("accept_policy_form")
+    const accept_policy_lbl = document.getElementById("accept_policy_lbl")
+    const check_code_lbl = document.getElementById("check_code_lbl")
+
+
+    send_button.addEventListener("click", async function () {
+        const email = email_form.value
+
+        if (!email) {
+            danger("Необходимо ввести почту")
+            return
+        }
+
+
+        accept_privacy_row.classList.add("hidden")
+        code_form.classList.remove("hidden")
+        checkbox_form.classList.remove("blue_checkbox")
+        accept_policy_lbl.classList.add("hidden")
+
+        send_button.disabled = true
+        // send_button.classList.add("hidden")
+        check_code_lbl.classList.remove("hidden")
+
+        // send_button.textContent = "отправить ещё раз"
+
+        const response = await fetch("../api/login", {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "email": email.value
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer"
+
+
+        })
+        if (response.status === 429) {
+            danger("Слишком много запросов в минуту")
+            return 0
+        }
+
+        warning("На указанную почту был отправлен код")
+
+        timer()
+
+
+    })
+
+    email_form.addEventListener("input", function () {
+
+    })
+
+    function timer(){
+        let sec = 60;
+        let timer = setInterval(function(){
+            send_button.textContent = "отправить ещё раз | " + sec
+            sec--;
+            if (sec < 0) {
+                clearInterval(timer);
+                send_button.disabled = false
+                send_button.textContent = "отправить код"
+            }
+        }, 1000);
+    }
+
+    async function check_code() {
+
+    }
+
+
+</script>
 
 {% endblock %}

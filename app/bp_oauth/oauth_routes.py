@@ -1,26 +1,17 @@
-import base64
 import datetime
-
-from flask import Blueprint, render_template, session, redirect, request, url_for
-from flask_login import login_required, login_user, logout_user, current_user
-from flask_mail import Message
-
-import config
-from app.forms.user import RegisterForm, LoginForm
-from app.utils.auntifications import send_message
-
-from app.data import db_session
-from app.data.users import User
-from telegramAuthBot.api.auth_api import generate_api_token
-from app import mail, app
-
-import app.ds_config as api_config
-# from config import ONLINE
-
-from zenora import APIClient
-
 import secrets
 import string
+
+from flask import Blueprint, render_template, session, redirect, request
+from flask_login import login_required, login_user, logout_user, current_user
+from zenora import APIClient
+
+from app.forms.user import RegisterForm, LoginForm
+from app.data import db_session
+from app.data.users import User
+import app.ds_config as api_config
+
+from SomethinKTelegramBot.api.auth_api import generate_api_token
 
 client = APIClient(api_config.TOKEN, client_secret=api_config.CLIENT_SECRET)
 
@@ -34,21 +25,21 @@ def auth():
 
 @oauth_bp.route("/login", methods=["GET", "POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.email == form.email.data).first()
-
-        if user and user.check_password(form.password.data):
-            login_user(user, remember=True)
-
-            session["is_auth"] = True
-
-            return redirect("/../")
-        return render_template('auth/login.html',
-                               message="Неправильный логин или пароль",
-                               form=form)
-    return render_template('auth/login.html', title='Авторизация', form=form)
+    # form = LoginForm()
+    # if form.validate_on_submit():
+    #     db_sess = db_session.create_session()
+    #     user = db_sess.query(User).filter(User.email == form.email.data).first()
+    #
+    #     if user and user.check_password(form.password.data):
+    #         login_user(user, remember=True)
+    #
+    #         session["is_auth"] = True
+    #
+    #         return redirect("/../")
+    #     return render_template('auth/login.html',
+    #                            message="Неправильный логин или пароль",
+    #                            form=form)
+    return render_template('auth/login.html', title='Авторизация')
 
 
 @oauth_bp.route("/discord")
@@ -63,10 +54,6 @@ def login_discord():
     discord_user = bearer_client.users.get_current_user()
     username, email, discriminator = discord_user.username, discord_user.email, discord_user.discriminator
 
-    # print(username, discriminator)
-
-    # return
-
     db_sess = db_session.create_session()
 
     user = db_sess.query(User).filter(User.email == email).first()
@@ -75,7 +62,6 @@ def login_discord():
         user.name = username
         user.email = email
         user.discord = f"{username}#{discriminator}"
-        # name=username, email=email, discord=f"{username}#{discriminator}"
 
         user.set_password(''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(30)))
 
@@ -88,88 +74,50 @@ def login_discord():
     login_user(user, remember=True)
 
     session["auth_with_discord"] = True
-    # current_user.name = discord_user.username
-    # discord_user.
 
     return redirect("/create/token")
 
 
-@oauth_bp.route("/register", methods=["GET", "POST"])
-def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        if form.password.data != form.password_again.data:
-            return render_template('auth/register.html', title='Регистрация',
-                                   form=form,
-                                   message="Пароли не совпадают")
-        db_sess = db_session.create_session()
-        if len(form.name.data) > 20:
-            return render_template('auth/register.html', title='Регистрация',
-                                   form=form,
-                                   message="Имя слишком длинное")
-        if db_sess.query(User).filter(User.email == form.email.data).first():
-            return render_template('auth/register.html', title='Регистрация',
-                                   form=form,
-                                   message="Пользователь с такой почтой уже есть")
+# @oauth_bp.route("/register", methods=["GET", "POST"])
+# def register():
+    # form = RegisterForm()
+    # if form.validate_on_submit():
+        # if form.password.data != form.password_again.data:
+        #     return render_template('auth/register.html', title='Регистрация',
+        #                            form=form,
+        #                            message="Пароли не совпадают")
+        # db_sess = db_session.create_session()
+        # if len(form.name.data) > 20:
+        #     return render_template('auth/register.html', title='Регистрация',
+        #                            form=form,
+        #                            message="Имя слишком длинное")
+        # if db_sess.query(User).filter(User.email == form.email.data).first():
+        #     return render_template('auth/register.html', title='Регистрация',
+        #                            form=form,
+        #                            message="Пользователь с такой почтой уже есть")
 
-        # token = s.dumps(form.email.data, salt='email-confirm')
-        # link = url_for(f"oauth.confirm", token=token, _external=True)
+        # user = User()
+        # user.name = form.name.data
+        # user.email = form.email.data
+        # user.confirm_user = False
+        # user.premium = False
+        # user.created_date = datetime.datetime.now()
         #
-        # print(link)
-        # send_message(link, form.email.data)
-
-        # msg = Message("Confirm email", sender="somethinkbots@gmail.com", recipients=["p6282813@yandex.ru"])
+        # user.set_password(form.password.data)
         #
-        # msg.html = f"<h1>Link:</h1> <a href='{link}'>confirm</a>"
+        # db_sess.add(user)
+        # db_sess.commit()
         #
-        # print(msg)
-        # with app.app_context():
-        #     mail.send(msg)
-
-        user = User()
-        user.name = form.name.data
-        user.email = form.email.data
-        user.confirm_user = False
-        user.premium = False
-        user.created_date = datetime.datetime.now()
-
-        # name=form.name.data, email=form.email.data, created_date=
-        user.set_password(form.password.data)
-
-        db_sess.add(user)
-        db_sess.commit()
-        # print(token)
-        login_user(user, remember=True, duration=datetime.timedelta(days=7))
-        return redirect(f"confirm")
-        # return redirect('/auth/confirm_email')
-    return render_template('auth/register.html', form=form)
+        # login_user(user, remember=True, duration=datetime.timedelta(days=7))
+        # return redirect(f"confirm")
+    # return render_template('auth/register.html')
 
 
 @oauth_bp.route("/confirm")
 @login_required
 def confirm_user():
-    print()
     code = generate_api_token(current_user.email)
-    print(code)
     return render_template("/auth/confirm.html", code=code)
-
-
-# @oauth_bp.route("/confirm_email/<token>", methods=["GET", "POST"])
-# def confirm(token):
-#     try:
-#
-#         email = s.loads(token, salt='email-confirm', max_age=60 * 10)
-#
-#         db_sess = db_session.create_session()
-#
-#         user = db_sess.query(User).filter(User.email == email).first()
-#         user.confirm_email = True
-#
-#         db_sess.commit()
-#     except SignatureExpired:
-#         return "Время того"
-#     return redirect("/")
-# return render_template("main/index.html", confirm_ok=True)
 
 
 @oauth_bp.route("/logout")
@@ -186,5 +134,3 @@ def logout():
 
     logout_user()
     return redirect("/")
-
-# write a program on python to send email using flask-mail

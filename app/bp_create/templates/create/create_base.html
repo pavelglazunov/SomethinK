@@ -1,12 +1,11 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet"><!-- CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main/main.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create/header.css')}}">
@@ -31,18 +30,13 @@
 <body>
 <header>
     <div class="header">
-<!--        <div class="header-text">-->
         <a class="header-text header_text_border_right" href="/user/{{current_user.id}}">{{ current_user.name }}</a>
-<!--        </div>-->
         <div class="header_right_texts">
             <a class="header-text header_text_border_left" href="https://www.donationalerts.com/r/somethinkbots" target="_blank">Поддержать проект</a>
             <a class="header-text header_text_border_left" href="https://t.me/SomethinKsupportBot" target="_blank">Техподдержка</a>
             <a class="header-text header_text_border_left" style="color: #00FC0A" href="/">SomethinK</a>
-
         </div>
-<!--        <a class="header-text" href="/">SomethinK</a>-->
     </div>
-    <!--    <a href="/create/">информация</a>-->
 
 
 </header>
@@ -55,7 +49,6 @@
     <a class="select_chapter_menu" href="/create/social_media">социальные сети</a>
     <a class="select_chapter_menu" href="/create/another">дополнительные возможности</a>
     <a class="select_chapter_menu" href="/create/settings">настройки</a>
-<!--    <a class="select_chapter_menu" href="/create/customize">кастомизация</a>-->
     <a class="select_chapter_menu" href="/create/create">создать</a>
     {% else %}
     <div class="select_chapter_menu">токен</div>
@@ -65,7 +58,6 @@
     <div class="select_chapter_menu">социальные сети</div>
     <div class="select_chapter_menu">дополнительные возможности</div>
     <div class="select_chapter_menu">настройки</div>
-<!--    <div class="select_chapter_menu">кастомизация</div>-->
     <div class="select_chapter_menu">создать</div>
     {% endif %}
 

@@ -54,7 +54,7 @@ body {
 
     margin: 0 2vw;
 
-    padding: 1vw 0 0 0;
+    padding: 1vw 2vw;
 }
 
 .block_header {
@@ -77,7 +77,7 @@ body {
 }
 
 .block_text {
-    max-width: 50%;
+    max-width: 60%;
     /*height: 8vw;*/
     font-size: 1vw;
 
@@ -86,7 +86,7 @@ body {
 
 .auth_button {
     background-color: #5865F2;
-    width: 70%;
+    width: 100%;
     height: 2vw;
     border-radius: 0.3vw;
 
@@ -103,9 +103,19 @@ body {
     color: #FFFFFF;
     text-decoration: none;
 
-    margin-bottom: 1vw;
+    /*margin-bottom: 1vw;*/
 
     border: none;
 
     cursor: pointer;
+
+    margin-top: 1vw;
+}
+
+.auth_button:disabled {
+    background-color: #5c6070;
+}
+
+.hidden {
+    display: none;
 }

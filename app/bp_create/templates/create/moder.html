@@ -11,11 +11,13 @@
         <p class="text_block">В этом разделе Вы можете добавить основные команды модерации и автомодерации. </p>
 
         <div class="sticky_block">
-            <div class="block" id="configurator"  style="max-width: 30vw; margin-bottom: 2vw; padding-bottom: 1vw">
+            <div class="block" id="configurator" style="max-width: 30vw; margin-bottom: 2vw; padding-bottom: 1vw">
                 <p class="about_configurator">В этом блоке вы сможете настроить необходимые команды</p>
                 <p class="about_configurator">Данный блок не является обязательным для заполнения</p>
-                <p class="about_configurator">Если вы не заполните поля связанные с ролями или каналами, к ним автоматически будет применено значение "все"</p>
-                <p class="about_configurator">Если вы не заполните поле "описание", в команде будет установлено базовое значение (указано в заголовке каждой команды)</p>
+                <p class="about_configurator">Если вы не заполните поля связанные с ролями или каналами, к ним
+                    автоматически будет применено значение "все"</p>
+                <p class="about_configurator">Если вы не заполните поле "описание", в команде будет установлено базовое
+                    значение (указано в заголовке каждой команды)</p>
                 <p class="about_configurator"><span style="color: #dc3545">*</span> - обязательно для заполнения</p>
             </div>
             <div class="base_roles_block">
@@ -34,7 +36,8 @@
 ">
                         {% endif %}
                         <button class="add_role_btn" id="add_base_role_button" style="margin-right: 1vw;     filter: drop-shadow(5px 5px 10px #171B22);
-">+</button>
+">+
+                        </button>
                     </div>
 
                     <div class="add_role_btn" id="help_button"></div>
@@ -49,11 +52,11 @@
 
 
     <div class="functions">
-        <div class="block" >
+        <div class="block">
             <p class="block_header">основные команды</p>
             <div class="loading" style="margin-top: 1vw"></div>
 
-            <div class="block_content"  id="main_command">
+            <div class="block_content" id="main_command">
 
             </div>
 
@@ -61,7 +64,7 @@
         <div class="block">
             <p class="block_header">дополнительные команды</p>
             <div class="loading" style="margin-top: 1vw"></div>
-            <div class="block_content"  id="another_command"></div>
+            <div class="block_content" id="another_command"></div>
 
         </div>
 
@@ -69,38 +72,14 @@
             <p class="block_header">автомодерация</p>
             <div class="loading" style="margin-top: 1vw"></div>
 
-            <div class="block_content"  id="auto_moderation"></div>
+            <div class="block_content" id="auto_moderation"></div>
 
         </div>
     </div>
 
 
 </div>
-<!--<script>-->
-<!--    window.onscroll = function (e) {-->
-<!--        // console.log(document.body.scroll)-->
-<!--        let _data = document.getElementById("data_block_AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")-->
-<!--        let _data_pos = _data.getBoundingClientRect()-->
-<!--        console.log(_data_pos.y)-->
-
-<!--        if (_data_pos.y < 0) {-->
-<!--            _data.style.marginTop = Math.abs(0.0 - _data_pos.y) + "px"-->
-<!--            return 0-->
-<!--            // _data.st = 0-->
-<!--        }-->
-<!--        _data.style.marginTop = "0"-->
-<!--        // if (document.documentElement.clientHeight)//ie-->
-<!--        //     vertical_position = document.documentElement.scrollTop;-->
-<!--        // else if (document.body)//ie quirks-->
-<!--        //     vertical_position = document.body.scrollTop;-->
-<!--        //-->
-<!--        // var your_div = document.getElementById('some_div');-->
-<!--        // your_div.style.top = (vertical_position + 200) + 'px';//200 is arbitrary.. just to show you could now position it how you want-->
-<!--    }-->
-<!--</script>-->
-
 <script src="/static/js/createJS/moderation.js"></script>
-
 
 
 {% endblock %}

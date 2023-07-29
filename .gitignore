@@ -17,11 +17,20 @@ __pycache__/
 __pycache__
 
 
-
+.env
+./.env
 
 ./save
 /save
 save
+
+./config.py
+/config.py
+config.py
+
+./app/ds_config.py
+/app/ds_config.py
+app/ds_config.py
 
 ./disnake_bot/config.py
 /disnake_bot/config.py

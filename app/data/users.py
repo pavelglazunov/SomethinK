@@ -15,15 +15,12 @@ class User(SqlAlchemyBase, UserMixin):
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
-    confirm_user = sqlalchemy.Column(sqlalchemy.Boolean)
-    premium = sqlalchemy.Column(sqlalchemy.Boolean)
-    discord = sqlalchemy.Column(sqlalchemy.String)
-    # discord_auth_token = sqlalchemy.Column(sqlalchemy.String)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    # confirm_user = sqlalchemy.Column(sqlalchemy.Boolean)
+    # premium = sqlalchemy.Column(sqlalchemy.Boolean)
+    discord_token = sqlalchemy.Column(sqlalchemy.String)
+    # hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
-
-    # token = sqlalchemy.Column(sqlalchemy.String, nullable=False)
 
     def get_token(self, expire_time=2):
         expires_delta = datetime.timedelta(expire_time)

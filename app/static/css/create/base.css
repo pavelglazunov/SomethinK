@@ -24,6 +24,7 @@
     width: 30vw;
     padding: 0;
 }
+
 /*.text_block {*/
 /*    max-width: 25%;*/
 
@@ -184,8 +185,6 @@
 }
 
 
-
-
 .select_roles {
     background: #282E3B;
 
@@ -217,7 +216,6 @@
     /*-webkit-tap-highlight-color: transparent;*/
 
     /*-moz-outline-color: #282E3B;*/
-
 
 
 }
@@ -253,6 +251,7 @@
 .select_roles:disabled::placeholder {
     color: #585C5F;
 }
+
 .roles_input_row {
     width: 100%;
     display: flex;
@@ -291,9 +290,6 @@
 
 
 }
-
-
-
 
 
 .rm_class_btn {
@@ -347,18 +343,9 @@
     width: 1.4vw;
 
 
-
-    /*top: 0.1vw;*/
-    /*left: 0.15vw;*/
-
-
-    /*border: 0.05vw solid var(--main-blue-color);*/
-    /*border-radius: 5px;*/
-    /*background: none;*/
-
-    /*box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);*/
     transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
 }
+
 .blue_checkbox:disabled {
     font-family: 'Itim', sans-serif;
     font-style: normal;
@@ -403,28 +390,6 @@
     /*transform: translateX(1.4vw);*/
 }
 
-/*.blue_checkbox:checked:after:disabled {*/
-
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-
-/*    height: 1.4vw;*/
-/*    width: 1.4vw;*/
-
-/*    top: 0.12vw;*/
-/*    left: 0.15vw;*/
-/*    !*background: red;*!*/
-
-/*    background: url("/static/img/galka.svg") no-repeat;*/
-/*   */
-/*    !*opacity: 0.5%;*!*/
-/*    background-size: 80%;*/
-/*    !*transform: translateX(1.4vw);*!*/
-/*}*/
-
-
-
 
 .blue_checkbox:checked:disabled {
     font-family: 'Itim', sans-serif;
@@ -438,8 +403,7 @@
     background: #31323f;
     border: 1px solid #40404b;
 
-    
-    /* filter: grayscale(40%); */
+
 }
 
 
@@ -449,7 +413,7 @@
     display: inline-block;
     position: relative;
 
-    margin:0 1vw;
+    margin: 0 1vw;
 
 
     border: 1px solid var(--main-blue-color);
@@ -541,7 +505,6 @@
 }
 
 
-
 .color_select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -552,6 +515,7 @@
     border: none;
     cursor: pointer;
 }
+
 .color_select::-webkit-color-swatch {
     background: url("/static/img/color-picker.png") no-repeat;
 
@@ -581,7 +545,9 @@
     border-radius: 0.4vw;
     border: none;
 }
-._ {}
+
+._ {
+}
 
 
 .block {
@@ -773,7 +739,6 @@
 }
 
 
-
 .role_remove_button {
     border: 1px solid #dc3545;
     border-radius: 10vw;
@@ -873,10 +838,6 @@
 }
 
 
-
-
-
-
 .special_mini_row {
     display: flex;
     justify-content: flex-end;
@@ -903,6 +864,7 @@
     visibility: hidden;
     animation: spin 1s infinite linear;
 }
+
 .display {
     visibility: visible;
 }
@@ -926,7 +888,7 @@
 
 /*}*/
 input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+    -moz-appearance: textfield; /* Firefox */
 }
 
 

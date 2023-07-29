@@ -222,18 +222,9 @@ TEMPLATES = {
 }
 
 REPLACEMENT = dict()
-# REPLACEMENT.update(AUTOMOD_FUNCS_REPLACEMENT)
 
 REPLACEMENT_WITH_GENERATE_DATA = dict()
-# REPLACEMENT_WITH_GENERATE_DATA.update(AUTOMOD_ACTION_REPLACEMENT_WITH_GENERATED_DATA)
 REPLACEMENT_WITH_GENERATE_DATA.update(COMMAND_REPLACEMENT_WITH_GENERATED_DATA)
-
-
-# REPLACEMENT_WITH_GENERATE_DATA.update(MODALS_REPLACEMENT_WITH_GENERATE_DATA)
-
-
-# def update_all_mini_generators(_key):
-#     mg_generate_actions_list(_key)
 
 
 def create_file(
@@ -249,20 +240,16 @@ def create_file(
     for k, v in replacement_data.items():
         REPLACEMENT[k] = v
 
-    # print(os.getcwd())
     if not os.path.exists(project_name):
         os.mkdir(project_name)
     os.chdir(project_name)
-    # print(os.getcwd())
 
     if not os.path.exists(path):
         os.mkdir(path)
     os.chdir(path)
-    # print(os.getcwd())
 
     with open(filename, mode="w", encoding="utf-8") as file:
 
-        # print(">>>>>>>>>", json_data, json_data is None)
         if not (json_data is None):
             json.dump(json_data, file, ensure_ascii=False)
             os.chdir("../..")
@@ -285,8 +272,6 @@ def create_file(
 
     pass
 
-    # print(">>>", os.getcwd())
     os.chdir("..")
     if path != ".":
         os.chdir("..")
-    # print(">>>", os.getcwd())

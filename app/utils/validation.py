@@ -109,55 +109,6 @@
 
 """
 
-# ALL_COMMANDS = ['ban', 'unban', 'mute', 'unmute', 'chatmute', 'chatunmute', 'timeout', 'rmtimeout', 'fullban', 'clear',
-#                 'afk', 'warn', 'report', 'warns', 'move', 'rmwarn', 'deafen', 'addrole', 'undeafen', 'rmrole', 'ping',
-#                 'slowmode', 'kick', 'vkick', 'links', 'smile', 'caps', 'mentions', 'ar_update', 'add_yt', 'rm_yt',
-#                 'add_tw', 'rm_tw', "ignore_admin", "ignore_bot"]
-#
-#
-# def on_error(error_code):
-#     def decorator(func):
-#         def wrapper(*args):
-#             try:
-#                 func(*args)
-#                 return 0
-#             except Exception:
-#                 return error_code
-#
-#         return wrapper
-#
-#     return decorator
-#
-#
-# @on_error(100)
-# def _json(data):
-#     json.dumps(data)
-#
-#
-# @on_error(101)
-# def _int(data):
-#     int(data)
-#
-#
-# @on_error(102)
-# def _boolean(data):
-#     bool(data)
-#
-#
-# @on_error(103)
-# def _string(data):
-#     str(data)
-#
-#
-# @on_error(104)
-# def _float(data):
-#     float(data)
-#
-#
-# def _length(data, length):
-#     return len(data) <= length
-#
-#
 import datetime
 import json
 import re
@@ -170,7 +121,6 @@ def moderation(data: dict):
     if not data.get("moderation"):
         return 278
     for _command in data["moderation"].values():
-        print(_command)
         if _command.get("action"):
             continue
         if error_code := valid_command_data(_command):
@@ -189,7 +139,6 @@ def roles(data: dict):
 def messages(data: dict):
     if not isinstance(data, dict):
         return 279
-    # if not (data["messages"].get("auto_response"))
     for _command in [*data["messages"]["auto_response"].values()] + [*data["messages"]["events"].values()] + [
         *data["messages"]["time_message"].values()]:
         if error_code := validate_message_data(_command):
@@ -556,7 +505,6 @@ def validation(data) -> bool or int:
                     _command["description"] = "_"
                 if error_code := valid_command_data(_command):
                     return error_code
-        # print(*data["messages"]["time_message"].values())
         if data["messages"] != {}:
             for _command in [*data["messages"]["auto_response"].values()] + [*data["messages"]["events"].values()] + [
                 *data["messages"]["time_message"].values()]:
@@ -576,23 +524,3 @@ def validation(data) -> bool or int:
     except Exception as e:
         print(e)
         return -1
-
-
-# if __name__ == '__main__':
-#     with open("../test_json.json", encoding="utf-8") as file:
-#         _data: dict = json.load(file)
-#
-#         print(validation(_data))
-# print(_data["moderation"])
-# for i in _data:
-#     if _code := VALIDATION[i](_data[i]):
-#         print(_code)
-# VALIDATION = {
-#     "moderation": moderation,
-#     "roles": roles,
-#     "messages": messages,
-#     "another": another,
-#     "social_media": social_media,
-#     "customization": customization,
-#     "settings": settings
-# }

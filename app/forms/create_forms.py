@@ -1,7 +1,5 @@
-# from msilib.schema import CheckBox
-
-from flask_wtf import FlaskForm, Form
-from wtforms import PasswordField, StringField, SubmitField, EmailField, BooleanField, HiddenField, SelectField
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, InputRequired
 
 

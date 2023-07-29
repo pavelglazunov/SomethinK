@@ -11,40 +11,44 @@
     <form action="" method="post" class="auth_block">
         <p class="block_header">Регистрация</p>
 
-        <form action="" method="post">
-            <div class="form_content">
-                {{ form.hidden_tag() }}
+        <!--        <form action="" method="post">-->
+        <div class="form_content">
+
+            <input id="email_input" placeholder="Почта" class="auth_text_inputs">
+
+<!--            {{ form.hidden_tag() }}-->
 
 
-                {{ form.email(class="auth_text_inputs", type="email", placeholder="Email", style="height: 20px, width:
-                210px") }}
-                {% for error in form.email.errors %}
+<!--            {{ form.email(class="auth_text_inputs", type="email", placeholder="Email", style="height: 20px, width:-->
+<!--            210px") }}-->
+<!--            {% for error in form.email.errors %}-->
 
-                {% endfor %}
+<!--            {% endfor %}-->
 
-                {{ form.password(class="auth_text_inputs", type="password", placeholder="Password", style="height: 20px,
-                width: 210px") }}
-                {% for error in form.password.errors %}
-                {% endfor %}
-                {{ form.password_again(class="auth_text_inputs", type="password", placeholder="Passsword", style="height:
-                20px, width: 210px") }}
-                {% for error in form.password_again.errors %}
-                {% endfor %}
-                {{ form.name(class="auth_text_inputs", placeholder="Name", style="height: 20px, width: 210px") }}
-                {% for error in form.name.errors %}
-                {{ error }}
+<!--            {{ form.password(class="auth_text_inputs", type="password", placeholder="Password", style="height: 20px,-->
+<!--            width: 210px") }}-->
+<!--            {% for error in form.password.errors %}-->
+<!--            {% endfor %}-->
+<!--            {{ form.password_again(class="auth_text_inputs", type="password", placeholder="Passsword", style="height:-->
+<!--            20px, width: 210px") }}-->
+<!--            {% for error in form.password_again.errors %}-->
+<!--            {% endfor %}-->
+<!--            {{ form.name(class="auth_text_inputs", placeholder="Name", style="height: 20px, width: 210px") }}-->
+<!--            {% for error in form.name.errors %}-->
+<!--            {{ error }}-->
 
-                {% endfor %}
+<!--            {% endfor %}-->
 
-                {{ form.recaptcha }}
+<!--            {{ form.recaptcha }}-->
 
 
-                {{ form.submit(type="submit", class="auth_button") }}
-                <div class="auth_error_message">{{ message }}</div>
+<!--            {{ form.submit(type="submit", class="auth_button") }}-->
+<!--            <div class="auth_error_message">{{ message }}</div>-->
 
-            </div>
-            <p class="block_footer">Уже есть аккаунт? <a href="/auth/login" class="block_footer_link"> Войдите в него!</a></p>
+        </div>
+        <p class="block_footer">Уже есть аккаунт? <a href="/auth/login" class="block_footer_link"> Войдите в него!</a>
+        </p>
 
-        </form>
+    </form>
 </div>
 {% endblock %}
