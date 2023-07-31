@@ -24,9 +24,7 @@ __pycache__
 /save
 save
 
-./config.py
-/config.py
-config.py
+
 
 ./app/ds_config.py
 /app/ds_config.py
