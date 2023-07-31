@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="display: flex; flex-direction: column; align-items: center">
+    <p>Код подтверждения для входа в SomethinK</p>
+    <div style="display: flex">
+        <h1>{code}</h1>
+    </div>
+    <p>Не сообщайте никому данный код</p>
+    <div style="width: max-content; height: max-content; padding: 0.5vw 1vw" id="copy_code_button">копировать</div>
+    <script>
+        document.getElementById("copy_code_button").addEventListener("click", () => {
+            navigator.clipboard.writeText("{code}");
+        })
+    </script>
+</div>
+</body>
+</html>

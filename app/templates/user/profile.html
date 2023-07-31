@@ -76,7 +76,14 @@
     <div class="logout_footer">
         <div class="buttons_block">
             <a href="/create/token" class="green_button logout_button">создать бота</a>
+
+            {% if data.auth_with_discord %}
+            <div class="red_button remove_account_button" id="disconnect_discord">отключить Discord</div>
+            {% else %}
+            <a href="{{ data.redirect_oauth_url }}" class="green_button logout_button">привязать Discord</a>
+            {% endif %}
             <a href="/auth/logout" class="red_button logout_button">выйти из аккаунта</a>
+
             <div class="red_button remove_account_button" id="remove_account :(">удалить аккаунт</div>
         </div>
         <div class="forms_block hidden" id="form_block">
@@ -326,6 +333,40 @@
 
 </script>
 
+<script>
+    document.getElementById("disconnect_discord").addEventListener("click", async () => {
+        const response = await fetch("../api/disconnect_discord", {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+
+
+        })
+        if (response.status === 429) {
+            danger("Слишком много запросов в минуту")
+            return 0
+        }
+
+        const answer = await response.json()
+
+        if (answer["status"] !== "ok") {
+            danger(answer["message"])
+            return 0
+        }
+
+        window.location.reload()
+
+
+    })
+
+
+</script>
 <!--профиль номер: {{data}}-->
 <!--<a href="/auth/logout">выйти</a>-->
 {% endblock %}

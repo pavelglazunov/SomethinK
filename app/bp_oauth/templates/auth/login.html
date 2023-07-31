@@ -9,44 +9,31 @@
 <script src="/static/js/toast.js"></script>
 <script src="/static/js/toasts.js"></script>
 {% endblock %}
-
+{% block title %}Авторизация{% endblock %}
 
 {% block content %}
 
 <div class="auth_content">
     <form action="" method="post" class="form_content">
-        <p class="block_header">Вход</p>
 
         <div class="inputs_colon">
+            <p class="block_header">Вход</p>
+
             <p style="font-size: 1vw; margin: 1vw 0 0 0" id="check_code_lbl" class="hidden">На указанную почту был
                 отправлен код, пожалуйста, введите
                 его</p>
-            <label for="email_input_form"></label><input type="email" class="auth_text_inputs" placeholder="Почта"
+            <label for="email_input_form"></label><input type="text" class="auth_text_inputs" placeholder="Почта"
                                                          id="email_input_form"/>
-            <label for="code_input_form"></label><input type="text" class="auth_text_inputs hidden" placeholder="Код"
+            <label for="code_input_form"></label><input type="text" class="auth_text_inputs" placeholder="Код"
                                                         id="code_input_form">
 
-            <button class="auth_button" id="submit_button">отправить код</button>
-            <div class="privacy_row" id="privacy_row">
-                <label for="accept_policy_form"></label><input type="checkbox"
-                                                               class="blue_checkbox"
-                                                               id="accept_policy_form"
-                                                               style="margin-left: 0"
-                                                               checked="checked"/>
-
-                <p style="font-size: 0.8vw" id="accept_policy_lbl">Нажимая отправить я принимаю <a href="/privacy"
-                                                                                                   class="block_footer_link">политику
-                    конфиденциальности</a></p>
-
-
-            </div>
-        </div>
-
-
-        <div class="button_block">
+            <div class="auth_button" id="submit_button">отправить код</div>
 
 
         </div>
+        <p style="font-size: 0.8vw" id="accept_policy_lbl">Продолжая регистрацию, я принимаю <a href="/privacy"
+                                                                                                class="block_footer_link">политику
+            конфиденциальности</a></p>
 
 
     </form>
@@ -56,14 +43,17 @@
     const send_button = document.getElementById("submit_button")
     const email_form = document.getElementById("email_input_form")
     const code_form = document.getElementById("code_input_form")
-    const accept_privacy_row = document.getElementById("privacy_row")
-    const checkbox_form = document.getElementById("accept_policy_form")
-    const accept_policy_lbl = document.getElementById("accept_policy_lbl")
-    const check_code_lbl = document.getElementById("check_code_lbl")
 
+    let timer_flag = false
 
     send_button.addEventListener("click", async function () {
         const email = email_form.value
+
+        console.log(email)
+
+        if (timer_flag) {
+            return 0
+        }
 
         if (!email) {
             danger("Необходимо ввести почту")
@@ -71,35 +61,42 @@
         }
 
 
-        accept_privacy_row.classList.add("hidden")
-        code_form.classList.remove("hidden")
-        checkbox_form.classList.remove("blue_checkbox")
-        accept_policy_lbl.classList.add("hidden")
-
-        send_button.disabled = true
-        // send_button.classList.add("hidden")
-        check_code_lbl.classList.remove("hidden")
-
         // send_button.textContent = "отправить ещё раз"
 
-        const response = await fetch("../api/login", {
+        console.log("send code fetch")
+        const response = await fetch("/api/send_code", {
             method: "POST",
             mode: "cors",
             cache: "no-cache",
             credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json",
-                "email": email.value
+                "user_email": email
             },
             redirect: "follow",
             referrerPolicy: "no-referrer"
 
 
         })
+        console.log("send code fetch finished")
+
         if (response.status === 429) {
             danger("Слишком много запросов в минуту")
             return 0
         }
+        const response_json = await response.json()
+
+        console.log(response_json)
+        if (response_json["status"] === "error") {
+            danger(response_json["message"])
+            return 0
+        }
+
+        code_form.classList.remove("hidden")
+        // checkbox_form.classList.remove("blue_checkbox")
+
+        send_button.disabled = true
+        send_button.classList.add("disabled")
 
         warning("На указанную почту был отправлен код")
 
@@ -108,18 +105,51 @@
 
     })
 
-    email_form.addEventListener("input", function () {
+    code_form.addEventListener("input", async function () {
+        let code = code_form.value
 
+        console.log(code)
+        if (code.length === 6) {
+            const response = await fetch("/api/confirm_code", {
+                method: "POST",
+                mode: "cors",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "code": code
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer"
+
+
+            })
+
+            if (response.status === 429) {
+                danger("Слишком много запросов в минуту")
+                return 0
+            }
+            const response_json = await response.json()
+            if (response_json["status"] === "error") {
+                danger(response_json["message"])
+                return 0
+            }
+            console.log(response_json["current_user_id"])
+            window.location.href = "/user/" + response_json["current_user_id"]
+        }
     })
 
-    function timer(){
+    function timer() {
+
+        timer_flag = true
         let sec = 60;
-        let timer = setInterval(function(){
+        let timer = setInterval(function () {
             send_button.textContent = "отправить ещё раз | " + sec
             sec--;
             if (sec < 0) {
+                timer_flag = false
                 clearInterval(timer);
-                send_button.disabled = false
+                send_button.classList.remove("disabled")
                 send_button.textContent = "отправить код"
             }
         }, 1000);

@@ -1,11 +1,13 @@
 import os
 
-from flask import Blueprint, render_template, redirect, send_from_directory
+from flask import Blueprint, render_template, redirect, send_from_directory, session
 from flask_login import login_required, current_user
 
 from app.data import db_session
 from app.data.users import User, Projects
 from app import login_manager
+
+from app.ds_config import OAUTH_URL
 
 main_bp = Blueprint("main", __name__, template_folder="templates", static_folder="static")
 
@@ -39,7 +41,11 @@ def profile(user_id):
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         user_projects = db_sess.query(Projects).filter(Projects.author_id == user.id).all()
 
+        print("TOKEN", session.get("token"))
+        print(OAUTH_URL)
         return render_template("user/profile.html", data={
+            "redirect_oauth_url": OAUTH_URL,
+            "auth_with_discord": session.get("token"),
             "username": user.name,
             "user_project": [{"name": project.bot_name, "id": project.id} for project in user_projects]
         })

@@ -7,14 +7,19 @@ import requests
 
 from flask import Blueprint, jsonify, session, request, redirect
 from flask import send_file
-from flask_login import login_required, current_user, logout_user
+from flask_login import login_required, current_user, logout_user, login_user
 
 from app.utils.discord_api import USER_GET_FUNC
 from app.data import db_session
 from app.data.users import User, Projects
 from app.utils.validation import validation
+from app.utils.auntifications import send_authentication_code, confirm_authentication_code
 from app.generator.generator import progres, generate
+from flask_mail import Message
+from config import BaseConfig
 from app import limiter
+
+from app import application
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
 
@@ -208,19 +213,67 @@ def get_progres():
     return jsonify({"progres": progres})
 
 
-@api_bp.route("/login", methods=["GET", "POST"])
+@api_bp.route("/send_code", methods=["GET", "POST"])
 # @limiter.limit("1/minute") #  <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
-def login_user():
-    email = request.headers.get("email")
-    if not email:
+def send_code():
+    print(">>> user_email")
+    user_email = request.headers.get("user_email")
+    print(user_email)
+    if not user_email:
         return jsonify({"status": "error", "message": "Укажите почту"})
 
-    message = "Код для входа"
+    try:
+        send_authentication_code(user_email)
+    except UnicodeEncodeError:
+        # application.logger.error(f"Ошибка при отправлении письма с кодом, почта: {user_email}")
+        return jsonify({"status": "ok", "message": "Некорректная почта"})  # TODO убрать status='ok'
 
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login("somethinkbots@gmail.com", "")
+    print("OK")
 
-    # print("send mail")
     return jsonify({"status": "ok"})
-    pass
+
+
+@api_bp.route("/confirm_code", methods=["GET", "POST"])
+@limiter.limit("6/minute")
+def confirm_code():
+    code = request.headers.get("code")
+    print("get code", code)
+    if validate_project_id(code):
+        return jsonify({"status": "error", "message": "Некорректный код"})
+
+    if not (user_email := confirm_authentication_code(code)):
+        return jsonify({"status": "error", "message": "Некорректный код"})
+
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.email == user_email).first()
+    if not user:
+        user = User()
+        user.email = user_email
+        user.name = user_email
+        db_sess.add(user)
+        db_sess.commit()
+    login_user(user, remember=True, duration=datetime.timedelta(days=7))
+
+    # return redirect(f"/user/{current_user.id}")
+    return jsonify({"status": "ok", "message": f"Код подтвержден", "current_user_id": f"{current_user.id}"})
+    # print(confirm_authentication_code(code))
+
+
+@api_bp.route("/disconnect_discord", methods=["GER", "POST"])
+def disconnect_discord():
+    token = session.get("token")
+
+    if not token:
+        return jsonify({"status": "error", "message": "Вы еще не подсоединили Discord"})
+
+    db_sess = db_session.create_session()
+
+    user = db_sess.query(User).filter(User.email == current_user.email).first()
+    user.discord_token = None
+    user.name = user.email
+
+    session["token"] = None
+
+    db_sess.commit()
+
+    return jsonify({"status": "ok", "message": "Discord успешно отключен"})

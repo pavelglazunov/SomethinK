@@ -6,6 +6,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 import os
+import logging
 
 from .data import db_session
 from .data.users import User, Projects
@@ -15,6 +16,13 @@ application.config.from_object(os.environ.get('FLASK_ENV') or 'config.Developeme
 
 login_manager = LoginManager()
 login_manager.init_app(application)
+
+application.logger.setLevel(logging.INFO)
+handler = logging.FileHandler("app.log")
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+application.logger.addHandler(handler)
 
 mail = Mail(application)
 CORS(application)

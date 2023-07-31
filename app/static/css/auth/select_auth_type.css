@@ -112,8 +112,9 @@ body {
     margin-top: 1vw;
 }
 
-.auth_button:disabled {
+.disabled {
     background-color: #5c6070;
+    cursor: default;
 }
 
 .hidden {
