@@ -201,7 +201,7 @@ def send_code():
         send_authentication_code(user_email)
     except UnicodeEncodeError:
         application.logger.error(f"Ошибка при отправлении письма с кодом, почта: {user_email}")
-        return jsonify({"status": "ok", "message": "Некорректная почта"})  # TODO убрать status='ok'
+        return jsonify({"status": "error", "message": "Некорректная почта"})  # TODO убрать status='ok'
 
     return jsonify({"status": "ok"})
 
