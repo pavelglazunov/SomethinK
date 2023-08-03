@@ -4,17 +4,10 @@ import shutil
 
 from app.generator.creator import create_file
 
-# from creator import create_file
-
 progres = 0
-#
+
 with open("app/generator/templates/data_temp/data_messages_config_temp.json", "r", encoding="utf-8") as file:
     DATA_MESSAGE_CONFIG_TEMP = json.load(file)
-
-
-#
-# with open("templates/data_temp/data_messages_config_temp.json", "r", encoding="utf-8") as file:
-#     DATA_MESSAGE_CONFIG_TEMP = json.load(file)
 
 
 # TODO сравнивание путем сравнивания файлов расширение файла
@@ -26,8 +19,6 @@ def create_folder(folder, cfg: dict, project_name, extension="py", not_create=[]
             print("CONTINUE", file_name)
             continue
         code_paths = [k for k, v in file_data.items() if v]
-        # if code_paths.count(False) == 4:
-        #     continue
         json_data = None
         if extension == "json":
             json_data = file_data.get("file_data")
@@ -44,7 +35,6 @@ def create_folder(folder, cfg: dict, project_name, extension="py", not_create=[]
 
 def generate(key: dict):
     os.chdir("app/generator")
-    print("START_GENERATING", os.getcwd())
 
     user_config_file = {
         "channels_ID": {},
@@ -337,8 +327,6 @@ def generate(key: dict):
     _bot_metadata = key.get("bot_metadata", {})
     user_config_file["roles_ID"]["everyone_id"] = int(_bot_metadata.get("everyone_id", 0))
 
-    print("PROJECT NAME", _bot_metadata.get("project_name"))
-
     replacement_config = {
         "_____bot_token_____": _bot_metadata.get("bot_token")
     }
@@ -587,7 +575,6 @@ def generate(key: dict):
             "channels": [int(i[1]) for i in command_data.get("channels")],
             "roles": [int(i[1]) for i in command_data.get("roles")]
         }
-        print("ANOTHER_COMMAND:", command)
         DATA_MESSAGE_CONFIG_TEMP["commands"][command]["description"] = command_data.get("description")
 
         cogs_files_keys["another"][f"cogs_command_{command}"] = True
@@ -796,12 +783,6 @@ def generate(key: dict):
         cogs_files_keys["all_messages"]["cogs_all_messages_on_message"] = True
         cogs_files_keys["all_messages"]["cogs_all_messages_add_automod_call"] = True
 
-    # if another_block:
-    #     generate_another_command(commands_cfg_keys[_end:])
-    local_vars = locals()
-    print(local_vars)
-    # create_data_files([k for k, v in data_file_keys.items() if v])
-
     if commands_cfg_keys or another_commands_cfg_key:
         utils_files_keys["parser"]["utils_parser_get_allow"] = True
         utils_files_keys["messages"]["utils_messages_get_description"] = True
@@ -819,49 +800,23 @@ def generate(key: dict):
         main_files_keys["__init__"]["bot_init_add_another_cog"] = True
         files_flags["cogs.another.py"] = True
 
-        # automod_files_keys["automods"]
-        # decorators_file_keys["allowed_channels"] = True
-
-    print(files_flags)
     blocked_files = [k for k, v in files_flags.items() if not v]
-    print(f'{blocked_files = }')
     create_folder("automod", automod_files_keys, key.get("bot_metadata", {}).get("project_name"),
                   not_create=blocked_files)
-    # create_automod_files(automod_func_keys, automod_action_keys)
-    create_folder("cogs", cogs_files_keys, key.get("bot_metadata", {}).get("project_name"), not_create=blocked_files)
-
+    create_folder("cogs", cogs_files_keys, key.get("bot_metadata", {}).get("project_name"),
+                  not_create=blocked_files)
     create_folder("data", data_files_keys, key.get("bot_metadata", {}).get("project_name"), extension="json",
                   not_create=blocked_files)
-    _modals = []
-
-    # for cmd in ("feedback", "embed", "report"):
-    #     if cmd in commands_cfg_keys:
-    #         _modals.append(cmd)
-
-    # if add_modals:
     create_folder("modals", modals_files_keys, key.get("bot_metadata", {}).get("project_name"),
                   not_create=blocked_files)
-
-    create_folder("utils", utils_files_keys, key.get("bot_metadata", {}).get("project_name"), not_create=blocked_files)
+    create_folder("utils", utils_files_keys, key.get("bot_metadata", {}).get("project_name"),
+                  not_create=blocked_files)
     create_folder("regulars", regular_files_keys, key.get("bot_metadata", {}).get("project_name"),
                   not_create=blocked_files)
     create_folder(".", main_files_keys, key.get("bot_metadata", {}).get("project_name"), **replacement_config)
-
     create_folder(".", not_bot_files_keys, key.get("bot_metadata", {}).get("project_name"), extension="txt")
-    # create_folder(".", not_bot_files_keys, key.get("bot_metadata", {}).get("project_name"), **replacement_config)
 
     shutil.make_archive(key.get("bot_metadata", {}).get("project_name"), "zip",
                         key.get("bot_metadata", {}).get("project_name"))
-    # print(os.getcwd(), "=========================")
     shutil.rmtree(key.get("bot_metadata", {}).get("project_name"))
     os.chdir("../..")
-
-# if __name__ == "__main__":
-#     print(5)
-#     with open("../test_json.json", encoding="utf-8") as file:
-#         data = json.load(file)
-#     # print(os.getcwd())
-#
-#     if os.path.exists("testbot"):
-#         shutil.rmtree("testbot")
-#     generate(data)

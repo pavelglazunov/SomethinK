@@ -1,3 +1,7 @@
+UTILS_MESSAGES_IMPORT_LOG = """
+from utils.event_logging import log
+
+ """
 UTILS_MESSAGES_IMPORTS_AND_BODY = """
 import datetime
 
@@ -8,17 +12,13 @@ from disnake import ApplicationCommandInteraction as AppInter
 from utils.parser import load_messages, parse_config
 from disnake.ext import commands
 
- """
-UTILS_MESSAGES_IMPORT_LOG = """
-from utils.event_logging import log
 
 MESSAGES = load_messages()
 COMMANDS = MESSAGES["commands"]
 ERRORS = MESSAGES["errors"]
 all_commands = list(reversed(list(parse_config("commands").keys())))
-
-
  """
+
 UTILS_MESSAGES_GET_DESCRIPTION = """
 def get_description(command):
     return COMMANDS[command]["description"]

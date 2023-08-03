@@ -41,8 +41,6 @@ def profile(user_id):
         user = db_sess.query(User).filter(User.id == current_user.id).first()
         user_projects = db_sess.query(Projects).filter(Projects.author_id == user.id).all()
 
-        print("TOKEN", session.get("token"))
-        print(OAUTH_URL)
         return render_template("user/profile.html", data={
             "redirect_oauth_url": OAUTH_URL,
             "auth_with_discord": session.get("token"),

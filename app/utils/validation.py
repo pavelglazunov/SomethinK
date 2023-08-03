@@ -1,7 +1,3 @@
-# import json
-#
-# # from shlex import quote
-#
 """
 Валидация данных, полученных в JSON с сайта
 
@@ -200,9 +196,7 @@ def valid_command_data(data: dict) -> bool or int:
     if error_code := _is_valid_list_of_lists(data['channels']):
         return error_code
 
-    # description =
     if not isinstance(data.get("description", None), str):
-        print(data)
         return 103
     if not isinstance(data['enable'], bool):
         return 102
@@ -490,7 +484,6 @@ def validate_social_media(data: dict) -> bool or int:
 
 
 def validation(data) -> bool or int:
-    print(data)
     try:
         if data["another"] != {}:
             for _command in data["another"].values():
@@ -522,5 +515,4 @@ def validation(data) -> bool or int:
 
         return False
     except Exception as e:
-        print(e)
         return -1

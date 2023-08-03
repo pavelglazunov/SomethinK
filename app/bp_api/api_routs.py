@@ -1,25 +1,21 @@
 import datetime
 import json
 import os
-import smtplib
 import string
-import requests
 
+import requests
 from flask import Blueprint, jsonify, session, request, redirect
 from flask import send_file
 from flask_login import login_required, current_user, logout_user, login_user
 
-from app.utils.discord_api import USER_GET_FUNC
+from app import application
+from app import limiter
 from app.data import db_session
 from app.data.users import User, Projects
-from app.utils.validation import validation
-from app.utils.auntifications import send_authentication_code, confirm_authentication_code
 from app.generator.generator import progres, generate
-from flask_mail import Message
-from config import BaseConfig
-from app import limiter
-
-from app import application
+from app.utils.auntifications import send_authentication_code, confirm_authentication_code
+from app.utils.discord_api import USER_GET_FUNC
+from app.utils.validation import validation
 
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
 
@@ -68,6 +64,7 @@ def discord_all():
 
 @api_bp.route("/save", methods=["POST"])
 @login_required
+@limiter.limit("10/minute")  # <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
 def update_user_bot_config():
     if not request.json:
         return jsonify({"status": "error"})
@@ -147,12 +144,6 @@ def download_bot():
         as_attachment=True)
 
 
-# @api_bp.route("/remove_account", methods=["GET", "POST"])
-# @login_required
-# def remove_account():
-#     user_password = request.headers.get("password")
-
-
 @api_bp.route("/start_creating", methods=["POST"])
 @login_required
 def start_creating():
@@ -164,6 +155,8 @@ def start_creating():
         return jsonify({"status": "error", "message": f"Достигнул лимит в 5 ботов"})
 
     if error_code := validation(dict(session.get("configurator"))):
+        application.logger.error(f"Ошибка при валидации данных. Пользователь: {current_user.email}, {current_user.id} |"
+                                 f" Код ошибки: {error_code} | Ключ генерации: {dict(session.get('configurator'))}")
         return jsonify({"status": "error", "message": f"Код ошибки: {error_code}"})
 
     project_name = request.json["project_name"]
@@ -197,23 +190,18 @@ def get_progres():
 
 
 @api_bp.route("/send_code", methods=["GET", "POST"])
-# @limiter.limit("1/minute") #  <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
+@limiter.limit("1/minute")  # <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
 def send_code():
-    print(">>> user_email")
     user_email = request.headers.get("user_email")
     if request.headers.get("remove_account"):
         user_email = current_user.email
-    print(user_email)
     if not user_email:
         return jsonify({"status": "error", "message": "Укажите почту"})
-
     try:
         send_authentication_code(user_email)
     except UnicodeEncodeError:
-        # application.logger.error(f"Ошибка при отправлении письма с кодом, почта: {user_email}")
+        application.logger.error(f"Ошибка при отправлении письма с кодом, почта: {user_email}")
         return jsonify({"status": "ok", "message": "Некорректная почта"})  # TODO убрать status='ok'
-
-    print("OK")
 
     return jsonify({"status": "ok"})
 
@@ -222,7 +210,6 @@ def send_code():
 @limiter.limit("6/minute")
 def confirm_code():
     code = request.headers.get("code")
-    print("get code", code)
     try:
         int(code)
     except ValueError:
@@ -254,11 +241,10 @@ def confirm_code():
         user.name = user_email
         db_sess.add(user)
         db_sess.commit()
+
     login_user(user, remember=True, duration=datetime.timedelta(days=7))
 
-    # return redirect(f"/user/{current_user.id}")
     return jsonify({"status": "ok", "message": f"Код подтвержден", "current_user_id": f"{current_user.id}"})
-    # print(confirm_authentication_code(code))
 
 
 @api_bp.route("/disconnect_discord", methods=["GER", "POST"])

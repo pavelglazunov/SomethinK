@@ -37,6 +37,7 @@ def send_authentication_code(user_email):
 
     """.replace("{code}", str(code))
 
+    print("code:", code)
     email_message.attach(MIMEText(message_body, "html"))
 
     message_text = email_message.as_string()
@@ -49,7 +50,7 @@ def send_authentication_code(user_email):
 
 
 def _random_number():
-    num = secrets.randbits(20)  # 20 бит = 2^20 = 1048576
+    num = secrets.randbits(20)
 
     while num < 100000 or num > 999999:
         num = secrets.randbits(20)
@@ -63,9 +64,7 @@ def generate_authentication_code(user_email):
         data = json.load(f)
         while (code := str(_random_number())) in data:
             pass
-            # code = str(randint(100000, 999999))
 
-        print("code >", code)
         code_salt = code + BaseConfig.CODE_SALT
         data[hashlib.sha512(code_salt.encode()).hexdigest()] = {
             "email": user_email,
@@ -98,16 +97,12 @@ def confirm_authentication_code(code):
 
 def remove_authentication_code():
     while True:
-        print("removing..")
         with open("./app/tokens.json", "r") as f:
             data = json.load(f)
 
         new_data = {}
         for code, value in data.items():
-
-            # print(datetime.datetime.strptime(value["time_over"], "%Y-%m-%d %H:%M:%S.%f") > datetime.datetime.now())
             if datetime.datetime.strptime(value["time_over"], "%Y-%m-%d %H:%M:%S.%f") < datetime.datetime.now():
-                print(code)
                 continue
             new_data[code] = value
 

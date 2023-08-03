@@ -12,15 +12,6 @@ from app.generator.templates.main_temp import *
 
 from app.generator.templates.not_bot_files_temp.requirements_add_temp import *
 
-# from templates.modals_temp import *
-# from templates.cogs_temp import *
-# from templates.another_commands_temp import *
-# from templates.base_temp import *
-# from templates.utils_temp import *
-# from templates.regulars_temp import *
-# from templates.automod_temp import *
-# from templates.main_temp import *
-
 with open("app/generator/templates/not_bot_files_temp/information.txt", "r", encoding="utf-8") as file:
     INFORMATION_FILE = file.read()
 
@@ -56,9 +47,6 @@ TEMPLATES = {
     'cogs_command_rmwarn': COGS_COMMAND_RMWARN,
     'cogs_command_report': COGS_COMMAND_REPORT,
     'cogs_command_errors': COGS_COMMAND_ERRORS,
-
-    # 'cogs_command_embed': COGS_COMMAND_EMBED,
-    # 'cogs_command_feedback': COGS_COMMAND_FEEDBACK,
 
     'cogs_another_commands_base_imports': COGS_ANOTHER_COMMANDS_BASE_IMPORTS,
     'cogs_another_commands_import_gpt': COGS_ANOTHER_COMMANDS_IMPORT_GPT,

@@ -12,11 +12,11 @@ if __name__ == '__main__':
     # Thread(target=remove_authentication_code).start()
 
     # Flask app
-    application.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)
-    # Thread(target=lambda: application.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)).start()
+    # application.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)
+    Thread(target=lambda: application.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)).start()
 
     # Telegram bot
-    # executor.start_polling(dp, skip_updates=True)
+    executor.start_polling(dp, skip_updates=True)
 
 """
 
