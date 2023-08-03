@@ -4,7 +4,7 @@ update_chapter(6)
 const block = document.getElementById("settings")
 const loader = document.getElementsByClassName("loading")
 
-const STATUSES = [["playing", "играет в"], ["listening", "слушает"], ["watching", "смотрит"], ["streaming ", "стримит"]]
+const STATUSES = [["playing", "играет в"], ["listening", "слушает"], ["watching", "смотрит"]]
 const STATISTIC_LIST = [
     ["text", "текстовые каналы"],
     ["voice", "голосовые каналы"],

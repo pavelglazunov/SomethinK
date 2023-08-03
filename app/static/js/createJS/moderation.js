@@ -1,12 +1,5 @@
-function updateLS(key, value) {
-    configuration_key[key] = value
-}
-
-
 function create_auto_moderation_settings(configurator_content, command_name, automod) {
 
-    console.log(command_name)
-    console.log("caps" === "caps", "caps" === "smile")
     if (command_name === "caps" || command_name === "smile") {
         let special_limit_block = div("input_block")
         let min_size_lbl = p("минимальная длина сообщения: ", "configurator_inputs_text")
@@ -64,7 +57,7 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
         let mention_lbl = p("количество повторений в одном сообщении", "configurator_inputs_text")
         let mention_input = input("select_roles", "number", "", "input_mentions")
 
-        mention_input.addEventListener("input", function () {
+        mention_input.addEventListener("input", () => {
             if (!vld_integer(mention_input.value)) {
                 warning("В данное поле можно вводить только числа")
                 mention_input.value.slice(0, -1)
@@ -72,14 +65,10 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
 
         })
 
-        // mention_input.validity
-
         mention_input.style.filter = "none"
 
-        console.log(configuration_key[command_name])
         mention_input.value = configuration_key[command_name]["count"]
 
-        // let mentions_row = div("mini_row")
         mentions_block.appendChild(mention_lbl)
         mentions_block.appendChild(mention_input)
 
@@ -114,7 +103,7 @@ function create_auto_moderation_settings(configurator_content, command_name, aut
 
 }
 
-function reset_key_configurator(show_message=false) {
+function reset_key_configurator(show_message = false) {
     for (let i of COMMANDS) {
         for (let j of i) {
             let command_config = {}
@@ -128,9 +117,7 @@ function reset_key_configurator(show_message=false) {
             configuration_key[j] = command_config
         }
     }
-    //"ссылки", "капс"],
-    //     ["эмодзи", "упоминания"
-    // let auto_mod = {}
+
     for (let i of AUTO_MODERATION) {
         for (let j of i) {
             let auto_mod_config = {}
@@ -143,7 +130,6 @@ function reset_key_configurator(show_message=false) {
             if (j[0] === "caps") {
                 auto_mod_config["min_length"] = 20
                 auto_mod_config["percent"] = 80
-                // auto_mod["caps"] = auto_mod_config
             }
             if (j[0] === "smile") {
                 auto_mod_config["min_length"] = 20
@@ -154,23 +140,6 @@ function reset_key_configurator(show_message=false) {
                 auto_mod_config["count"] = 3
             }
             configuration_key[j[0]] = auto_mod_config
-
-            // if (j === "ссылки") {
-            //     auto_mod["links"] = auto_mod_config
-            // }
-            // if (j === "mentions") {
-            //     auto_mod["mentions"] = auto_mod_config
-            //
-            // }
-
-            // let _type
-            // for (let t of AUTO_MODERATION_TRANSLATION) {
-            //     console.log(t)
-            // if (AUTO_MODERATION_TRANSLATION[t] === j) {
-            //     auto_mod[AUTO_MODERATION_TRANSLATION[t]] = auto_mod_config
-            // }
-            // }
-            // configuration_key[j] = command_config
         }
     }
 
@@ -186,13 +155,10 @@ function reset_key_configurator(show_message=false) {
         }
         danger(a["message"])
     })
-    // configuration_key["auto_moderation"] = auto_mod
 }
 
 update_chapter(1)
 
-// let data = api_all().then(json => json)
-// console.log("data", data.)
 let login_discord = null
 let user_roles = []
 let user_channels = {}
@@ -212,17 +178,11 @@ fetch('/api/get', {
         login_discord = data["auth_with_discord"]
         user_roles = data["roles"]
 
-        // console.log(login_discord, "login discord")
         user_channels = data["channels"]
 
         configuration_key = data["configuration_key"]
 
-        console.log(">>", data["configuration_key"], typeof data["configuration_key"])
-        // console.log(">>", typeof configuration_key)
-        console.log(configuration_key)
-        console.log(Object.keys(configuration_key).length)
         if (data["configuration_key"] === "{}") {
-            console.log(55555)
             configuration_key = {}
             reset_key_configurator()
         } else {
@@ -230,22 +190,9 @@ fetch('/api/get', {
 
         }
 
-        console.log(configuration_key)
-
-        // hideLoading()
-
         hideLoading(loader)
         main()
 
-        // roles_content.appendChild(create_roles_input_block(
-        //     "start_roles",
-        //     configuration_key,
-        //     login_discord,
-        //     "роли, которые будут выданы при первом заходе на сервер",
-        // ))
-        // document.getElementById("input_roles_block").style.width = "78.1%"
-        // document.getElementById("input_roles_block").style.maxWidth = "32vw"
-        // {title: "foo", body: "bar", userId: 1, id: 101}
     })
 
 const main_block = document.getElementById("main_command")
@@ -254,8 +201,6 @@ const auto_moderation_block = document.getElementById("auto_moderation")
 
 
 function main() {
-
-
     main_block.innerHTML = ""
     another_block.innerHTML = ""
     auto_moderation_block.innerHTML = ""
@@ -278,8 +223,6 @@ function main() {
             base_save_settings,
             COMMANDS[i][1],
         ))
-        // row.appendChild(create_command_block(COMMANDS[i][0], configuration_key))
-        // row.appendChild(create_command_block(COMMANDS[i][1], configuration_key))
 
         main_block.appendChild(row)
 
@@ -333,8 +276,6 @@ function main() {
                 "parent_id": ""
             }
         ))
-        // row.appendChild(create_command_block(command[0][0], configuration_key, command[0][1]))
-        // row.appendChild(create_command_block(command[1][0], configuration_key, command[1][1]))
 
         auto_moderation_block.appendChild(row)
     }
@@ -356,21 +297,18 @@ document.getElementById("add_base_role_button").addEventListener("click", functi
     const last = base_save_settings(configuration_key)
 
     for (let cm in configuration_key) {
-        // console.log(cm)
-        // continue
         let actual_roles = configuration_key[cm]["roles"]
         actual_roles.push([base_role_text, base_role_value])
         configuration_key[cm]["roles"] = actual_roles
-        // console.log(cm)
     }
     console.log(last, configuration_key)
     open_settings(configuration_key, "configurator", last, {
-            "slash": true,
-            "settings": true,
-            "automod": "",
-            "remove_after_close": false,
-            "parent_id": "",
-        })
+        "slash": true,
+        "settings": true,
+        "automod": "",
+        "remove_after_close": false,
+        "parent_id": "",
+    })
 })
 document.getElementById("another_save_btn").addEventListener("click", function () {
     base_save_settings(configuration_key)
@@ -380,24 +318,6 @@ document.getElementById("another_save_btn").addEventListener("click", function (
 
         }
     }
-    //
-    //
-    //     if ((configuration_key["afk"]["special_channel"] === " ") && (configuration_key["afk"]["enable"])) {
-    //         danger("Необходимо указать канал или поставить авто-создание в команде /afk")
-    //
-    //
-    //     }
-    //     console.log(configuration_key["report"])
-    //     if ((configuration_key["report"]["special_channel"] === " ") && (configuration_key["report"]["enable"])) {
-    //         danger("Необходимо указать канал или поставить авто-создание в команде /report")
-    //
-    //     }
-    //
-    //     return 0
-    // }
-    console.log(configuration_key)
-
-    // SaveDateToLocalStorage("moderation", configuration_key)
 
     const answer = post_data("moderation", configuration_key)
     answer.then(a => {
@@ -407,19 +327,12 @@ document.getElementById("another_save_btn").addEventListener("click", function (
         }
         danger(a["message"])
     })
-    // success()
 })
 document.getElementById("another_reset_btn").addEventListener("click", function () {
     if (confirm("Вы уверены, что хотите сбросить все изменения?")) {
         reset_key_configurator(true)
 
-        console.log(configuration_key)
         main()
-        // SaveDateToLocalStorage("moderation", configuration_key)
-
-        // location.reload()
-
-        // warning("изменения сброшены")
 
     }
 })

@@ -572,6 +572,8 @@
     color: #FFFFFF;
     border: none;
 
+    height: 2vw;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -579,6 +581,15 @@
     border-radius: 0.3vw;
 
     cursor: pointer;
+
+    transition-duration: 0.3s;
+}
+
+.I_really_want_to_remove_this_cool_bot:hover {
+    background-color: #C4302B;
+    color: #23272A;
+
+    filter: drop-shadow(5px 5px 10px #171B22);
 }
 
 .texts {

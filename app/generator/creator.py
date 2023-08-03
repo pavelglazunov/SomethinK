@@ -3,7 +3,7 @@ import os
 
 from app.generator.templates.modals_temp import *
 from app.generator.templates.cogs_temp import *
-from app.generator.templates.another_commands_temp import *
+
 from app.generator.templates.base_temp import *
 from app.generator.templates.utils_temp import *
 from app.generator.templates.regulars_temp import *

@@ -37,19 +37,19 @@
 
         </div>
 
-        <div class="overlay hidden"></div>
+        <div class="overlay hidden" id="overlay"></div>
 
         <div class="bots_block">
-            <div class="modal hidden">
+            <div class="modal hidden" id="modal">
                 <!--            <div class="">-->
                 <div class="modal_text_block">
                     <h3 class="modal_header">удалить бота?</h3>
                     <p class="remove_bot_text" id="modal_text"></p>
                 </div>
 
-                <button id="I_really_want_to_remove_this_cool_bot_button" class="I_really_want_to_remove_this_cool_bot">
+                <div id="I_really_want_to_remove_this_cool_bot_button" class="I_really_want_to_remove_this_cool_bot">
                     удалить бота
-                </button>
+                </div>
             </div>
 
             {% for el in data.user_project %}
@@ -87,8 +87,9 @@
             <div class="red_button remove_account_button" id="remove_account :(">удалить аккаунт</div>
         </div>
         <div class="forms_block hidden" id="form_block">
-            <p class="texts" style="font-size: 1vw">Для удаления аккаунта введите пароль</p>
-            <input class="red_input" type="password" placeholder="Пароль" id="password_input">
+            <p class="texts" style="font-size: 1vw; max-width: 17vw">Для удаления аккаунта введите код, который пришел
+                на почту</p>
+            <input class="red_input" type="text" placeholder="Код" id="code_input">
         </div>
 
         <div class="forms_block hidden" id="remove_account_button_form">
@@ -102,220 +103,183 @@
 
 
 <script>
-    const modal_header_text = document.getElementById("modal_text")
+    async function send_request(url, headers = {}) {
+        headers["Content-Type"] = "application/json"
+        const response = await fetch(url, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: headers,
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+        })
+        if (response.status === 429) {
+            danger("Слишком много запросов в минуту")
+            return 0
+        }
 
-    const modal = document.querySelector(".modal");
-    const overlay = document.querySelector(".overlay");
+        return response
 
-    const project_remove_buttons = document.getElementsByClassName("bot_remove_button")
+    }
+
+    const closeModal = function () {
+        modal.classList.add("hidden")
+        overlay.classList.add("hidden")
+    }
+
+    const modal_text = document.getElementById("modal_text")
+    const modal = document.getElementById("modal");
+    const overlay = document.getElementById("overlay");
+
+    overlay.addEventListener("click", closeModal);
+
 
     const project_edit_buttons = document.getElementsByClassName("bot_edit_button")
     for (let i of project_edit_buttons) {
-        i.addEventListener("click", function () {
-            let button_id = i.id
+        i.addEventListener("click", () => {
+            const button_id = i.id
 
-            const response = fetch("../api/edit", {
-                method: "POST",
-                mode: "cors",
-                cache: "no-cache",
-                credentials: "same-origin",
-                headers: {
-                    "Content-Type": "application/json",
-                    "project_id": button_id
-                },
-                redirect: "follow",
-                referrerPolicy: "no-referrer",
-                // body: JSON.stringify(data)
-
-
-            })
-            if (response.status === 429) {
-                danger("Слишком много запросов в минуту")
-                return 0
-            }
+            send_request("../api/edit", {"project_id": button_id})
 
             window.location.href = "http://127.0.0.1:8080/create/moderation"
-
-
         })
     }
+
+    const project_remove_buttons = document.getElementsByClassName("bot_remove_button")
     let selected_bot_id
     for (let i of project_remove_buttons) {
         i.addEventListener("click", function () {
-            console.log(122)
             selected_bot_id = i.id
 
-            console.log(i.id)
-            console.log(selected_bot_id)
-
             let name = i.getAttribute("project_name")
-            modal_header_text.textContent = "Вы уверены, что хотите безвозвратно удалить бота " + name + "?"
+            modal_text.textContent = "Вы уверены, что хотите удалить бота " + name + "?"
 
             modal.classList.remove("hidden");
             overlay.classList.remove("hidden");
         })
     }
-    const closeModal = function () {
-        modal.classList.add("hidden");
-        overlay.classList.add("hidden");
-    };
+
     document.getElementById("I_really_want_to_remove_this_cool_bot_button").addEventListener("click", function () {
-        console.log(selected_bot_id)
-        const response = fetch("../api/remove", {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-                "project_id": selected_bot_id
-            },
-            redirect: "follow",
-            referrerPolicy: "no-referrer",
-            // body: JSON.stringify(data)
-
-
-        })
+        send_request("../api/remove", {"project_id": selected_bot_id})
 
         closeModal()
 
-        // console.log(response.json())
         const removed = document.getElementById("project_" + selected_bot_id.split("_")[3])
-        console.log(selected_bot_id)
-        console.log(selected_bot_id.split("_"))
-        console.log(selected_bot_id.split("_")[-1])
-        console.log(selected_bot_id.split("_")[3])
         removed.remove()
-        // if (response["status"] === "ok") {
-        //     successText(response["message"])
-        // }
-        // window.location.reload()
 
-        // window.location.href = "http://127.0.0.1:8080/create/moderation"
+        successText("Бот успешно удален")
+
     })
 
-    // const closeModalBtn = document.querySelector(".btn-close");
-
-    // closeModalBtn.addEventListener("click", closeModal);
-    overlay.addEventListener("click", closeModal);
-
-</script>
-<script>
     const project_download_buttons = document.getElementsByClassName("bot_download_button")
     for (let i of project_download_buttons) {
         i.addEventListener("click", async function () {
             let button_id = i.id
             let project_name = i.getAttribute("project_name")
 
-            const response = await fetch("../api/download", {
-                method: "POST",
-                mode: "cors",
-                cache: "no-cache",
-                credentials: "same-origin",
-                headers: {
-                    "Content-Type": "application/json",
-                    "project_id": button_id
-                },
-                redirect: "follow",
-                referrerPolicy: "no-referrer",
-                // body: JSON.stringify(data)
+            const response = await send_request("../api/download", {"project_id": button_id})
 
-
-            })
-            if (response.status === 429) {
-                danger("Слишком много запросов в минуту")
-                return 0
+            if (!response) {
+                return
             }
             const blob = await response.blob();
 
             if (blob.type === "application/json") {
-                // Если ответ в виде JSON
                 const json = await blob.text();
                 const data = JSON.parse(json);
 
                 if (data.status !== "ok") {
-                    // Если статус не 'ok' - показываем ошибку
                     danger(data.message);
                     return 0;
                 }
             } else {
-                // Если ответ не в виде JSON - скачиваем файл
-                const url = URL.createObjectURL(blob);
+                const url = URL.createObjectURL(blob)
 
-                // Создаем ссылку для скачивания файла
-                const link = document.createElement("a");
-                link.href = url;
-                link.download = project_name + ".zip"; // Указываем имя файла
-                document.body.appendChild(link);
+                const link = document.createElement("a")
+                link.href = url
+                link.download = project_name + ".zip"
+                document.body.appendChild(link)
 
-                // Кликаем по ссылке для скачивания файла
-                link.click();
+                link.click()
 
-                // Удаляем ссылку
                 document.body.removeChild(link);
 
-                // Освобождаем ресурсы
                 URL.revokeObjectURL(url);
             }
-            // window.location.href = "http://127.0.0.1:8080/create/moderation"
 
 
         })
     }
-</script>
-<script>
-    const remove_button = document.getElementById("remove_account :(")
 
-    remove_button.addEventListener("click", function () {
-        let form = document.getElementById("form_block")
-        if (form.classList.contains("hidden")) {
-            form.classList.remove("hidden")
-            remove_button.textContent = "отмена"
-        }
-        else {
-            form.classList.add("hidden")
-            remove_account_button.classList.add("hidden")
-            remove_button.textContent = "удалить аккаунт"
+    const disconnect_discord = document.getElementById("disconnect_discord")
+    if (disconnect_discord) {
+        disconnect_discord.addEventListener("click", async () => {
+            const response = await send_request("../api/disconnect_discord")
 
-        }
-    })
-    const remove_account_button = document.getElementById("remove_account_button_form")
-    const password_input = document.getElementById("password_input")
-    password_input.addEventListener("input", function () {
-
-        if (password_input.value !== "") {
-
-            console.log(remove_account_button.classList)
-            if (remove_account_button.classList.contains("hidden")) {
-                remove_account_button.classList.remove("hidden")
-
+            if (!response) {
+                return
             }
-        }
-        else {
-            remove_account_button.classList.add("hidden")
-        }
-    })
+            const answer = await response.json()
 
+            if (answer["status"] !== "ok") {
+                danger(answer["message"])
+                return 0
+            }
 
+            window.location.reload()
+
+            successText("Discord отключен")
+        })
+    }
+
+    const remove_account_button = document.getElementById("remove_account :(")
+    const code_form = document.getElementById("form_block")
+    const code_input = document.getElementById("code_input")
+    const remove_account_button_form = document.getElementById("remove_account_button_form")
     const really_remove_account_button = document.getElementById("really_remove_account_button")
-    really_remove_account_button.addEventListener("click", async function () {
-        const response = await fetch("../api/remove_account", {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-                "password": password_input.value
-            },
-            redirect: "follow",
-            referrerPolicy: "no-referrer",
-            // body: JSON.stringify(data)
+
+    console.log(code_form)
+    remove_account_button.addEventListener("click", async () => {
+
+        if (!code_form.classList.contains("hidden")) {
+            code_form.classList.add("hidden")
+            remove_account_button_form.classList.add("hidden")
+            return
+        }
+        code_form.classList.remove("hidden")
 
 
-        })
-        if (response.status === 429) {
-            danger("Слишком много запросов в минуту")
+        const response = await send_request("../api/send_code", {"remove_account": "{{ current_user.email }}"})
+
+        if (!response) {
+            return
+        }
+        const answer = await response.json()
+
+        if (answer["status"] !== "ok") {
+            danger(answer["message"])
+            return 0
+        }
+    })
+
+    code_input.addEventListener("input", async () => {
+        let value = code_input.value
+
+        if (value.length !== 6) {
+            remove_account_button_form.classList.add("hidden")
+            return 0
+        }
+        remove_account_button_form.classList.remove("hidden")
+
+
+
+    })
+
+    really_remove_account_button.addEventListener("click", async () => {
+        let value = code_input.value
+        const response = await send_request("../api/confirm_code", {"remove_account": "{{ current_user.email }}", "code": value})
+        if (!response) {
             return 0
         }
 
@@ -325,45 +289,47 @@
             danger(answer["message"])
             return 0
         }
-
-        window.location.href = "http://127.0.0.1:8080/"
-
-
+        window.location.href = "http://127.0.0.1:8080/" // TODO поменять url
     })
 
-</script>
-
-<script>
-    document.getElementById("disconnect_discord").addEventListener("click", async () => {
-        const response = await fetch("../api/disconnect_discord", {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            redirect: "follow",
-            referrerPolicy: "no-referrer",
+    // const modal_header_text = document.getElementById("modal_text")
 
 
-        })
-        if (response.status === 429) {
-            danger("Слишком много запросов в минуту")
-            return 0
-        }
-
-        const answer = await response.json()
-
-        if (answer["status"] !== "ok") {
-            danger(answer["message"])
-            return 0
-        }
-
-        window.location.reload()
-
-
-    })
+    // let name = i.getAttribute("project_name")
+    // modal_header_text.textContent = "Вы уверены, что хотите безвозвратно удалить аккаунт? Все боты будут утерян " + name + "?"
+    //
+    // modal.classList.remove("hidden");
+    // overlay.classList.remove("hidden");
+    // document.getElementById("remove_account :(").addEventListener("click", async () => {
+    //     const response = await fetch("../api/send", {
+    //         method: "POST",
+    //         mode: "cors",
+    //         cache: "no-cache",
+    //         credentials: "same-origin",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         redirect: "follow",
+    //         referrerPolicy: "no-referrer",
+    //
+    //
+    //     })
+    //     if (response.status === 429) {
+    //         danger("Слишком много запросов в минуту")
+    //         return 0
+    //     }
+    //
+    //     const answer = await response.json()
+    //
+    //     if (answer["status"] !== "ok") {
+    //         danger(answer["message"])
+    //         return 0
+    //     }
+    //
+    //     window.location.reload()
+    //
+    //
+    // })
 
 
 </script>

@@ -1,11 +1,12 @@
 COGS_EVENTS_HANDLERS_BASE_IMPORTS = """
 import disnake
 from disnake.ext import commands
+from utils.parser import parse_config
 
  """
 COGS_EVENTS_HANDLERS_EVENTS_IMPORTS = """
-from _____project_name_for_imports_____.utils.messages import send_event_message
-from _____project_name_for_imports_____.utils.parser import parse_config
+from utils.messages import send_event_message
+
 
  """
 COGS_EVENTS_HANDLERS_COG = """
@@ -14,11 +15,11 @@ class EventsCog(commands.Cog):
         self.bot: commands.Bot = bot
 
     @commands.Cog.listener()
-    async def on_ready(self, ):
+    async def on_ready(self):
         print(f"Бот {self.bot.user.name} готов к работе!")
          """
 COGS_EVENTS_HANDLERS_ADD_LOADER = """
-        from _____project_name_for_imports_____.utils.on_load import loader
+        from utils.on_load import loader
         await loader(self.bot)
 
      """

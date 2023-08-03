@@ -4,6 +4,7 @@ import time
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import secrets
 
 from random import randint
 import hashlib
@@ -14,26 +15,18 @@ from config import BaseConfig
 
 
 def send_authentication_code(user_email):
-    print(user_email)
-    email_server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
-    print("server created")
+    email_server = smtplib.SMTP_SSL(BaseConfig.MAIL_SERVER, BaseConfig.MAIL_PORT)
     email_server.login(BaseConfig.MAIL_USERNAME, BaseConfig.MAIL_PASSWORD)
-    print("account logged")
 
     email_message = MIMEMultipart()
-    print("message object created")
 
     email_message["From"] = BaseConfig.MAIL_USERNAME
-    print("message from")
 
     email_message["To"] = user_email
-    print("message to")
 
     email_message["Subject"] = "Авторизация"
-    print("message subject")
 
     code = generate_authentication_code(user_email)
-    print("code generated")
 
     message_body = """
     <div style="display: flex; flex-direction: column; align-items: center">
@@ -43,30 +36,34 @@ def send_authentication_code(user_email):
     </div>
 
     """.replace("{code}", str(code))
-    print("message text created")
 
     email_message.attach(MIMEText(message_body, "html"))
-    print("text added to message")
 
     message_text = email_message.as_string()
-    print("convert to string")
 
     email_server.sendmail(BaseConfig.MAIL_USERNAME, user_email, message_text)
-    print("message sent")
 
     email_server.quit()
-    print("server closed")
 
     pass
 
 
+def _random_number():
+    num = secrets.randbits(20)  # 20 бит = 2^20 = 1048576
+
+    while num < 100000 or num > 999999:
+        num = secrets.randbits(20)
+
+    return num
+
+
 def generate_authentication_code(user_email):
-    code = str(randint(100000, 999999))
 
     with open("./app/tokens.json", "r") as f:
         data = json.load(f)
-        while code in data:
-            code = str(randint(100000, 999999))
+        while (code := str(_random_number())) in data:
+            pass
+            # code = str(randint(100000, 999999))
 
         print("code >", code)
         code_salt = code + BaseConfig.CODE_SALT

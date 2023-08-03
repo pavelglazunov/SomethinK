@@ -95,6 +95,7 @@ def start_editing():
     if validate_project_id(project_id):
         return jsonify({"status": "error", "message": f"Код ошибки: Hack attack? Stop please"})
 
+    project_id = int(project_id.split("_")[-1])
     db_sess = db_session.create_session()
     project_config_json = db_sess.query(Projects).filter(Projects.id == project_id).first().config_json
 
@@ -117,6 +118,7 @@ def remove_bot():
     if validate_project_id(project_id):
         return jsonify({"status": "error", "message": f"Код ошибки: Hack attack? Stop please"})
 
+    project_id = int(project_id.split("_")[-1])
     db_sess = db_session.create_session()
 
     project = db_sess.query(Projects).filter(Projects.id == project_id).first()
@@ -134,10 +136,10 @@ def download_bot():
     if validate_project_id(project_id):
         return jsonify({"status": "error", "message": f"Код ошибки: Hack attack? Stop please"})
 
+    project_id = int(project_id.split("_")[-1])
     db_sess = db_session.create_session()
 
-    project_configurator = db_sess.query(Projects).filter(
-        Projects.id == int(project_id.split("_")[-1])).first().config_json
+    project_configurator = db_sess.query(Projects).filter(Projects.id == project_id).first().config_json
 
     generate(dict(project_configurator))
     return send_file(
@@ -145,29 +147,10 @@ def download_bot():
         as_attachment=True)
 
 
-@api_bp.route("/remove_account", methods=["GET", "POST"])
-@login_required
-def remove_account():
-    user_password = request.headers.get("password")
-
-    db_sess = db_session.create_session()
-
-    user = db_sess.query(User).filter(User.email == current_user.email).first()
-
-    if not user.check_password(user_password):
-        print("incorrect password")
-        return jsonify({"status": "error", "message": "Неверный пароль"})
-
-    user_projects = db_sess.query(Projects).filter(Projects.author_id == user.id).all()
-    logout_user()
-    session.clear()
-
-    db_sess.delete(user)
-    for pr in user_projects:
-        db_sess.delete(pr)
-    db_sess.commit()
-
-    return jsonify({"status": "ok", "message": "Аккаунт удален"})
+# @api_bp.route("/remove_account", methods=["GET", "POST"])
+# @login_required
+# def remove_account():
+#     user_password = request.headers.get("password")
 
 
 @api_bp.route("/start_creating", methods=["POST"])
@@ -218,6 +201,8 @@ def get_progres():
 def send_code():
     print(">>> user_email")
     user_email = request.headers.get("user_email")
+    if request.headers.get("remove_account"):
+        user_email = current_user.email
     print(user_email)
     if not user_email:
         return jsonify({"status": "error", "message": "Укажите почту"})
@@ -238,11 +223,28 @@ def send_code():
 def confirm_code():
     code = request.headers.get("code")
     print("get code", code)
-    if validate_project_id(code):
+    try:
+        int(code)
+    except ValueError:
         return jsonify({"status": "error", "message": "Некорректный код"})
 
     if not (user_email := confirm_authentication_code(code)):
         return jsonify({"status": "error", "message": "Некорректный код"})
+
+    if request.headers.get("remove_account"):
+        db_sess = db_session.create_session()
+
+        user = db_sess.query(User).filter(User.email == current_user.email).first()
+
+        user_projects = db_sess.query(Projects).filter(Projects.author_id == user.id).all()
+        logout_user()
+        session.clear()
+        db_sess.delete(user)
+        for pr in user_projects:
+            db_sess.delete(pr)
+        db_sess.commit()
+
+        return jsonify({"status": "ok", "message": "Аккаунт удален"})
 
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.email == user_email).first()

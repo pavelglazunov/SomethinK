@@ -2,15 +2,15 @@ COGS_ANOTHER_COMMANDS_BASE_IMPORTS = """
 import datetime
 import disnake
 from disnake.ext import commands
-from _____project_name_for_imports_____.utils.parser import get_command_allow_roles, get_command_allow_channels
-from _____project_name_for_imports_____.utils.decorators import allowed_channels, allowed_roles
-from _____project_name_for_imports_____.utils.messages import send_message, send_long_message, get_description
-from _____project_name_for_imports_____.utils.messages import send_error_message, detected_error
+from utils.parser import get_command_allow_roles, get_command_allow_channels
+from utils.decorators import allowed_channels, allowed_roles
+from utils.messages import send_message, send_long_message, get_description
+from utils.messages import send_error_message, detected_error
 
  """
 COGS_ANOTHER_COMMANDS_IMPORT_GPT = """
 import openai
-from _____project_name_for_imports_____.config import GPT_API_KEY
+from config import GPT_API_KEY
 
  """
 COGS_ANOTHER_COMMANDS_IMPORT_REQUESTS = """
@@ -18,14 +18,14 @@ import requests
 
  """
 COGS_ANOTHER_COMMANDS_IMPORT_EMBED_MODAL = """
-from _____project_name_for_imports_____.modals.embed_modals import EmbedModal
+from modals.embed_modals import EmbedModal
  """
 COGS_ANOTHER_COMMANDS_IMPORT_FEEDBACK_MODAL = """
-from _____project_name_for_imports_____.modals.feedback_modals import FeedbackTypeSelect
+from modals.feedback_modals import FeedbackTypeSelect
 
  """
 COGS_ANOTHER_COMMANDS_IMPORT_WEATHER_API_KEY = """
-from _____project_name_for_imports_____.config import WEATHER_API_KEY
+from config import WEATHER_API_KEY
 
  """
 COGS_ANOTHER_COMMANDS_IMPORT_TRANSLATE = """

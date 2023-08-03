@@ -10,7 +10,7 @@ class EventsCog(commands.Cog):
         self.bot: commands.Bot = bot
 
     @commands.Cog.listener()
-    async def on_ready(self, ):
+    async def on_ready(self):
         print(f"Бот {self.bot.user.name} готов к работе!")
 
         from disnake_bot.utils.on_load import loader

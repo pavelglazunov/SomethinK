@@ -5,12 +5,12 @@ import disnake
 import openai.error
 
 from disnake import ApplicationCommandInteraction as AppInter
-from _____project_name_for_imports_____.utils.parser import load_messages, parse_config
+from utils.parser import load_messages, parse_config
 from disnake.ext import commands
 
  """
 UTILS_MESSAGES_IMPORT_LOG = """
-from _____project_name_for_imports_____.utils.event_logging import log
+from utils.event_logging import log
 
 MESSAGES = load_messages()
 COMMANDS = MESSAGES["commands"]

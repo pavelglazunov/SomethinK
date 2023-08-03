@@ -12,12 +12,12 @@
 <div class="content" id="content">
     <div class="token_block">
         <p class="token_logo">токен бота</p>
-        <p class="get_token_text">для подключения бота к коду, необходимо получить токен, следуйте инструкциям из видео
+        <p class="get_token_text">для подключения бота к коду, необходимо получить токен по <a style="color: #959CEC; text-decoration: none" target="_blank" href="https://discord.com/developers/applications">ссылке</a>, следуйте инструкциям из видео
             и введите его в поле</p>
         <form action="" method="post" class="register_form_class">
             {{ form.hidden_tag() }}
 
-            {{ form.token(class="token_input",id="save_token_form", type="", placeholder="Токен") }}<br>
+            {{ form.token(class="token_input",id="save_token_form", type="password", placeholder="Токен") }}<br>
             {% for error in form.token.errors %}
             {% endfor %}
 
@@ -25,7 +25,9 @@
             {% for error in form.save.errors %}
             {% endfor %}
         </form>
-        <div class="video_here" id="video"></div>
+        <video class="video_here" controls="controls">
+            <source src="/static/video/get_token_video.mp4" type="video/mp4" />
+        </video>
     </div>
 
 

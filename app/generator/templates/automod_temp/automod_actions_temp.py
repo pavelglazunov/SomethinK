@@ -2,16 +2,16 @@ AUTOMOD_ACTIONS_BASE_IMPORTS = """
 import datetime
 import disnake
 from disnake import Message
-from _____project_name_for_imports_____.utils.decorators import edit_json
+from utils.decorators import edit_json
 
  """
 AUTOMOD_ACTIONS_WARNING_IMPORT = """
-from _____project_name_for_imports_____.utils.warnings import add_warning
+from utils.warnings import add_warning
 
  """
 AUTOMOD_ACTIONS_PENDING_MESSAGES_IMPORT = """
-from _____project_name_for_imports_____.config import PENDING_MESSAGES_JSON_FILENAME
-from _____project_name_for_imports_____.utils.parser import parse_config
+from config import PENDING_MESSAGES_JSON_FILENAME
+from utils.parser import parse_config
 
 
  """

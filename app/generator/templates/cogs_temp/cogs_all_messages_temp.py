@@ -1,21 +1,21 @@
 COGS_ALL_MESSAGES_BASE_IMPORTS = """
 import disnake
 from disnake.ext import commands
-from _____project_name_for_imports_____.utils.messages import edit_help_page
-from _____project_name_for_imports_____.utils.parser import parse_config
+from utils.messages import edit_help_page
+from utils.parser import parse_config
 
  """
 COGS_ALL_MESSAGES_AUTOMOD_IMPORTS = """
-from _____project_name_for_imports_____.automod.automods import automod
-from _____project_name_for_imports_____.automod.actions import ACTIONS, remove_pending_message
+from automod.automods import automod
+from automod.actions import ACTIONS, remove_pending_message
 
  """
 COGS_ALL_MESSAGES_LOGGING_IMPORT = """
-from _____project_name_for_imports_____.utils.event_logging import log
+from utils.event_logging import log
 
  """
 COGS_ALL_MESSAGES_SEND_EVENT_MESSAGE_IMPORT = """
-from _____project_name_for_imports_____.utils.messages import send_event_message
+from utils.messages import send_event_message
 
  """
 COGS_ALL_MESSAGES_AUTORESPONSE_CONST = """

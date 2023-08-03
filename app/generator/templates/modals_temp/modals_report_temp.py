@@ -3,8 +3,8 @@ import datetime
 
 import disnake
 
-from _____project_name_for_imports_____.utils.messages import send_message
-from _____project_name_for_imports_____.utils.parser import parse_config
+from utils.messages import send_message
+from utils.parser import parse_config
 
 class ReportModal(disnake.ui.Modal):
     def __init__(self, member: disnake.Member):

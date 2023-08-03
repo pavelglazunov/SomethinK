@@ -1,7 +1,7 @@
 REGULARS_INIT_BASE_IMPORTS = """
 import asyncio
 from disnake.ext import commands
-from _____project_name_for_imports_____.utils.parser import parse_config
+from utils.parser import parse_config
 
  """
 REGULARS_INIT_MESSAGES_IMPORT = """

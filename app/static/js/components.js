@@ -580,10 +580,7 @@ function open_settings(configuration_key, configuration_id, name, kwargs) {
     }
 
 
-
-
     // _p.style.marginTop = "1vw"
-
 
 
     // configurator_content.appendChild(footer)
@@ -636,7 +633,7 @@ function base_save_settings(configuration_key) {
             console.log(data["count"], data)
         }
 
-        updateLS(actual_name, data)
+        configuration_key[actual_name] = data
         return actual_name
     }
 

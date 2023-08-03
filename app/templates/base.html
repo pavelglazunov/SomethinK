@@ -24,7 +24,7 @@
             {% if current_user.is_authenticated %}
             <a class="header-text header_text_border_right" href="/user/{{ current_user.id }}">{{ current_user.name }}</a>
             {% else %}
-            <a class="main_login_btn header-text header_text_border_right" href="/auth">войти</a>
+            <a class="header-text header_text_border_right" href="/auth">войти</a>
             {% endif %}
         </div>
 

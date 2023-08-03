@@ -1,6 +1,6 @@
 AUTOMOD_AUTOMODS_BASE_IMPORTS = """
 import disnake
-from _____project_name_for_imports_____.utils.parser import parse_config
+from utils.parser import parse_config
 
  """
 AUTOMOD_AUTOMODS_IMPORT_RE = """

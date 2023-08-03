@@ -1,8 +1,8 @@
 UTILS_ON_LOAD_IMPORT_ASYNC_PROCESSES = """
-from _____project_name_for_imports_____.regulars import create_all_async_process
+from regulars import create_all_async_process
  """
 UTILS_ON_LOAD_IMPORT_CREATOR = """
-from _____project_name_for_imports_____.utils.creator import *
+from utils.creator import *
 
  """
 UTILS_ON_LOAD_BASE_IMPORT = """

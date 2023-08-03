@@ -2,20 +2,20 @@ COGS_COMMAND_IMPORTS = """
 import datetime
 import disnake
 from disnake.ext import commands
-from _____project_name_for_imports_____.utils.parser import get_command_allow_roles, get_command_allow_channels
-from _____project_name_for_imports_____.utils.decorators import allowed_channels, allowed_roles
-from _____project_name_for_imports_____.utils.messages import send_message, get_description, send_error_message, send_long_message, \
+from utils.parser import get_command_allow_roles, get_command_allow_channels
+from utils.decorators import allowed_channels, allowed_roles
+from utils.messages import send_message, get_description, send_error_message, send_long_message, \
     detected_error
 
  """
 COGS_COMMAND_IMPORT_ADD_WARNING = """
-from _____project_name_for_imports_____.utils.warnings import add_warning
+from utils.warnings import add_warning
  """
 COGS_COMMAND_IMPORT_GET_WARNINGS = """
-from _____project_name_for_imports_____.utils.warnings import get_user_warnings
+from utils.warnings import get_user_warnings
  """
 COGS_COMMAND_IMPORT_REMOVE_WARNINGS = """
-from _____project_name_for_imports_____.utils.warnings import remove_warnings
+from utils.warnings import remove_warnings
 
 
  """
@@ -557,7 +557,7 @@ COGS_COMMAND_REPORT = """
         ----------
         member: Пользователь, на которого вы хотите пожаловаться
         \"\"\"
-        from qwerty.modals.report_modals import ReportModal
+        from modals.report_modals import ReportModal
         await inter.response.send_modal(modal=ReportModal(member))
 
      """

@@ -2,8 +2,8 @@ UTILS_WARNINGS_IMPORTS = """
 
 import datetime
 
-from _____project_name_for_imports_____.utils.decorators import edit_json
-from _____project_name_for_imports_____.config import WARNING_JSON_FILENAME
+from utils.decorators import edit_json
+from config import WARNING_JSON_FILENAME
 
 
  """

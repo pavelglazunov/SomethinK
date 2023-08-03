@@ -1,31 +1,30 @@
 import os
+from dotenv import load_dotenv
 
 app_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 class BaseConfig:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'yandexlyceum_secret_key'
-    JWT_SECRET_KEY = 'super-secret'
-    RECAPTCHA_PUBLIC_KEY = "6LftGX8lAAAAACiqSptlqEiqmsU0lhAwOLSKOFnR"
-    RECAPTCHA_PRIVATE_KEY = "6LftGX8lAAAAAP6c0fTEa5K0b0gOQCOCfEwb2NrT"
+    load_dotenv()
+    SECRET_KEY = os.getenv("SK_SECRET_KEY") or "very secret key"
+    JWT_SECRET_KEY = os.getenv("SK_JWT_KEY") or "super-secret"
+    CODE_SALT = os.getenv("SK_CODE_SALT") or "salt"
 
     # настройка Flask-Mail
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 465
-    MAIL_USE_TLS = True
-    MAIL_DEBUG = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'somethinkbots@gmail.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'vdlhtksjgfpqavno'
-    MAIL_DEFAULT_SENDER = MAIL_USERNAME
+    MAIL_SERVER = os.getenv("SK_MAIL_SERVER") or 'smtp.googlemail.com'
+    MAIL_PORT = os.getenv("SK_MAIL_PORT") or 465
+    MAIL_USERNAME = os.environ.get('SK_MAIL_USERNAME') or 'your_email@gmail.com'
+    MAIL_PASSWORD = os.environ.get('SK_MAIL_PASSWORD') or 'special_password'
 
     # настройка SQL
     SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    TELEGRAM_BOT_TOKEN = "6228611353:AAHBaxvVIhBP9HdkHFq4Cw7FS0hNNCY0uJg"
+    # настройка telegram
+    TELEGRAM_BOT_TOKEN = os.getenv("SK_TELEGRAM_BOT_TOKEN") or "TOKEN"
 
 
-class DevelopementConfig(BaseConfig):
+class DevelopmentConfig(BaseConfig):
     DEBUG = True
 
 

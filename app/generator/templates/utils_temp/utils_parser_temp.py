@@ -1,6 +1,6 @@
 UTILS_PARSER_IMPORTS = """
-from _____project_name_for_imports_____.config import CONFIG_JSON_FILENAME, MESSAGES_JSON_FILENAME
-from _____project_name_for_imports_____.utils.decorators import edit_json
+from config import CONFIG_JSON_FILENAME, MESSAGES_JSON_FILENAME
+from utils.decorators import edit_json
 
 
  """

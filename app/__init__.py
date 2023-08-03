@@ -5,14 +5,13 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-import os
 import logging
 
 from .data import db_session
 from .data.users import User, Projects
 
 application = Flask(__name__)
-application.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig')
+application.config.from_object('config.DevelopmentConfig')
 
 login_manager = LoginManager()
 login_manager.init_app(application)

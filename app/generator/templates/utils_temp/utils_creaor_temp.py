@@ -1,7 +1,7 @@
 UTILS_CREATOR_IMPORTS = """
 import disnake
 from disnake.ext import commands
-from _____project_name_for_imports_____.utils.parser import parse_config, edit_config
+from utils.parser import parse_config, edit_config
 
 
  """

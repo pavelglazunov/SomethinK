@@ -3,7 +3,7 @@ REGULARS_ACTIVITY_ROLES_FILE = """
 import asyncio
 
 from disnake.ext import commands
-from _____project_name_for_imports_____.utils.parser import parse_config
+from utils.parser import parse_config
 
 
 async def start_activity_roles_updating(bot: commands.Bot):

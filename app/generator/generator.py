@@ -326,7 +326,7 @@ def generate(key: dict):
 
         "pending_messages": {
             "add_file": False,
-            "file_data": {}
+            "file_data": []
         },
         "user_warnings": {
             "add_file": False,
