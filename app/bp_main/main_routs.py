@@ -1,6 +1,6 @@
 import os
 
-from flask import Blueprint, render_template, redirect, send_from_directory, session
+from flask import Blueprint, render_template, redirect, send_from_directory, session, make_response
 from flask_login import login_required, current_user
 
 from app.data import db_session
