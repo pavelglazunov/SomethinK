@@ -1,26 +1,3 @@
-async function api_all() {
-    let login_discord
-    let user_roles
-    let user_channels
-    let status
-
-    fetch('/api/all').then(response => response.json())
-        .then(json => {
-            login_discord = json["auth_with_discord"]
-            user_roles = json["roles"]
-            user_channels = json["channels"]
-            status = json["user_bot_token"]
-        })
-    console.log("IAM HERE")
-    return {
-        "login_discord": login_discord,
-        "user_roles": user_roles,
-        "user_channels": user_channels,
-        "status": status
-    }
-    // return await response.json()
-}
-
 async function post_data(type, data) {
     const response = await fetch("../api/save", {
         method: "POST",
@@ -99,8 +76,4 @@ async function start_creating(project_name) {
     } catch (error) {
         danger("Произошла ошибка: " + error.message);
     }
-}
-
-async function api_submit_token() {
-    let response = await fetch("/api/")
 }

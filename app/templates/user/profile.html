@@ -4,30 +4,9 @@
 <link href="/static/css/create/toast.css" rel="stylesheet">
 <link href="/static/css/main/index.css" rel="stylesheet">
 <script src="/static/js/toast.js"></script>
-<script src="/static/js/toasts.js"></script>
 {% endblock %}
 
 {% block content %}
-<!--<section class="section" style="margin-top: 5vw">-->
-<!--    <div class="section_content">-->
-<!--        <h1 class="section_text">{{ data.username }}</h1>-->
-<!--        <div class="user_data">-->
-<!--            <div class="user_data_row">-->
-<!--                <div class="red_button logout_button">выйти из аккаунта</div>-->
-<!--                <div class="red_button remove_account_button">удалить аккаунт</div>-->
-<!--&lt;!&ndash;                {% if data.auth_with_discord %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <div class="connect_discord_button">Дискорд привязан</div>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% else %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{{ data.redirect_oauth_url }}" class="connect_discord_button not_connect">привязать дискорд</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% endif %}&ndash;&gt;-->
-<!--&lt;!&ndash;                <img class="discord_accept_icon" src="/static/img/icons8-accept.svg">&ndash;&gt;-->
-<!--&lt;!&ndash;                <p>Discord привязан</p>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
-<!--</section>-->
 
 <div class="user_page_content">
     <section class="section" style="margin-top: 5vw">
@@ -41,7 +20,6 @@
 
         <div class="bots_block">
             <div class="modal hidden" id="modal">
-                <!--            <div class="">-->
                 <div class="modal_text_block">
                     <h3 class="modal_header">удалить бота?</h3>
                     <p class="remove_bot_text" id="modal_text"></p>
@@ -69,8 +47,6 @@
             {% endfor %}
         </div>
 
-
-        <!--    <p>Projects: {{ data.user_project }}</p>-->
 
     </section>
     <div class="logout_footer">
@@ -273,12 +249,14 @@
         remove_account_button_form.classList.remove("hidden")
 
 
-
     })
 
     really_remove_account_button.addEventListener("click", async () => {
         let value = code_input.value
-        const response = await send_request("../api/confirm_code", {"remove_account": "{{ current_user.email }}", "code": value})
+        const response = await send_request("../api/confirm_code", {
+            "remove_account": "{{ current_user.email }}",
+            "code": value
+        })
         if (!response) {
             return 0
         }

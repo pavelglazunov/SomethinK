@@ -26,26 +26,30 @@ const SM = {
     }
 }
 
+function isValidYouTubeChannel(link, sm_type) {
+    let url
+
+    try {
+        url = new URL(link)
+    } catch (err) {
+        return false
+    }
+
+    const isYouTubeDomain = url.hostname === 'www.youtube.com' || url.hostname === 'youtube.com'
+    const isTwitchDomain = url.hostname === 'www.twitch.tv' || url.hostname === 'twitch.tv'
+    const isYouTubeChannelPath = url.pathname.startsWith('/@')
+    const isTwitchChannelPath = url.pathname.startsWith('/')
+
+    if (sm_type === "youtube") {
+        return isYouTubeDomain && isYouTubeChannelPath
+    } else {
+        return isTwitchDomain && isTwitchChannelPath
+    }
+}
 
 function reset_sm_configurator() {
     configuration_key["youtube"] = {}
     configuration_key["twitch"] = {}
-
-
-    // configuration_key["commands"] = {}
-
-    // for (let i of SM_COMMANDS) {
-    //     for (let j of i) {
-    //         let command_config = {}
-    //         command_config["enable"] = true
-    //         command_config["description"] = ALL_COMMANDS[j]
-    //         command_config["roles"] = []
-    //         command_config["channels"] = []
-    //
-    //         configuration_key[j] = command_config
-    //     }
-    // }
-
 }
 
 function update_counter(type) {
@@ -73,7 +77,6 @@ function generate_block(
     block.style.padding = "0"
 
     if (add_lbl) {
-        console.log("header")
         block.appendChild(p(SM[type]["header"], "block_header"))
     }
     let block_content = div("block_content")
@@ -162,15 +165,6 @@ function generate_block(
 }
 
 
-function generate_base_variant() {
-    youtube_blocks.appendChild(generate_block("", "", "", "youtube", get_count("youtube") === 0))
-    twitch_blocks.appendChild(generate_block("", "", "", "twitch", get_count("twitch") === 0))
-
-    update_counter("youtube")
-    update_counter("twitch")
-}
-
-
 let login_discord = null
 let user_channels = {}
 let user_roles = {}
@@ -197,10 +191,8 @@ fetch('/api/get', {
         configuration_key = data["configuration_key"]
 
         if (data["configuration_key"] === "{}") {
-            console.log(55555)
             configuration_key = {}
             reset_sm_configurator()
-            // generate_base_variant()
 
         } else {
             configuration_key = JSON.parse(configuration_key)
@@ -226,7 +218,6 @@ function main() {
             configuration_key["youtube"][yt]["message"],
             "youtube",
             Object.keys(configuration_key.youtube).indexOf(yt) === 0
-
         ))
     }
     for (let tw of Object.keys(configuration_key.twitch)) {
@@ -238,49 +229,6 @@ function main() {
             Object.keys(configuration_key.twitch).indexOf(tw) === 0
         ))
     }
-
-
-    // if (Object.keys(configuration_key.twitch).length === 0 && Object.keys(configuration_key.youtube).length === 0) {
-    //     generate_base_variant()
-    //
-    // }
-    // youtube_blocks.appendChild(generate_block(
-    //     "", "", "", "youtube", true
-    // ))
-        // console.log("<<<<<<<<<<<<<<", configuration_key)
-    // for (let i of SM_COMMANDS[0]) {
-    //     youtube_footer.appendChild(create_command_block(configuration_key, "configurator", base_save_settings, i, {
-    //         "slash": true,
-    //         "settings": true,
-    //         "automod": "",
-    //         "remove_after_close": true,
-    //         "parent_id": "configurator_parent",
-    //     }))
-    //     let el = document.getElementsByName(i)[0]
-    //     el.style.borderColor = SM["youtube"]["color"]
-    //     el.style.backgroundColor = SM["youtube"]["bg"]
-    //     el.style.setProperty('--after-color', SM["youtube"]["color"])
-    // }
-    //
-    // for (let i of SM_COMMANDS[1]) {
-    //     twitch_footer.appendChild(create_command_block(configuration_key, "configurator", base_save_settings, i, {
-    //         "slash": true,
-    //         "settings": true,
-    //         "automod": "",
-    //         "remove_after_close": true,
-    //         "parent_id": "configurator_parent",
-    //     }))
-    //     // cmd.style.borderColor = SM["twitch"]["color"]
-    //     let el = document.getElementsByName(i)[0]
-    //     el.style.borderColor = SM["twitch"]["color"]
-    //     el.style.backgroundColor = SM["twitch"]["bg"]
-    //     el.style.setProperty('--after-color', SM["twitch"]["color"])
-    //
-    // }
-    // for (let i of document.getElementsByClassName("command_block")) {
-    //     i.style.width = "14vw"
-    // }
-
 
     document.getElementById("add_youtube_block").addEventListener("click", function () {
         if (get_count("youtube") < 3) {
@@ -316,7 +264,6 @@ function main() {
 }
 
 document.getElementById("save_btn").addEventListener("click", function () {
-    // base_save_settings(configuration_key)
 
     let new_yt_data = {}
     for (let yt of document.getElementsByClassName("youtube")) {
@@ -325,11 +272,6 @@ document.getElementById("save_btn").addEventListener("click", function () {
         let channel_id = document.getElementById("_input_channel_id_" + id).value
         let message = document.getElementById("_input_message_" + id).value
 
-        console.log(id)
-        console.log(link)
-        console.log(channel_id)
-        console.log(message)
-        console.log("////////")
         if (!link) {
             danger("Необходимо ввести ссылку на ютуб канал")
             return
@@ -343,6 +285,11 @@ document.getElementById("save_btn").addEventListener("click", function () {
             danger("Необходимо ввести текст сообщения")
             return
         }
+        if (!isValidYouTubeChannel(link, "youtube")) {
+            danger("Некорректная ссылка на ютуб")
+            return
+        }
+
 
         data = {
             "link": link,
@@ -377,6 +324,10 @@ document.getElementById("save_btn").addEventListener("click", function () {
             danger("Необходимо ввести текст сообщения")
             return
         }
+        if (!isValidYouTubeChannel(link, "twitch")) {
+            danger("Некорректная ссылка на твич")
+            return
+        }
 
         data = {
             "link": link,
@@ -406,14 +357,6 @@ document.getElementById("reset_btn").addEventListener("click", function () {
     if (confirm("Вы уверены, что хотите сбросить все изменения?")) {
         reset_sm_configurator()
 
-
-        // const answer = post_data("messages", configuration_key)
-        // console.log(configuration_key)
-
-        // while (document.getElementsByClassName("command_block")) {
-        //     document.getElementsByClassName("command_block")[0].remove()
-        //     console.log(1)
-        // }
         const command_blocks = document.getElementsByClassName("command_block")
 
         for (let i = 0; i < 4; i++) {
@@ -422,13 +365,7 @@ document.getElementById("reset_btn").addEventListener("click", function () {
 
         youtube_blocks.innerHTML = ""
         twitch_blocks.innerHTML = ""
-        // for (let i of document.getElementsByClassName("command_block")) {
-        //     i.remove()
-        // }
-        // document.getElementById("youtube_footer").innerHTML = ""
-        // document.getElementById("twitch_footer").innerHTML = ""
 
-        // generate_base_variant()
         const answer = post_data("social_media", configuration_key)
         answer.then(a => {
             if (a["status"] === "ok") {

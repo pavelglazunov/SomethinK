@@ -56,6 +56,11 @@ def privacy_page():
     return render_template("policy/main_policy.html")
 
 
+@main_bp.route("/cookie_privacy")
+def cookie_privacy_page():
+    return render_template("policy/cookie_privacy.html")
+
+
 @main_bp.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(main_bp.root_path, "static"), "favicon.ico",

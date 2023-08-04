@@ -31,9 +31,6 @@ app.log
 /app/ds_config.py
 app/ds_config.py
 
-./app/ds_config.py
-/app/ds_config.py
-app/ds_config.py
 
 ./disnake_bot/config.py
 /disnake_bot/config.py

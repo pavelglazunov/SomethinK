@@ -3,8 +3,6 @@ import time
 
 REMOVING_PATH = f"{os.getcwd()}/app/generator"
 
-print(REMOVING_PATH)
-
 
 def start_removing():
     while True:

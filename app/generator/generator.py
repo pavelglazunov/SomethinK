@@ -16,7 +16,6 @@ def create_folder(folder, cfg: dict, project_name, extension="py", not_create=[]
     for file_name, file_data in cfg.items():
 
         if f"{folder}.{file_name}.{extension}" in not_create:
-            print("CONTINUE", file_name)
             continue
         code_paths = [k for k, v in file_data.items() if v]
         json_data = None
