@@ -190,7 +190,7 @@ def get_progres():
 
 
 @api_bp.route("/send_code", methods=["GET", "POST"])
-@limiter.limit("1/minute")  # <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
+# @limiter.limit("1/minute")  # <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
 def send_code():
     user_email = request.headers.get("user_email")
     if request.headers.get("remove_account"):
@@ -201,7 +201,7 @@ def send_code():
         send_authentication_code(user_email)
     except UnicodeEncodeError:
         application.logger.error(f"Ошибка при отправлении письма с кодом, почта: {user_email}")
-        return jsonify({"status": "error", "message": "Некорректная почта"})  # TODO убрать status='ok'
+        return jsonify({"status": "error", "message": "Ошибка при отправлении письма"})
 
     return jsonify({"status": "ok"})
 

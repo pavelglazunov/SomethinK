@@ -573,7 +573,6 @@ COGS_COMMAND_ERRORS = """
 def mg_command_errors(_keys: list) -> str:
     result = ""
     for i in _keys:
-        print(i)
         if i in ("cogs_command_imports",
                  "cogs_command_import_add_warning",
                  "cogs_command_import_get_warnings",

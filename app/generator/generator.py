@@ -50,27 +50,6 @@ def generate(key: dict):
         "commands": {}
     }
 
-    automod_func_keys = {
-        "automod_func_base_imports": True,
-        "automod_func_re_import": False,
-        "automod_func_emoji_import": False,
-        "automod_func_base_funcs": True,
-        "automod_func_link": False,
-        "automod_func_caps": False,
-        "automod_func_mentions": False,
-        "automod_func_smiles": False,
-        "automod_func_main_func": True
-    }
-    automod_action_keys = {
-        "automod_action_base_imports": True,
-        "automod_action_send_import": False,
-        "automod_action_send": False,
-        "automod_action_remove": False,
-        "automod_action_warn": False,
-        "automod_action_remove_and_warn": False,
-        "automod_action_funcs_list": True
-    }
-
     utils_files_keys = {
         "__init__": {
             'utils_init_file_fun_text': True
@@ -400,8 +379,6 @@ def generate(key: dict):
         ".config.py": True,
         ".runner.py": True,
     }
-    # add_automod = False
-    add_modals = False
 
     command_block = key.get("moderation", {})
     commands_cfg_keys = []
@@ -617,13 +594,6 @@ def generate(key: dict):
             files_flags["modals.feedback_modals.py"] = True
             files_flags["modals.__init__.py"] = True
         another_commands_cfg_key.append(command)
-
-    if "feedback" in another_commands_cfg_key:
-        add_modals = True
-    if "embed" in another_commands_cfg_key:
-        add_modals = True
-    if "report" in commands_cfg_keys:
-        add_modals = True
 
     _settings = key.get("settings", {})
     if _settings.get("logging", {}).get("enable", False):

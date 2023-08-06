@@ -4,6 +4,7 @@ import time
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.header import Header
 import secrets
 
 from random import randint
@@ -15,7 +16,7 @@ from config import BaseConfig
 
 
 def send_authentication_code(user_email):
-    email_server = smtplib.SMTP_SSL(BaseConfig.MAIL_SERVER, BaseConfig.MAIL_PORT)
+    email_server = smtplib.SMTP_SSL(BaseConfig.MAIL_SERVER, int(BaseConfig.MAIL_PORT))
     email_server.login(BaseConfig.MAIL_USERNAME, BaseConfig.MAIL_PASSWORD)
 
     email_message = MIMEMultipart()
@@ -24,28 +25,23 @@ def send_authentication_code(user_email):
 
     email_message["To"] = user_email
 
-    email_message["Subject"] = "Авторизация"
+    email_message["Subject"] = Header("Авторизация", 'utf-8')
 
-    code = generate_authentication_code(user_email)
-
+    auth_code = generate_authentication_code(user_email)
     message_body = """
     <div style="display: flex; flex-direction: column; align-items: center">
-        <p>Код подтверждения для входа в SomethinK</p>
+        <p>Your authorization code:</p>
         <h1>{code}</h1>
-        <p>Не сообщайте никому данный код</p>
+        <p>Do not share this code with anyone</p>
     </div>
+    """.replace("{code}", str(auth_code))
 
-    """.replace("{code}", str(code))
+    text = MIMEText(message_body, "html", 'utf-8')
+    email_message.attach(text)
 
-    print("code:", code)
-    email_message.attach(MIMEText(message_body, "html"))
-
-    message_text = email_message.as_string()
-
-    email_server.sendmail(BaseConfig.MAIL_USERNAME, user_email, message_text)
+    email_server.sendmail(BaseConfig.MAIL_USERNAME, user_email, email_message.as_string())
 
     email_server.quit()
-
     pass
 
 

@@ -34,7 +34,6 @@
             <div class="project" id="project_{{ el.id }}">
                 <p class="bot_name">{{ el.name }}</p>
                 <div class="bots_buttons">
-                    <div class="project_buttons bot_edit_button" id="bot_edit_button_{{ el.id }}">редактировать</div>
                     <div class="project_buttons bot_download_button" id="bot_download_button_{{ el.id }}"
                          project_name="{{ el.name }}">скачать
                     </div>
@@ -110,17 +109,6 @@
 
     overlay.addEventListener("click", closeModal);
 
-
-    const project_edit_buttons = document.getElementsByClassName("bot_edit_button")
-    for (let i of project_edit_buttons) {
-        i.addEventListener("click", () => {
-            const button_id = i.id
-
-            send_request("../api/edit", {"project_id": button_id})
-
-            window.location.href = "http://127.0.0.1:8080/create/moderation"
-        })
-    }
 
     const project_remove_buttons = document.getElementsByClassName("bot_remove_button")
     let selected_bot_id

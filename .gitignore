@@ -40,4 +40,8 @@ disnake_bot/config.py
 /test__bot
 test__bot
 
+./app/db
+/app/db
+app/db
+
 tests.py

@@ -122,7 +122,7 @@ function reset_key_configurator(show_message = false) {
         for (let j of i) {
             let auto_mod_config = {}
             auto_mod_config["enable"] = true
-            auto_mod_config["roles"] = []
+            auto_mod_config["roles"] = [["Владелец сервера", "-1"]]
             auto_mod_config["channels"] = []
             auto_mod_config["action"] = "--send"
             auto_mod_config["description"] = COMMANDS_DESCRIPTIONS[j[0]]
