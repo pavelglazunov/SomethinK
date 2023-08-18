@@ -55,9 +55,9 @@ def _random_number():
 
 
 def generate_authentication_code(user_email):
+
     with open("./app/tokens.json", "r") as f:
         data = json.load(f)
-
         while (code := str(_random_number())) in data:
             pass
 
@@ -67,7 +67,7 @@ def generate_authentication_code(user_email):
             "time_over": datetime.datetime.now() + datetime.timedelta(minutes=10),
             "code": hashlib.sha512(code_salt.encode()).hexdigest()
         }
-
+        print(hashlib.sha512(code_salt.encode()).hexdigest())
     with open("./app/tokens.json", "w") as f:
         json.dump(data, f, default=str)
 

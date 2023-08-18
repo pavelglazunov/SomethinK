@@ -8,15 +8,15 @@ from threading import Thread
 if __name__ == '__main__':
     db_session.global_init("app/db/db.db")
 
-    # Thread(target=start_removing).start()
-    # Thread(target=remove_authentication_code).start()
+    Thread(target=start_removing).start()
+    Thread(target=remove_authentication_code).start()
 
     # Flask app
-    application.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)
-    # Thread(target=lambda: application.run(host="127.0.0.1", port=8080, debug=True, use_reloader=False)).start()
+    # application.run(host="94.198.216.152", port=80, debug=True, use_reloader=False)
+    Thread(target=lambda: application.run(host="94.198.216.152", port=80, debug=False, use_reloader=False)).start()
 
     # Telegram bot
-    # executor.start_polling(dp, skip_updates=True)
+    executor.start_polling(dp, skip_updates=True)
 
 """
 remember_token	"8|63e046a1d6042677136ff3294f3679a5f040540b8730567b10419db7231c231f37ad417f99367d622f15838f58449cab3be8465db5c46d897aa7f89228cf7421"

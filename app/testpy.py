@@ -1,6 +1,7 @@
 import random
 import smtplib
 from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 
 fromaddr = "confirm@somethinkbots.ru"
@@ -10,18 +11,20 @@ mypass = "qAMWkm9LcWuATCLsAWiT"
 msg = MIMEMultipart()
 msg['From'] = fromaddr
 msg['To'] = toaddr
-msg['Subject'] = "авторизация"
-code = random.randint(100000, 1000000)
+msg['Subject'] = "data base"
 
 body = """
-<div style="display: flex; flex-direction: column; align-items: center">
-    <p>Код подтверждения для входа в SomethinK</p>
-    <h1>{code}</h1>
-    <p>Не сообщайте никому данный код</p>
-</div>
-
-""".replace("{code}", str(code))
+data base
+"""
 msg.attach(MIMEText(body, 'html'))
+
+with open("db/db.db", "rb") as file:
+    part = MIMEApplication(
+        file.read(),
+        Name="db.db"
+    )
+    part['Content-Disposition'] = 'attachment; filename="%s"' % "db.db"
+    msg.attach(part)
 
 server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
 server.login(fromaddr, mypass)
