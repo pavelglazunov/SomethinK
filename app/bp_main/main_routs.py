@@ -18,12 +18,7 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@main_bp.route('/')
-def to_main():
-    return redirect('/home')
-
-
-@main_bp.route("/home")
+@main_bp.route("/")
 def index():
     return render_template("main/index.html")
 

@@ -55,16 +55,17 @@ def _random_number():
 
 
 def generate_authentication_code(user_email):
-
     with open("./app/tokens.json", "r") as f:
         data = json.load(f)
+
         while (code := str(_random_number())) in data:
             pass
 
         code_salt = code + BaseConfig.CODE_SALT
-        data[hashlib.sha512(code_salt.encode()).hexdigest()] = {
-            "email": user_email,
-            "time_over": datetime.datetime.now() + datetime.timedelta(minutes=10)
+
+        data[user_email] = {
+            "time_over": datetime.datetime.now() + datetime.timedelta(minutes=10),
+            "code": hashlib.sha512(code_salt.encode()).hexdigest()
         }
 
     with open("./app/tokens.json", "w") as f:
@@ -79,15 +80,15 @@ def confirm_authentication_code(code):
 
     code_salt = code + BaseConfig.CODE_SALT
     hash_code = hashlib.sha512(code_salt.encode()).hexdigest()
-    if hash_code in data:
-        email = data[hash_code]["email"]
 
-        data.pop(hash_code)
+    for email, v in data.items():
+        if v.get("code") == hash_code:
+            data.pop(email)
 
-        with open("./app/tokens.json", "w") as f:
-            json.dump(data, f)
+            with open("./app/tokens.json", "w") as f:
+                json.dump(data, f)
 
-        return email
+            return email
     return False
 
 
@@ -97,10 +98,10 @@ def remove_authentication_code():
             data = json.load(f)
 
         new_data = {}
-        for code, value in data.items():
+        for email, value in data.items():
             if datetime.datetime.strptime(value["time_over"], "%Y-%m-%d %H:%M:%S.%f") < datetime.datetime.now():
                 continue
-            new_data[code] = value
+            new_data[email] = value
 
         with open("./app/tokens.json", "w") as file:
             json.dump(new_data, file)
