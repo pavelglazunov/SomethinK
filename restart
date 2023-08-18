@@ -1,0 +1,5 @@
+#!/bin/sh
+nohup kill python run.py </dev/null &>/dev/null
+
+ls
+nohup python run.py </dev/null &>/dev/null

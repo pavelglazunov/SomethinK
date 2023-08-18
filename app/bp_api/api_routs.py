@@ -160,6 +160,8 @@ def start_creating():
         return jsonify({"status": "error", "message": f"Код ошибки: {error_code}"})
 
     project_name = request.json["project_name"]
+    if not ( 0 < len(project_name) < 30):
+        return jsonify({"status": "error", "message": f"Вы ввели трандец какое длинное или короткое имя)"})
     for i in project_name:
         if not (i.lower() in string.ascii_lowercase):
             return jsonify({"status": "error", "message": f"Некорректное имя"})
@@ -181,7 +183,7 @@ def start_creating():
     db_sess.add(project)
     db_sess.commit()
 
-    return send_file(f"{os.getcwd()}\\app\\generator\\{project_name}.zip", as_attachment=True)
+    return send_file(f"{os.getcwd()}/app/generator/{project_name}.zip", as_attachment=True)
 
 
 @api_bp.route("/progres")
@@ -190,7 +192,7 @@ def get_progres():
 
 
 @api_bp.route("/send_code", methods=["GET", "POST"])
-# @limiter.limit("1/minute")  # <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
+@limiter.limit("1/minute")  # <----- IT WORK, I'M FROM THE FUTURE, DON'T TOUCH
 def send_code():
     user_email = request.headers.get("user_email")
     if request.headers.get("remove_account"):
@@ -202,7 +204,6 @@ def send_code():
     except UnicodeEncodeError:
         application.logger.error(f"Ошибка при отправлении письма с кодом, почта: {user_email}")
         return jsonify({"status": "error", "message": "Ошибка при отправлении письма"})
-
     return jsonify({"status": "ok"})
 
 

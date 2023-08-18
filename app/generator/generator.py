@@ -784,8 +784,10 @@ def generate(key: dict):
                   not_create=blocked_files)
     create_folder(".", main_files_keys, key.get("bot_metadata", {}).get("project_name"), **replacement_config)
     create_folder(".", not_bot_files_keys, key.get("bot_metadata", {}).get("project_name"), extension="txt")
-
+    
+    print(os.getcwd())
     shutil.make_archive(key.get("bot_metadata", {}).get("project_name"), "zip",
                         key.get("bot_metadata", {}).get("project_name"))
-    shutil.rmtree(key.get("bot_metadata", {}).get("project_name"))
+    # shutil.rmtree(key.get("bot_metadata", {}).get("project_name"))
+    print("=====")
     os.chdir("../..")

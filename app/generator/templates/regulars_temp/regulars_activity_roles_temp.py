@@ -22,8 +22,8 @@ async def start_activity_roles_updating(bot: commands.Bot):
 
             if act := user.activity:
 
-                if act.name.lower() in all_activity_roles.keys():
-                    role = bot.guilds[0].get_role(all_activity_roles[act.name.lower()]["role_id"])
+                if act.name in all_activity_roles.keys():
+                    role = bot.guilds[0].get_role(all_activity_roles[act.name]["role_id"])
                     await user.add_roles(role)
 
         await asyncio.sleep(interval)

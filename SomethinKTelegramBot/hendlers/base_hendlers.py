@@ -9,7 +9,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 __all__ = ["dp"]
 
 menu_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-menu_kb.insert(KeyboardButton("Подтвердить аккаунт"))
+# menu_kb.insert(KeyboardButton("Подтвердить аккаунт"))
 menu_kb.insert(KeyboardButton("Обращение в техподдержку"))
 
 cansel_kb = ReplyKeyboardMarkup(resize_keyboard=True)
