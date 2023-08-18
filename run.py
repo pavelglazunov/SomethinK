@@ -1,3 +1,5 @@
+import os
+
 from app import application, db_session
 from app.generator.remove_zips import start_removing
 from SomethinKTelegramBot import dp
@@ -5,7 +7,11 @@ from app.utils.auntifications import remove_authentication_code
 from aiogram.utils import executor
 from threading import Thread
 
+from dotenv import load_dotenv
+
 if __name__ == '__main__':
+    load_dotenv()
+
     db_session.global_init("app/db/db.db")
 
     Thread(target=start_removing).start()
@@ -13,7 +19,7 @@ if __name__ == '__main__':
 
     # Flask app
     # application.run(host="94.198.216.152", port=80, debug=True, use_reloader=False)
-    Thread(target=lambda: application.run(host="94.198.216.152", port=80, debug=False, use_reloader=False)).start()
+    Thread(target=lambda: application.run(host=os.getenv("SK_HOST"), port=int(os.getenv("SK_PORT")), debug=False, use_reloader=False)).start()
 
     # Telegram bot
     executor.start_polling(dp, skip_updates=True)
