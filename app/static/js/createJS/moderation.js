@@ -296,19 +296,31 @@ document.getElementById("add_base_role_button").addEventListener("click", functi
     console.log(base_role_value, base_role_text)
     const last = base_save_settings(configuration_key)
 
+
+    if (error_in_added_block("role", base_role_value)) {
+        return fake()
+    }
+
     for (let cm in configuration_key) {
         let actual_roles = configuration_key[cm]["roles"]
         actual_roles.push([base_role_text, base_role_value])
         configuration_key[cm]["roles"] = actual_roles
     }
     console.log(last, configuration_key)
-    open_settings(configuration_key, "configurator", last, {
-        "slash": true,
-        "settings": true,
-        "automod": "",
-        "remove_after_close": false,
-        "parent_id": "",
-    })
+    const configurator = document.getElementById("configurator")
+    console.log("name", configurator.name)
+
+    if (configurator.name) {
+        open_settings(configuration_key, "configurator", last, {
+            "slash": true,
+            "settings": true,
+            "automod": "",
+            "remove_after_close": false,
+            "parent_id": "",
+        })
+    }
+
+
 })
 document.getElementById("another_save_btn").addEventListener("click", function () {
     base_save_settings(configuration_key)

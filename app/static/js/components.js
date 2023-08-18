@@ -285,29 +285,41 @@ function creat_roles_and_channels_input_blocks(command_name,
         create_channels_input_block(command_name, configuration_key, login_discord, channels_description)]
 }
 
-function generate_added_object(type, text, value) {
+
+function error_in_added_block(type, value) {
     let actual_added_block_count = document.getElementsByClassName("added_" + type + "s_block").length
+
     if (actual_added_block_count === 15) {
         warning("Достигнул лимит " + {"role": "ролей", "channel": "каналов"}[type])
-        return fake()
+        return true
     }
     if (!value) {
         warning("Введите ID " + {"role": "роли", "channel": "канала"}[type])
-        return fake()
+        return true
     }
     if (!vld_integer(value)) {
         warning("Некорректное значение ID " + {"role": "роли", "channel": "канала"}[type])
-        return fake()
+        return true
     }
 
-    if (type === "role" && value === "-1") {
-        text = "владелец сервера"
+
+}
+
+function generate_added_object(type, text, value) {
+
+
+    if (error_in_added_block(type, value)) {
+        return fake()
     }
 
     // if (type === "channel" && value ==="-1") {
     //     text = "создать канал автоматически"
     // }
     // console.log(parseInt(value))
+
+    if (type === "role" && value === "-1") {
+        text = "владелец сервера"
+    }
 
     let role_remove_button = button("role_remove_button", "✖")
     let added_block = div("added_" + type + "s_block", "selected_roles")

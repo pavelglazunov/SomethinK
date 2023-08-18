@@ -28,6 +28,10 @@ save
 app.log
 
 
+./app/db/db.db
+.app/db/db.db
+app/db/db.db
+
 
 
 ./disnake_bot/config.py

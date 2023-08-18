@@ -22,7 +22,8 @@ if __name__ == '__main__':
     Thread(target=lambda: application.run(host=os.getenv("SK_HOST"), port=int(os.getenv("SK_PORT")), debug=False, use_reloader=False)).start()
 
     # Telegram bot
-    executor.start_polling(dp, skip_updates=True)
+    if os.getenv("SK_HOST") != "127.0.0.1":
+        executor.start_polling(dp, skip_updates=True)
 
 """
 remember_token	"8|63e046a1d6042677136ff3294f3679a5f040540b8730567b10419db7231c231f37ad417f99367d622f15838f58449cab3be8465db5c46d897aa7f89228cf7421"

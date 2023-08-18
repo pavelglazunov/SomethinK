@@ -3,7 +3,7 @@ from urllib import parse
 
 TOKEN = os.getenv("SK_DISCORD_TOKEN") or "discord application token"
 TEST_BOT_TOKEN = os.getenv("SK_DISCORD_TEST_TOKEN") or "discord test application token"
-REDIRECT_URL = "http://somethinkbots.ru/auth/discord"
+REDIRECT_URL = os.getenv("SK_DISCORD_REDIRECT_URL") or "http://127.0.0.1:8080/auth/discord"
 API_ENDPOINT = 'https://discord.com/api/v10'
 CLIENT_SECRET = os.getenv("SK_DISCORD_CLIENT_SECRET") or "discord application secret key"
 APPLICATION_ID = os.getenv("SK_DISCORD_CLIENT_ID") or "discord application ID"
