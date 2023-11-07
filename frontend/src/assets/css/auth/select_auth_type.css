@@ -1,0 +1,122 @@
+@font-face {
+    font-family: Itim;
+    src: url("../../fonts/itim-cyrillic.otf");
+}
+
+
+body {
+    background: #23272A;
+}
+
+
+
+.main_header {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3vw;
+
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.auth_block {
+    background-color: #292E3C;
+    border: 2px solid #4A74C6;
+
+    border-radius: 2vw;
+    width: 20vw;
+    min-height: 22vw;
+    height: max-content;
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vw;
+
+    text-align: center;
+
+    color: #FFFFFF;
+
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-around;*/
+    justify-content: space-between;
+    align-items: center;
+
+    filter: drop-shadow(5px 5px 10px #171B22);
+
+    margin: 0 2vw;
+
+    padding: 1vw 2vw;
+}
+
+.block_header {
+    font-size: 2vw;
+    margin: 0;
+}
+
+.block_content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    height: 12vw;
+
+}
+
+.block_image {
+    /*max-width: 5vw;*/
+    max-width: 25%;
+}
+
+.block_text {
+    max-width: 60%;
+    /*height: 8vw;*/
+    font-size: 1vw;
+
+    height: 11vw;
+}
+
+.auth_button {
+    background-color: #5865F2;
+    width: 100%;
+    height: 2vw;
+    border-radius: 0.3vw;
+
+    font-size: 1vw;
+    min-height: 10%;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+
+    color: #FFFFFF;
+    text-decoration: none;
+
+    /*margin-bottom: 1vw;*/
+
+    border: none;
+
+    cursor: pointer;
+
+    margin-top: 1vw;
+}
+
+.disabled {
+    background-color: #5c6070;
+    cursor: default;
+}
+
+.hidden {
+    display: none;
+}

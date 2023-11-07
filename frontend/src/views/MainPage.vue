@@ -1,24 +1,7 @@
 <template>
-  {% extends 'base.html' %}
 
-  {% block css_connect %}
-  <link href="/static/css/main/index.css" rel="stylesheet">
+  <title>Создайте своего бота для Discord онлайн без единой строчки кода абсолютно бесплатно | SomethinK</title>
 
-  {% endblock %}
-
-  {% block title %}Создайте своего бота для Discord онлайн без единой строчки кода абсолютно бесплатно | SomethinK{% endblock %}
-
-  {% block content %}
-
-  <!--<svg viewBox="0 0 250 250" id="github_url"-->
-  <!--     style="fill:#151513; color:#fff; position: absolute; top: 2.8vw; border: 0; right: 0; height: 12vmin; cursor: pointer;"-->
-  <!--     aria-hidden="true">-->
-  <!--    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>-->
-  <!--    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"-->
-  <!--          fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>-->
-  <!--    <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"-->
-  <!--          fill="currentColor" class="octo-body"></path>-->
-  <!--</svg>-->
 
   <div class="main-block-content">
 
@@ -28,14 +11,14 @@
 
     <div class="button-row">
       <div class="line" style="width: 4vw"></div>
-      {% if current_user.is_authenticated %}
-      <a href="/create/token" class="button-start">начать</a>
-      {% else %}
-      <a href="/auth" class="button-start">создать</a>
+      <router-link class="button-start" to="auth" @click="console.log(this.current_user)">создать</router-link>
+      <!--            {% if current_user.is_authenticated %}-->
+      <!--            <a href="/create/token" v-if="current_user.status === 'unauthorized' class="button-start">начать</a>-->
+      <!--            {% else %}-->
+      <!--            <a href="/auth" class="button-start">создать</a>-->
+      <!--            {% endif %}-->
 
-      {% endif %}
-
-      <a class="button-more" id="view_more_button">подробнее</a>
+      <a class="button-more" id="view_more_button" @click="scroll_to_about_block()">подробнее</a>
 
 
     </div>
@@ -66,7 +49,6 @@
       <div class="section_name">возможности</div>
 
       <div class="line" style="width: 8.5vw"></div>
-      <!---->
     </div>
 
     <div class="section_body">
@@ -77,26 +59,26 @@
       <div class="icons_block">
         <div class="icons_row">
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_moder.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_moder.svg">
             <p class="icon_header">модерация</p>
             <p class="icon_text">базовый набор команд, позволяющий управлять вашим сервером
             </p>
           </div>
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_messages.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_messages.svg">
             <p class="icon_header">анонсы</p>
             <p class="icon_text">автоматическое оповещение о событиях на сервере или вне него
             </p>
           </div>
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_autorole.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_autorole.svg">
             <p class="icon_header">авто-роль</p>
             <p class="icon_text">автоматическая выдача роли, когда к серверу присоединяется новый участник
 
             </p>
           </div>
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_automod.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_automod.svg">
             <p class="icon_header">авто-модерация</p>
             <p class="icon_text">автоматическая модерация вашего сервера
             </p>
@@ -104,25 +86,25 @@
         </div>
         <div class="icons_row">
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_color.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_color.svg">
             <p class="icon_header">цвета</p>
             <p class="icon_text">позволяет участникам выбрать цвет никнейма на сервере</p>
           </div>
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_joke.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_joke.svg">
             <p class="icon_header">шутки</p>
             <p class="icon_text">случайная шутка от бота
             </p>
           </div>
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_translate.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_translate.svg">
             <p class="icon_header">переводчик</p>
             <p class="icon_text">перевод слов или предложений с восьми разных языков
 
             </p>
           </div>
           <div class="icon_block">
-            <img class="icon_image" src="/static/img/icon_gpt.svg">
+            <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_gpt.svg">
             <p class="icon_header">chatGPT</p>
             <p class="icon_text">общайтесь с chatGPT прямо со своего сервера дискорд
             </p>
@@ -145,12 +127,12 @@
 
     <div class="section_row_body">
       <div class="icon_block">
-        <img class="icon_image" src="/static/img/icon_youtube.svg">
+        <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_youtube.svg">
         <p class="icon_header">ютуб</p>
         <p class="icon_text">Получайте уведомления, с ютуб каналов о новых видео </p>
       </div>
       <div class="icon_block">
-        <img class="icon_image" src="/static/img/icon_twitch.svg">
+        <img class="icon_image" alt="icon" src="./../assets/mainPageImages/icon_twitch.svg">
         <p class="icon_header">твич</p>
         <p class="icon_text">Настройте уведомления о стримах, чтобы участники сервера никогда не пропускали ваши
           трансляции
@@ -199,28 +181,22 @@
 
   </section>
 
-<!--  <script>-->
-<!--    const button = document.getElementById('view_more_button');-->
-<!--    const targetElement = document.getElementById('about_section');-->
+  <!--    <script>-->
+  <!--      const button = document.getElementById('view_more_button');-->
 
-<!--    button.addEventListener('click', function () {-->
-<!--      const targetPosition = targetElement.offsetTop;-->
-<!--      window.scrollTo({-->
-<!--        top: targetPosition,-->
-<!--        behavior: 'smooth'-->
-<!--      });-->
-<!--    });-->
+  <!--      button.addEventListener('click', function () {-->
 
-<!--  </script>-->
-<!--  <script>-->
-<!--    document.getElementById("github_url").addEventListener("click", () => {-->
-<!--      const url = document.createElement("a")-->
-<!--      url.href = "https://github.com/pavelglazunov/SomethinK"-->
-<!--      url.target = "_blank"-->
-<!--      url.click()-->
-<!--    })-->
-<!--  </script>-->
-  {% endblock %}
+  <!--      });-->
+
+  <!--    </script>-->
+  <!--  <script>-->
+  <!--    document.getElementById("github_url").addEventListener("click", () => {-->
+  <!--      const url = document.createElement("a")-->
+  <!--      url.href = "https://github.com/pavelglazunov/SomethinK"-->
+  <!--      url.target = "_blank"-->
+  <!--      url.click()-->
+  <!--    })-->
+  <!--  </script>-->
 
 </template>
 
@@ -229,11 +205,43 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      current_user: {
+        'status': 'response'
+      }
+    }
+  },
+  async mounted() {
+    await fetch('http://127.0.0.1:8080/api/get_current_user')
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.current_user = data.target;
+          // console.log(this.current_user)
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+  },
+  methods: {
+    scroll_to_about_block() {
+
+      const targetElement = document.getElementById('about_section');
+      const targetPosition = targetElement.offsetTop;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
   }
+
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style src="./../assets/css/index.css"></style>
 
-</style>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!--<style scoped>-->

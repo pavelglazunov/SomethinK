@@ -1,0 +1,254 @@
+.auth_content {
+    width: 100%;
+
+    flex-direction: column;
+    margin-top: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth_text_inputs {
+    background-color: #282E3B;
+    border: 1px solid #5865F2;
+    color: #FFFFFF;
+
+    width: 100%;
+    min-width: 100%;
+    height: 2vw;
+    min-height: 2vw;
+
+    border-radius: 0.5vw;
+
+    margin-top: 1vw;
+}
+
+.auth_text_inputs::placeholder {
+    color: #757982;
+}
+
+.auth_text_inputs:focus {
+    outline: none;
+}
+
+.auth_error_message {
+    font-size: 1vw;
+    max-width: 70%;
+}
+
+
+.g-recaptcha {
+    /*width: 70%;*/
+    transform: scale(0.70);
+    /*border-radius: 10vw;*/
+    /*transform-origin:0 0;*/
+
+    /*display: flex;*/
+    /*justify-content: center;*/
+}
+
+/*.recaptcha {*/
+/*    width: 2vw;*/
+/*}*/
+
+.block_footer {
+    font-size: 0.8vw;
+    margin-top: 2vw;
+}
+
+.block_footer_link {
+    color: #959CEC;
+    text-decoration: none;
+}
+
+.block_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_content {
+    background-color: #292E3C;
+    border: 2px solid #4A74C6;
+
+    border-radius: 2vw;
+    width: 20vw;
+    min-height: 18vw;
+    height: max-content;
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5vw;
+
+    text-align: center;
+
+    color: #FFFFFF;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*justify-content: space-between;*/
+    align-items: center;
+
+    filter: drop-shadow(5px 5px 10px #171B22);
+
+    margin: 0 2vw;
+
+    padding: 1vw 3vw 0 3vw;
+
+}
+
+.button_block {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs_colon {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.copy-link-button {
+    background-color: #282E3B;
+    border: none;
+    color: #5865F2;
+
+    cursor: pointer;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /**/
+    /*flex-wrap: nowrap;*/
+}
+
+.code_row {
+    display: flex;
+}
+
+
+.add_padding {
+    padding: 1vw 0.5vw;
+
+}
+
+.auth_block p {
+    margin: 0;
+}
+
+.block_link {
+    font-size: 1.2vw;
+    color: #5865F2;
+    text-decoration: none;
+}
+
+.privacy_row {
+    display: flex;
+
+    align-items: center;
+    /*margin-top: 0.5vw;*/
+
+    width: 100%;
+}
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+}
+
+input[type=checkbox]:focus {
+    outline: 0;
+}
+
+
+.blue_checkbox {
+    height: 1.4vw;
+    width: 1.4vw;
+    min-width: 1.4vw;
+
+    display: inline-block;
+    position: relative;
+    /*margin: 0;*/
+    /*margin-left: 1vw;*/
+
+    border: 0.05vw solid #5865F2;
+    border-radius: 5px;
+
+    background: #282E3B;
+    transition: all 0.2s ease;
+}
+
+.blue_checkbox:after {
+    content: "";
+    position: absolute;
+    /*left: 2px;*/
+    height: 1.4vw;
+    width: 1.4vw;
+
+
+    transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
+}
+
+.blue_checkbox:disabled {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+
+
+    color: #585C5F;
+
+    border: 1px solid #40404b;
+}
+
+.blue_checkbox:checked {
+    /*top: -0.05vw;*/
+
+    /*height: 1.4vw;*/
+    /*width: 2.8vw;*/
+    border-color: #5865F2;
+    background: #5865F2;
+
+
+}
+
+.blue_checkbox:checked:after {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 1.4vw;
+    width: 1.4vw;
+
+    /*top: 0.12vw;*/
+    /*left: 0.15vw;*/
+    /*background: red;*/
+
+    background: url("../../images/general/galka.svg") no-repeat center;
+    /*background-position: center;*/
+    background-size: 80%;
+    /*transform: translateX(1.4vw);*/
+}
+
+
+.blue_checkbox:checked:disabled {
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+
+    color: #585C5F;
+    background: #31323f;
+    border: 1px solid #40404b;
+
+
+}

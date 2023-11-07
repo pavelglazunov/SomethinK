@@ -1,0 +1,136 @@
+
+@font-face {
+    font-family: Itim;
+    src: url("./../../assets/fonts/itim-cyrillic.otf");
+}
+
+
+*, *:before, *:after {
+    box-sizing: border-box;
+
+}
+
+input:focus {
+    outline: none;
+}
+
+html {
+    position: relative;
+
+    background: #23272A;
+    padding: 0;
+    margin: 0 0 0 25px;
+    border-left: 1px #52565F solid;
+    min-height: 100vh;
+
+}
+
+body {
+    position: relative;
+
+    background: #23272A;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    border-bottom: 1px #52565F solid;
+    position: relative;
+    /*height: 40px;*/
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+
+    text-decoration: none;
+    color: #D1DBE3;
+
+    height: 2.8vw;
+
+}
+
+
+.header_right_texts {
+    display: flex;
+}
+
+
+.header-text {
+    height: 100%;
+    width: max-content;
+
+    font-family: 'Itim', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4vw;
+    line-height: 43px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    color: #D1DBE3;
+
+    padding: 0 1.8vw;
+    margin: 0;
+
+    background-color: #23272A;
+    transition-duration: 0.3s;
+
+    cursor: pointer;
+
+}
+
+.header-text:hover {
+    background-color: #2f3538;
+
+}
+
+
+.header_text_border_right {
+    border-right: 1px #52565F solid;
+}
+
+.header_text_border_left {
+    border-left: 1px #52565F solid;
+}
+
+.blur {
+    position: fixed;
+    width: 100vw;
+    height: 103%;
+    margin-left: -1.8vw;
+    margin-bottom: -5vw;
+    z-index: 2;
+
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+
+    display: flex;
+    justify-content: center;
+}
+
+.no_js_text {
+    position: fixed;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Itim, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3vw;
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    color: #FFFFFF;
+}

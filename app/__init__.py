@@ -1,9 +1,10 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_cors import CORS
 
 import logging
 
@@ -13,8 +14,18 @@ from .data.users import User, Projects
 application = Flask(__name__)
 application.config.from_object('config.DevelopmentConfig')
 
+CORS(application)
+
 login_manager = LoginManager()
 login_manager.init_app(application)
+
+
+@login_manager.unauthorized_handler
+def user_is_unauthorized():
+    response = jsonify({"status": "unauthorized"})
+    response.status_code = 401
+    return response
+
 
 application.logger.setLevel(logging.INFO)
 handler = logging.FileHandler("app.log")

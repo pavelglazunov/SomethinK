@@ -17,6 +17,8 @@ from app.utils.auntifications import send_authentication_code, confirm_authentic
 from app.utils.discord_api import USER_GET_FUNC
 from app.utils.validation import validation
 
+from app.ds_config import OAUTH_URL
+
 api_bp = Blueprint("api", __name__, template_folder="templates", static_folder="static", url_prefix="/api")
 
 
@@ -31,6 +33,22 @@ def validate_project_id(project_id):
 
     return False
 
+
+@api_bp.route("/get_current_user")
+@login_required
+def get_current_user():
+    print("current user", current_user, current_user.id, current_user.is_authenticated)
+    return jsonify({
+        "name": current_user.name,
+        "id": current_user.id
+    })
+
+
+@api_bp.route("/discord_url")
+def get_discord_url():
+    return jsonify({
+        "url": OAUTH_URL
+    })
 
 @api_bp.route("/discord_login", methods=["GET", "POST"])
 @login_required

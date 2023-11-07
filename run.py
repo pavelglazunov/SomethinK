@@ -14,12 +14,12 @@ if __name__ == '__main__':
 
     db_session.global_init("app/db/db.db")
 
-    Thread(target=start_removing).start()
-    Thread(target=remove_authentication_code).start()
+    # Thread(target=start_removing).start()
+    # Thread(target=remove_authentication_code).start()
 
     # Flask app
-    # application.run(host="94.198.216.152", port=80, debug=True, use_reloader=False)
-    Thread(target=lambda: application.run(host=os.getenv("SK_HOST"), port=int(os.getenv("SK_PORT")), debug=False, use_reloader=False)).start()
+    application.run(host=os.getenv("SK_HOST"), port=int(os.getenv("SK_PORT")), debug=True, use_reloader=False)
+    # Thread(target=lambda: application.run(host=os.getenv("SK_HOST"), port=int(os.getenv("SK_PORT")), debug=False, use_reloader=False)).start()
 
     # Telegram bot
     if os.getenv("SK_HOST") != "127.0.0.1":

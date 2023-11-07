@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
+    <script type="text/javascript">
         (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
             m[i].l=1*new Date();
             for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -14,12 +14,15 @@
             trackLinks:true,
             accurateTrackBounce:true
         });
+
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/94549677" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/94549677" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
 
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -31,21 +34,26 @@
         trackLinks:true,
         accurateTrackBounce:true
    });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/94549677" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/94549677" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="SomethinK - это веб-фреймворк, с удобным и понятным интерфейсом, разработанный специально для создания Discord ботов.">
+    <meta name="description"
+          content="SomethinK - это веб-фреймворк, с удобным и понятным интерфейсом, разработанный специально для создания Discord ботов.">
 
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main/main.css')}}">
-   <!--   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> -->
-   <link rel="icon" href="http://somethinkbots.ru/favicon.ico" type="image/x-icon">
-<!--    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
-    <meta name="description" content="SomethinK - это веб-фреймворк, с удобным и понятным интерфейсом, разработанный специально для создания Discord ботов.">
+    <!--   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> -->
+    <link rel="icon" href="http://somethinkbots.ru/favicon.ico" type="image/x-icon">
+    <!--    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
+    <meta name="description"
+          content="SomethinK - это веб-фреймворк, с удобным и понятным интерфейсом, разработанный специально для создания Discord ботов.">
 
     {% block css_connect %}
     {% endblock %}
@@ -62,14 +70,16 @@
     <div class="header">
         <div>
             {% if current_user.is_authenticated %}
-            <a class="header-text header_text_border_right" href="/user/{{ current_user.id }}">{{ current_user.name }}</a>
+            <a class="header-text header_text_border_right" href="/user/{{ current_user.id }}">{{ current_user.name
+                }}</a>
             {% else %}
             <a class="header-text header_text_border_right" href="/auth">войти</a>
             {% endif %}
         </div>
 
         <div class="header_right_texts">
-            <a class="header-text header_text_border_left" href="https://www.donationalerts.com/r/somethinkbots" target="_blank">Поддержать проект</a>
+            <a class="header-text header_text_border_left" href="https://www.donationalerts.com/r/somethinkbots"
+               target="_blank">Поддержать проект</a>
             <a class="header-text header_text_border_left" href="https://t.me/SomethinKsupportBot" target="_blank">Техподдержка</a>
             <a class="header-text header_text_border_left" style="color: #00FC0A" href="/">SomethinK</a>
         </div>

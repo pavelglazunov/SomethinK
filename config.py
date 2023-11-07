@@ -23,6 +23,8 @@ class BaseConfig:
     # настройка telegram
     TELEGRAM_BOT_TOKEN = os.getenv("SK_TELEGRAM_BOT_TOKEN") or "TOKEN"
 
+    CORS_HEADERS = "Content-Type"
+
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
