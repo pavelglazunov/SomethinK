@@ -80,3 +80,11 @@ todo.py
 /todo.txt
 todo.txt
 
+
+./logo
+/logo
+logo
+
+./logo/*
+/logo/*
+logo/*
