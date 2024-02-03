@@ -397,7 +397,7 @@ def validate_roles_data(data: dict) -> bool or int:
         return 249
     if _is_valid_list_of_lists(data.get("start_roles").get("roles")):
         return 250
-    if not isinstance(data.get("update_interval"), str):
+    if not isinstance(data.get("update_interval"), str) or not isinstance(data.get("update_interval"), int):
         return 251
 
     try:
